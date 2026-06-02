@@ -7,7 +7,7 @@ use App\Http\Controllers\UserController;
 //     return view('welcome');
 // });
 Route::get('/', function () {
-    return '!! Hello laravel !!';
+    return view('home', ['title' => 'home']);
 });
 
 

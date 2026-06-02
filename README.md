@@ -7,6 +7,12 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+Проек для изучения фреймворка Laravel
+
+Материалы для изучения:
+[учебник code.mu Дмитрия Трепачёва.](https://code.mu/ru/php/framework/laravel/book/prime/)
+[Обучающий курс Laraqvel->Bootcamp.](https://laravel.com/learn/getting-started-with-laravel/setting-up-your-laravel-project)
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
