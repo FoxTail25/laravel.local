@@ -1,3 +1,9 @@
+Проек для изучения фреймворка Laravel
+
+Материалы для изучения:
+[учебник code.mu Дмитрия Трепачёва.](https://code.mu/ru/php/framework/laravel/book/prime/)
+##[Обучающий курс Laraqvel->Bootcamp.](https://laravel.com/learn/getting-started-with-laravel/setting-up-your-laravel-project)
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
@@ -7,11 +13,6 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-Проек для изучения фреймворка Laravel
-
-Материалы для изучения:
-[учебник code.mu Дмитрия Трепачёва.](https://code.mu/ru/php/framework/laravel/book/prime/)
-[Обучающий курс Laraqvel->Bootcamp.](https://laravel.com/learn/getting-started-with-laravel/setting-up-your-laravel-project)
 
 ## About Laravel
 
