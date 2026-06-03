@@ -102,4 +102,41 @@ class BladeController extends Controller
             return view('blade.variables-checking' . $id, ['text' => $task[$id]['text'], 'data' => $task[$id]['data']]);
         }
     }
+    public function unescapedDataOutput($id)
+    {
+        $task = [
+            '1' => [
+                'text' => 'Пусть в переменной хранится строка с тегами, например:
+                $str = "<b>text</b>" Выведите эту строку на экран так, чтобы теги выполнили свое действие (то есть чтобы в данном случае текст стал жирным).',
+                'data' => '<b>text</b>',
+            ]
+        ];
+        if (array_key_exists($id, $task)) {
+            return view('blade.unescaped-data-output' . $id, ['text' => $task[$id]['text'], 'data' => $task[$id]['data']]);
+        }
+    }
+    public function conditions($id)
+    {
+        $task = [
+            '1' => [
+                'text' => 'Пусть из действия в представление передается переменная, содержащая возраст пользователя. Покажите в представлении текст только для пользователей старше 18 лет.',
+                'data' => ['auth' => true],
+            ],
+            '2' => [
+                'text' => 'Выведите разный текст для пользователя старше и младше 18 лет.',
+                'data' => ['auth' => true],
+            ],
+            '3' => [
+                'text' => 'Выведите разный текст для пользователя старше, младше, и для тех, кому сейчас ровно 18 лет.',
+                'data' => ['age' => 17],
+            ],
+            '4' => [
+                'text' => 'Пусть из действия в представление передается возраст пользователя. Если возраст пользователь несовершеннолетний, то выведите сообщение об этом. Для решения задачи воспользуйтесь директивой &#64;unless.',
+                'data' => ['age' => 17],
+            ]
+        ];
+        if (array_key_exists($id, $task)) {
+            return view('blade.conditions' . $id, ['text' => $task[$id]['text'], 'data' => $task[$id]['data']]);
+        }
+    }
 }

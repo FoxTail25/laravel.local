@@ -25,7 +25,21 @@ Route::get('/blade/24', [BladeController::class, 'two4']);
 Route::get('/blade/31', [BladeController::class, 'three1']);
 Route::get('/blade/41', [BladeController::class, 'four1']);
 Route::get('/blade/42', [BladeController::class, 'four2']);
+
+
 Route::get('/blade/variables-checking/', function () {
     return view('blade.variables-checking');
 });
 Route::get('/blade/variables-checking/{id}', [BladeController::class, 'variablesChecking'])->whereIn('id', [1, 2, 3]);
+
+
+Route::get('/blade/unescaped-data-output', function () {
+    return view('blade.unescaped-data-output');
+});
+Route::get('/blade/unescaped-data-output/{id}', [BladeController::class, 'unescapedDataOutput'])->whereIn('id', [1]);
+
+
+Route::get('/blade/conditions', function () {
+    return view('blade.conditions');
+});
+Route::get('/blade/conditions/{id}', [BladeController::class, 'conditions'])->whereIn('id', [1, 2, 3, 4]);
