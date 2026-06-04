@@ -42,4 +42,11 @@ Route::get('/blade/unescaped-data-output/{id}', [BladeController::class, 'unesca
 Route::get('/blade/conditions', function () {
     return view('blade.conditions');
 });
-Route::get('/blade/conditions/{id}', [BladeController::class, 'conditions'])->whereIn('id', [1, 2, 3, 4]);
+Route::get('/blade/conditions/{id}', [BladeController::class, 'conditions'])->whereIn('id', [1, 2, 3, 4, 5]);
+
+
+Route::get('/blade/foreach-directive', function () {
+    return view('blade.foreach-directive');
+});
+// Route::get('/blade/foreach-directive-task/{id}', [BladeController::class, 'foreachDirective'])->whereIn('id', [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+Route::get('/blade/foreach-directive-task/{id}', [BladeController::class, 'foreachDirective'])->whereIn('id', (new BladeController)->foreachDirective(1, 1));
