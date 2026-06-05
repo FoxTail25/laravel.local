@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\BladeController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -10,16 +9,6 @@ use App\Http\Controllers\UserController;
 Route::get('/', function () {
     return view('home', ['title' => 'home']);
 });
-
-
-Route::get('/user', [UserController::class, 'show']);
-Route::get('/user/all', [UserController::class, 'all']);
-Route::get('/user/view', [UserController::class, 'testView']);
-Route::get('/user/{surname}/{name}', [UserController::class, 'name']);
-Route::get('/city/{user}', [UserController::class, 'userCity']);
-Route::get('/blade/1', [BladeController::class, 'one1']);
-
-
 
 Route::get('/blade/variables-attributes/', function () {
     return view('blade.variables-attributes');
@@ -41,27 +30,23 @@ Route::get('/blade/variables-checking/', function () {
 });
 Route::get('/blade/variables-checking-task/{id}', [BladeController::class, 'variablesChecking'])->whereIn('id', (new BladeController)->variablesChecking(1, 1));
 
-
-Route::get('/blade/unescaped-data-output', function () {
+Route::get('/blade/unescaped-data-output/', function () {
     return view('blade.unescaped-data-output');
 });
 Route::get('/blade/unescaped-data-output-task/{id}', [BladeController::class, 'unescapedDataOutput'])->whereIn('id', [1]);
 
-
-Route::get('/blade/conditions', function () {
+Route::get('/blade/conditions/', function () {
     return view('blade.conditions');
 });
 Route::get('/blade/conditions-task/{id}', [BladeController::class, 'conditions'])->whereIn('id', (new BladeController)->conditions(1, 1));
 
-
-Route::get('/blade/foreach-directive', function () {
+Route::get('/blade/foreach-directive/', function () {
     return view('blade.foreach-directive');
 });
 // Route::get('/blade/foreach-directive-task/{id}', [BladeController::class, 'foreachDirective'])->whereIn('id', [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
 Route::get('/blade/foreach-directive-task/{id}', [BladeController::class, 'foreachDirective'])->whereIn('id', (new BladeController)->foreachDirective(1, 1));
 
-
-Route::get('/blade/php-code-block', function () {
+Route::get('/blade/php-code-block/', function () {
     return view('blade.php-code-block');
 });
 Route::get('/blade/php-code-block-task/{id}', [BladeController::class, 'phpCodeBlock'])->whereIn('id', (new BladeController)->phpCodeBlock(1, 1));

@@ -6,21 +6,7 @@ use Illuminate\Http\Request;
 
 class BladeController extends Controller
 {
-    public function one1()
-    {
-        /*
-        https://code.mu/ru/php/framework/laravel/book/prime/blade/variables-tags/
-
-        Пусть в действии контроллера даны переменные $name, $age и $salary. Передайте значения этих переменных в представление и выведите содержимое каждой из этих переменных в отдельном абзаце.
-         */
-        $name = 'John';
-        $age = '30';
-        $salary = '2000';
-        return view('blade.1', ['name' => $name, 'age' => $age, 'salary' => $salary]);
-    }
-
-
-    public function variablesAttributes($id, $getTask = null)
+    public function variablesAttributes(int|string $id, $getTask = null)
     {
         $task = [
             '1' => [
@@ -40,7 +26,7 @@ class BladeController extends Controller
             '3' => [
                 'text' => 'Пусть в представлении дан абзац. Передайте из действия в представление переменную, содержащую CSS код, задающий красный цвет текста. С помощью атрибута style покрасьте наш абзац в красный цвет.',
                 'data' => [
-                    'codeText' => 'color:red;'
+                    'myCssRules' => 'color:red;'
                 ]
             ],
             '4' => [
@@ -59,8 +45,7 @@ class BladeController extends Controller
 
         return view('blade.variables-attributes-task', ['id' => $id, 'text' => $task[$id]['text'], 'data' => $task[$id]['data']]);
     }
-
-    public function arbitraryCode($id, $getTask = null)
+    public function arbitraryCode(int|string $id, $getTask = null)
     {
         $task = [
             '1' => [
@@ -75,7 +60,7 @@ class BladeController extends Controller
 
         return view('blade.arbitrary-code-task', ['id' => $id, 'text' => $task[$id]['text'], 'data' => $task[$id]['data']]);
     }
-    public function arrays($id, $getTask = null)
+    public function arrays(int|string $id, $getTask = null)
     {
         $task = [
             '1' => [
@@ -109,7 +94,7 @@ class BladeController extends Controller
             return view('blade.arrays-task', ['id' => $id, 'text' => $task[$id]['text'], 'data' => $task[$id]['data']]);
         }
     }
-    public function variablesChecking($id, $getTask = null)
+    public function variablesChecking(int|string $id, $getTask = null)
     {
         $task = [
             '1' => [
@@ -132,7 +117,7 @@ class BladeController extends Controller
             return view('blade.variables-checking-task', ['id' => $id, 'text' => $task[$id]['text'], 'data' => $task[$id]['data']]);
         }
     }
-    public function unescapedDataOutput($id, $getTask = null)
+    public function unescapedDataOutput(int|string $id, $getTask = null)
     {
         $task = [
             '1' => [
@@ -148,7 +133,7 @@ class BladeController extends Controller
             return view('blade.unescaped-data-output-task', ['id' => $id, 'text' => $task[$id]['text'], 'data' => $task[$id]['data']]);
         }
     }
-    public function conditions($id, $getTask = null)
+    public function conditions(int|string $id, $getTask = null)
     {
         $task = [
             '1' => [
