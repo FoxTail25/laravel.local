@@ -18,71 +18,98 @@ class BladeController extends Controller
         $salary = '2000';
         return view('blade.1', ['name' => $name, 'age' => $age, 'salary' => $salary]);
     }
-    public function two1()
-    {
-        /*
-        https://code.mu/ru/php/framework/laravel/book/prime/blade/variables-attributes/
-        Пусть в действии дана переменная, содержащая CSS класс. Передайте эту переменную в представление и для какого-нибудь тега значением атрибута class укажите нашу переменную.
-        */
-        return view('blade.21', ['class' => 'red']);
-    }
-    public function two2()
-    {
-        /*
-        https://code.mu/ru/php/framework/laravel/book/prime/blade/variables-attributes/
-        Пусть в представлении даны 3 инпута. Передайте из действия в представление 3 переменные, значения которых запишите в атрибуты value наших инпутов.
-        */
-        $var1 = 'первый инпут';
-        $var2 = 'второй инпут';
-        $var3 = 'третий инпут';
-        return view('blade.22', ['one' => $var1, 'two' => $var2, 'three' => $var3]);
-    }
-    public function two3()
-    {
-        /*
-        https://code.mu/ru/php/framework/laravel/book/prime/blade/variables-attributes/
-        Пусть в представлении дан абзац. Передайте из действия в представление переменную, содержащую CSS код, задающий красный цвет текста. С помощью атрибута style покрасьте наш абзац в красный цвет.
-        */
-        $color = 'red';
-        return view('blade.23', ['color' => $color]);
-    }
-    public function two4()
-    {
-        /*
-        https://code.mu/ru/php/framework/laravel/book/prime/blade/variables-attributes/
-        Пусть в действии дана переменная $text, содержащая текст ссылки, и переменная $href, содержащая адрес ссылки. Передайте эти переменные в представление и сформируйте с их помощью HTML ссылку.
-        */
-        $url = 'https://code.mu';
-        return view('blade.24', ['href' => $url]);
-    }
-    public function three1()
-    {
-        /*
-        https://code.mu/ru/php/framework/laravel/book/prime/blade/arbitrary-code/
-        Выведите в представлении текущую дату в формате день.месяц.год.
-        */
 
-        return view('blade.31');
-    }
-    public function four1()
-    {
-        /*
-        https://code.mu/ru/php/framework/laravel/book/prime/blade/arrays/
-        Пусть из действия в представление передаются данные работника в виде массива. Пусть в массиве будет ключ name, ключ age и ключ salary. Выведите каждый элемент массива в отдельном абзаце.
-        */
 
-        return view('blade.41', ['employee' => ['name' => 'John', 'age' => 22, 'salary' => '3000']]);
-    }
-    public function four2()
+    public function variablesAttributes($id, $getTask = null)
     {
-        /*
-        https://code.mu/ru/php/framework/laravel/book/prime/blade/arrays/
-        Передайте в представление какой-нибудь массив. Выведите на экран количество элементов в этом массиве.
-        */
+        $task = [
+            '1' => [
+                'text' => 'Пусть в действии дана переменная, содержащая CSS класс. Передайте эту переменную в представление и для какого-нибудь тега значением атрибута class укажите нашу переменную.',
+                'data' => [
+                    'class' => 'red',
+                ]
+            ],
+            '2' => [
+                'text' => 'Пусть в представлении даны 3 инпута. Передайте из действия в представление 3 переменные, значения которых запишите в атрибуты value наших инпутов.',
+                'data' => [
+                    'var1' => 'первый инпут',
+                    'var2' => 'второй инпут',
+                    'var3' => 'третий инпут',
+                ]
+            ],
+            '3' => [
+                'text' => 'Пусть в представлении дан абзац. Передайте из действия в представление переменную, содержащую CSS код, задающий красный цвет текста. С помощью атрибута style покрасьте наш абзац в красный цвет.',
+                'data' => [
+                    'codeText' => 'color:red;'
+                ]
+            ],
+            '4' => [
+                'text' => 'Пусть в действии дана переменная $text, содержащая текст ссылки, и переменная $href, содержащая адрес ссылки. Передайте эти переменные в представление и сформируйте с их помощью HTML ссылку.',
+                'data' => [
+                    'text' => 'Home',
+                    'href' => '/'
+                ]
+            ],
 
-        return view('blade.42', ['arr' => [1, 2, 3, 4, 5]]);
+        ];
+
+        if ($getTask) {
+            return array_keys($task);
+        }
+
+        return view('blade.variables-attributes-task', ['id' => $id, 'text' => $task[$id]['text'], 'data' => $task[$id]['data']]);
     }
-    public function variablesChecking($id)
+
+    public function arbitraryCode($id, $getTask = null)
+    {
+        $task = [
+            '1' => [
+                'text' => 'Выведите в представлении текущую дату в формате день.месяц.год.',
+                'data' => []
+            ],
+        ];
+
+        if ($getTask) {
+            return array_keys($task);
+        }
+
+        return view('blade.arbitrary-code-task', ['id' => $id, 'text' => $task[$id]['text'], 'data' => $task[$id]['data']]);
+    }
+    public function arrays($id, $getTask = null)
+    {
+        $task = [
+            '1' => [
+                'text' => 'Пусть из действия в представление передаются данные работника в виде массива. Пусть в массиве будет ключ name, ключ age и ключ salary. Выведите каждый элемент массива в отдельном абзаце.',
+                'data' => [
+                    'employee' =>
+                    [
+                        'name' => 'Johan',
+                        'age' => '42',
+                        'salary' => '4200'
+                    ],
+                ]
+            ],
+            '2' => [
+                'text' => 'Передайте в представление какой-нибудь массив. Выведите на экран количество элементов в этом массиве.',
+                'data' => [
+                    'employee' =>
+                    [
+                        'name' => 'Johan',
+                        'age' => '42',
+                        'salary' => '4200'
+                    ],
+                ]
+            ],
+
+        ];
+        if ($getTask) {
+            return array_keys($task);
+        }
+        if (array_key_exists($id, $task)) {
+            return view('blade.arrays-task', ['id' => $id, 'text' => $task[$id]['text'], 'data' => $task[$id]['data']]);
+        }
+    }
+    public function variablesChecking($id, $getTask = null)
     {
         $task = [
             '1' => [
@@ -98,11 +125,14 @@ class BladeController extends Controller
                 'data' => ['day' => '01', 'month' => '05', 'year' => '2025']
             ]
         ];
+        if ($getTask) {
+            return array_keys($task);
+        }
         if (array_key_exists($id, $task)) {
-            return view('blade.variables-checking' . $id, ['text' => $task[$id]['text'], 'data' => $task[$id]['data']]);
+            return view('blade.variables-checking-task', ['id' => $id, 'text' => $task[$id]['text'], 'data' => $task[$id]['data']]);
         }
     }
-    public function unescapedDataOutput($id)
+    public function unescapedDataOutput($id, $getTask = null)
     {
         $task = [
             '1' => [
@@ -111,11 +141,14 @@ class BladeController extends Controller
                 'data' => '<b>text</b>',
             ]
         ];
+        if ($getTask) {
+            return array_keys($task);
+        }
         if (array_key_exists($id, $task)) {
-            return view('blade.unescaped-data-output' . $id, ['text' => $task[$id]['text'], 'data' => $task[$id]['data']]);
+            return view('blade.unescaped-data-output-task', ['id' => $id, 'text' => $task[$id]['text'], 'data' => $task[$id]['data']]);
         }
     }
-    public function conditions($id)
+    public function conditions($id, $getTask = null)
     {
         $task = [
             '1' => [
@@ -131,7 +164,7 @@ class BladeController extends Controller
                 'data' => ['age' => 17],
             ],
             '4' => [
-                'text' => 'Пусть из действия в представление передается возраст пользователя. Если возраст пользователь несовершеннолетний, то выведите сообщение об этом. Для решения задачи воспользуйтесь директивой &#64;unless.',
+                'text' => 'Пусть из действия в представление передается возраст пользователя. Если возраст пользователь несовершеннолетний, то выведите сообщение об этом. Для решения задачи воспользуйтесь директивой @unless.',
                 'data' => ['age' => 17],
             ],
             '5' => [
@@ -139,8 +172,11 @@ class BladeController extends Controller
                 'data' => ['arr' => [1, 2, 3, 4, 5]],
             ],
         ];
+        if ($getTask) {
+            return array_keys($task);
+        }
         if (array_key_exists($id, $task)) {
-            return view('blade.conditions' . $id, ['text' => $task[$id]['text'], 'data' => $task[$id]['data']]);
+            return view('blade.conditions-task', ['id' => $id, 'text' => $task[$id]['text'], 'data' => $task[$id]['data']]);
         }
     }
     public function foreachDirective(string $id, bool|null $getTask = null)
@@ -223,6 +259,81 @@ class BladeController extends Controller
                     ]
                 ],
             ],
+            '11' => [
+                'text' => 'Дан массив с именами юзеров. Если в массиве есть элементы, то выведите каждый элемент в своем абзаце. Если элементов нет, выведите сообщение об этом.',
+                'data' => [
+                    'users' => [
+                        [
+                            'name' => 'user1',
+                            'surname' => 'surname1',
+                            'salary' => 1000,
+                        ],
+                        [
+                            'name' => 'user2',
+                            'surname' => 'surname2',
+                            'salary' => 2000,
+                        ],
+                        [
+                            'name' => 'user3',
+                            'surname' => 'surname3',
+                            'salary' => 3000,
+                        ],
+                    ],
+                    'users2' => []
+                ],
+            ],
+            '12' => [
+                'text' => 'Из действия в представление передается массив со строками. Выведите элементы этого массива в виде списка ul. Сделайте так, чтобы перед значением элемента, выводился еще и порядковый номер итерации, начиная с 0.',
+                'data' => [
+                    'arr' => [
+                        'John',
+                        'Jack',
+                        'Janne'
+                    ],
+                ],
+            ],
+            '13' => [
+                'text' => 'Модифицируйте предыдущую задачу так, чтобы порядковый номер итерации начинался с 1.',
+                'data' => [
+                    'arr' => [
+                        'John',
+                        'Jack',
+                        'Janne'
+                    ],
+                ],
+            ],
+            '14' => [
+                'text' => 'Модифицируйте предыдущую задачу так, чтобы для первой li добавлялся CSS класс first, а для последней - класс last.',
+                'data' => [
+                    'arr' => [
+                        'John',
+                        'Jack',
+                        'Janne'
+                    ],
+                ],
+            ],
+            '15' => [
+                'text' => 'Из действия в представление передается массив с числами. Выведите каждый элемент этого массива в своем теге b, а три последних элемента массива - в теге i.',
+                'data' => [
+                    'arr' => [1, 2, 3, 4, 5, 6, 7,],
+                ],
+            ],
+            '16' => [
+                'text' => 'Дан массив с числами. Переберите этот массив циклом до первого нулевого элемента.',
+                'data' => [
+                    'arr' => [1, 2, 0, 4, 5],
+                ],
+            ],
+            '17' => [
+                'text' => 'Дан массив с числами. Выведите эти числа в виде списка ul. При выводе пропускайте нулевые элементы.',
+                'data' => [
+                    'arr' => [1, 2, 0, 4, 5],
+                ],
+            ],
+            '18' => [
+                'text' => 'С помощью цикла @for выведите 10 абзацев, заполненных числами от 1 до 10.',
+                'data' => [],
+            ],
 
         ];
         if ($getTask) {
@@ -231,6 +342,23 @@ class BladeController extends Controller
 
         if (array_key_exists($id, $task)) {
             return view('blade.foreach-directive-task', ['id' => $id, 'text' => $task[$id]['text'], 'data' => $task[$id]['data']]);
+        }
+    }
+    public function phpCodeBlock(string $id, bool|null $getTask = null)
+    {
+
+        $task = [
+            '1' => [
+                'text' => 'Описанным способом выполните какой-нибудь PHP код.',
+                'data' => [],
+            ],
+        ];
+        if ($getTask) {
+            return array_keys($task);
+        }
+
+        if (array_key_exists($id, $task)) {
+            return view('blade.php-code-block-task', ['id' => $id, 'text' => $task[$id]['text'], 'data' => $task[$id]['data']]);
         }
     }
 }

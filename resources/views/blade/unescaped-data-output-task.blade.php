@@ -5,15 +5,17 @@
     <h2>
         Вывод неэкранированных данных в Blade в Laravel
     </h2>
+    @if($id == 1)
     <div>
-        <!-- We must ship. - Taylor Otwell -->
+        <p>
+            {{ $text }}
+        </p>
+        <div>
+            {!! $data !!}
+        </div>
     </div>
-    <div>
-        {{ $text }}
-    </div>
-    <div>
-        {!! $data !!}
-    </div>
+
+    @endif
     <a href="/blade/unescaped-data-output">Назад</a>
 
 </x-layout>

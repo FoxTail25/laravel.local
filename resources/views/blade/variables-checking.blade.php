@@ -21,7 +21,7 @@
     &#123;&#123; $year ?? date('Y') &#125;&#125;
     </pre>
     </p>
-    <a href="/blade/variables-checking/1">задача 1</a>
-    <a href="/blade/variables-checking/2">задача 2</a>
-    <a href="/blade/variables-checking/3">задача 3</a>
+    <a href="/blade/variables-checking-task/1">задача 1</a>
+    <a href="/blade/variables-checking-task/2">задача 2</a>
+    <a href="/blade/variables-checking-task/3">задача 3</a>
 </x-layout>

@@ -136,8 +136,110 @@
             @endforeach
         </tbody>
     </table>
+    @elseif($id == 11)
+
+    @forelse($data['users'] as $user)
+    <p>{{$user['name']}}</p>
+    @empty
+    <p>Нет данных</p>
+    @endforelse
+
+    @forelse($data['users2'] as $user)
+    <p>$user['name']</p>
+    @empty
+    <p>Нет данных</p>
+    @endforelse
+
+    @elseif($id == 12)
+    <p>
+        {{ $text }}
+    </p>
+    <ul>
+        @foreach($data['arr'] as $name1)
+        <li>
+            {{$loop->index}}
+            {{$name1}}
+        </li>
+        @endforeach
+    </ul>
+
+    @elseif($id == 13)
+    <p>
+        {{ $text }}
+    </p>
+    <ul>
+        @foreach($data['arr'] as $name1)
+        <li>
+            {{$loop->iteration}}
+            {{$name1}}
+        </li>
+        @endforeach
+    </ul>
+
+    @elseif($id == 14)
+    <p>
+        {{ $text }}
+    </p>
+    <ul>
+        @foreach($data['arr'] as $name1)
+
+        <li
+            @if($loop->first)
+            class='first'
+            @endif
+            @if($loop->last)
+            class='last'
+            @endif
+            >
+
+            {{$loop->iteration}}
+            {{$name1}}
+        </li>
+        @endforeach
+    </ul>
+
+    @elseif($id == 15)
+    <p>
+        {{ $text }}
+    </p>
+    @foreach($data['arr'] as $elem)
+
+    @if($loop->remaining >= 3)
+    <b>{{ $elem }}</b>
+    @else
+    <i>{{ $elem }}</i>
     @endif
-    <a href="/blade/foreach-directive">Назад</a>
+
+    @endforeach
+
+    @elseif($id == 16)
+    <p>
+        {{ $text }}
+    </p>
+    @foreach($data['arr'] as $elem)
+    @break($elem == 0)
+    {{ $elem }}
+    @endforeach
+
+    @elseif($id == 17)
+    <p>
+        {{ $text }}
+    </p>
+    @foreach($data['arr'] as $elem)
+    @continue($elem == 0)
+    {{ $elem }}
+    @endforeach
+
+    @elseif($id == 18)
+    <p>
+        {{ $text }}
+    </p>
+    @for ($i = 1; $i <= 10; $i++)
+        <p>{{$i}}</p>
+        @endfor
+
+        @endif
+        <a href="/blade/foreach-directive">Назад</a>
 
 
 </x-layout>

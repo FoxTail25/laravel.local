@@ -14,6 +14,6 @@
             Hello, &#123;!! $name !!&#125;
         </pre>
     </div>
-    <a href="/blade/unescaped-data-output/1">Задача 1</a>
+    <a href="/blade/unescaped-data-output-task/1">Задача 1</a>
 
 </x-layout>

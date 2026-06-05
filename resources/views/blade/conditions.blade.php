@@ -30,7 +30,7 @@
             &#64;endif
             </pre>
     </div>
-    <a href="/blade/conditions/1">Задача 1</a>
+    <a href="/blade/conditions-task/1">Задача 1</a>
     <div>
         <h3>
             Дерегива &#64;else в шаблонах Blade
@@ -44,7 +44,7 @@
             &#64;endif
             </pre>
     </div>
-    <a href="/blade/conditions/2">Задача 2</a>
+    <a href="/blade/conditions-task/2">Задача 2</a>
     <div>
         <h3>
             Дерегива &#64;elseif в шаблонах Blade
@@ -60,7 +60,7 @@
             &#64;endif
             </pre>
     </div>
-    <a href="/blade/conditions/3">Задача 3</a>
+    <a href="/blade/conditions-task/3">Задача 3</a>
     <div>
         <h3>
             Дерегива &#64;unless в шаблонах Blade
@@ -82,7 +82,7 @@
             &#64;endunless
             </pre>
     </div>
-    <a href="/blade/conditions/4">Задача 4</a>
+    <a href="/blade/conditions-task/4">Задача 4</a>
     <div>
         <h3>
             Сложные команды в условиях Blade в Laravel
@@ -96,6 +96,6 @@
             &#64;endif
             </pre>
     </div>
-    <a href="/blade/conditions/5">Задача 5</a>
+    <a href="/blade/conditions-task/5">Задача 5</a>
 
 </x-layout>

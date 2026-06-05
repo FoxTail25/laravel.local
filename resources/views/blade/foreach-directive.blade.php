@@ -159,4 +159,137 @@
             &#64;endforelse
             </pre>
         </div>
+        <a href="/blade/foreach-directive-task/11">Задача 1</a>
+        <div>
+            <h3>
+                Переменная $loop в Blade в Laravel
+            </h3>
+            При переборе массива с помощью foreach внутри цикла доступна специальная переменная $loop. Она обеспечивает доступ к некоторой полезной информации об итерациях цикла.
+            <br />
+            Посмотрим на примерах. Пусть мы перебираем циклом некоторый массив:
+            <pre>
+            &#64;foreach ($arr as $elem)
+                &lt;p>&#123;&#123; $elem &#125;&#125;&lt;/p>
+            &#64;endforeach
+            </pre>
+            Давайте на примере этого массива изучим возможности переменной $loop.
+            <h4>Граничные итерации</h4>
+            Можно также узнать первая это или последняя итерация цикла:
+            <pre>
+            &#64;foreach ($arr as $elem)
+                &#64;if ($loop->first)
+                    первая итерация
+                &#64;endif
+
+                &#64;if ($loop->last)
+                    последняя итерация
+                &#64;endif
+                &#123;&#123; $elem &#125;&#125;
+            &#64;endforeach
+            </pre>
+            <h4>Четность</h4>
+            Можно также узнать четность итерации цикла:
+            <pre>
+            &#64;foreach ($arr as $elem)
+                &#64;if ($loop->odd)
+                    нечетная итерация
+                &#64;endif
+
+                &#64;if ($loop->even)
+                    четная итерация
+                &#64;endif
+                &#123;&#123; $elem &#125;&#125;
+            &#64;endforeach
+            </pre>
+            <h4>Итерации</h4>
+            Можно узнать индекс текущей итерации (начинается с нуля):
+            <pre>
+            &#64;foreach ($arr as $elem)
+                &#123;&#123; $loop->index &#125;&#125;
+                &#123;&#123; $elem &#125;&#125;
+            &#64;endforeach
+            </pre>
+            Можно узнать номер текущей итерации (начинается с единицы):
+            <pre>
+            &#64;foreach ($arr as $elem)
+                &#123;&#123; $loop->iteration &#125;&#125;
+                &#123;&#123; $elem &#125;&#125;
+            &#64;endforeach
+            </pre>
+            Можно узнать, сколько итераций осталось:
+            <pre>
+            &#64;foreach ($arr as $elem)
+                &#123;&#123; $loop->remaining &#125;&#125;
+                &#123;&#123; $elem &#125;&#125;
+            &#64;endforeach
+            </pre>
+            <h4>Количество элементов</h4>
+            Можно узнать количество элементов в перебираемом массиве:
+            <pre>
+            &#64;foreach ($arr as $elem)
+                &#123;&#123; $loop->count &#125;&#125;
+                &#123;&#123; $elem &#125;&#125;
+            &#64;endforeach
+            </pre>
+        </div>
+        <a href="/blade/foreach-directive-task/12">Задача 1</a>
+        <a href="/blade/foreach-directive-task/13">Задача 2</a>
+        <a href="/blade/foreach-directive-task/14">Задача 3</a>
+        <a href="/blade/foreach-directive-task/15">Задача 4</a>
+        <div>
+            <h3>
+                Директива &#64;break в Blade в Laravel
+            </h3>
+            Можно завершать работу цикла с помощью директивы &#64;break:
+            <pre>
+            &#64;foreach ($arr as $elem)
+                &#123;&#123; $elem &#125;&#125;
+                &#64;if($elem == 3)
+                    &#64;break
+                &#64;endif
+            &#64;endforeach
+            </pre>
+            Можно включить условие в строку объявления директивы:
+            <pre>
+            &#64;foreach ($arr as $elem)
+                &#123;&#123; $elem &#125;&#125;
+                    &#64;break($elem == 3)
+            &#64;endforeach
+            </pre>
+            <a href="/blade/foreach-directive-task/16">Задача 1</a>
+        </div>
+        <div>
+            <h3>
+                Директива &#64;continue в Blade в Laravel
+            </h3>
+            Можно переходить к следующей итерации цикла с помощью директивы &#64;continue:
+            <pre>
+            &#64;foreach ($arr as $elem)
+                &#64;if($elem == 3)
+                    &#64;continue
+                &#64;endif
+                &#123;&#123; $elem &#125;&#125;
+            &#64;endforeach
+            </pre>
+            Можно включить условие в строку объявления директивы:
+            <pre>
+            &#64;foreach ($arr as $elem)
+            &#64;continue($elem == 3)
+                &#123;&#123; $elem &#125;&#125;
+            &#64;endforeach
+            </pre>
+            <a href="/blade/foreach-directive-task/17">Задача 1</a>
+        </div>
+        <div>
+            <h3>
+                Цикл &#64;for в Blade в Laravel
+            </h3>
+            В Blade также встроен и цикл for:
+            <pre>
+            &#64;for ($i =0; $i < 10; $i++)
+                counter: &#123;&#123; $i &#125;&#125;
+            &#64;endfor
+            </pre>
+            <a href="/blade/foreach-directive-task/18">Задача 1</a>
+        </div>
 </x-layout>
