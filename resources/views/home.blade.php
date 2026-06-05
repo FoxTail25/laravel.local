@@ -30,4 +30,8 @@
         }
         // dump($str);
     @endphp
+    {{-- @foreach ($res[0] as $link)
+        <a href="{{ $link }}">{{ $link }}</a>
+        <br />
+    @endforeach --}}
 </x-layout>
