@@ -15,23 +15,4 @@
             Lavarel Bootcamp
         </a>
     </h5>
-    @php
-        $fileDir = __DIR__;
-        $publicDir = $_SERVER['DOCUMENT_ROOT'];
-        $path = $publicDir . '../../routes/web.php';
-        $str = file_get_contents($path);
-
-        $reg = '#(/blade/.*/\')#';
-
-        preg_match_all($reg, $str, $res);
-        // var_dump($res[0]);
-        foreach ($res[0] as $link) {
-            echo "<a href='$link'>$link</a><br/>";
-        }
-        // dump($str);
-    @endphp
-    {{-- @foreach ($res[0] as $link)
-        <a href="{{ $link }}">{{ $link }}</a>
-        <br />
-    @endforeach --}}
 </x-layout>
