@@ -346,4 +346,311 @@ class BladeController extends Controller
             return view('blade.php-code-block-task', ['id' => $id, 'text' => $task[$id]['text'], 'data' => $task[$id]['data']]);
         }
     }
+    public function bladePracticum(string $id, bool|null $getTask = null)
+    {
+
+        $task = [
+            '1' => [
+                'text' => "Передайте из действия в представление массив ссылок: "
+                    . '$links' . " = [
+                            [
+                                'text' => 'text1',
+                                'href' => 'href1',
+                            ],
+                            [
+                                'text' => 'text2',
+                                'href' => 'href2',
+                            ],
+                            [
+                                'text' => 'text3',
+                                'href' => 'href3',
+                            ],
+                        ]" . " Сформируйте из нашего массива следующий HTML код:
+                        <a href='http://href1'>text1</a>
+                        <a href='http://href2'>text2</a>
+                        <a href='http://href3'>text3</a>",
+                'data' => [
+                    'links' => [
+                        [
+                            'text' => 'text1',
+                            'href' => 'href1',
+                        ],
+                        [
+                            'text' => 'text2',
+                            'href' => 'href2',
+                        ],
+                        [
+                            'text' => 'text3',
+                            'href' => 'href3',
+                        ],
+                    ],
+
+                ]
+            ],
+            '2' => [
+                'text' => "Модифицируйте предыдущую задачу так, чтобы каждая ссылка выводилась в отдельном теге li тега ul.",
+                'data' => [
+                    'links' => [
+                        [
+                            'text' => 'text1',
+                            'href' => 'href1',
+                        ],
+                        [
+                            'text' => 'text2',
+                            'href' => 'href2',
+                        ],
+                        [
+                            'text' => 'text3',
+                            'href' => 'href3',
+                        ],
+                    ],
+
+                ]
+            ],
+            '3' => [
+                'text' => "Передайте из действия в представление массив с работниками. Выведите этот массив в виде следующей таблицы",
+                'data' => [
+                    'employees' => [
+                        [
+                            'name' => 'user1',
+                            'surname' => 'surname1',
+                            'salary' => 1000,
+                        ],
+                        [
+                            'name' => 'user2',
+                            'surname' => 'surname2',
+                            'salary' => 2000,
+                        ],
+                        [
+                            'name' => 'user3',
+                            'surname' => 'surname3',
+                            'salary' => 3000,
+                        ],
+                        [
+                            'name' => 'user4',
+                            'surname' => 'surname4',
+                            'salary' => 4000,
+                        ],
+                        [
+                            'name' => 'user5',
+                            'surname' => 'surname5',
+                            'salary' => 5000,
+                        ],
+                    ],
+
+                ]
+            ],
+            '4' => [
+                'text' => "Модифицируйте предыдущую задачу так, чтобы в первом ряду появились заголовки таблицы:",
+                'data' => [
+                    'employees' => [
+                        [
+                            'name' => 'user1',
+                            'surname' => 'surname1',
+                            'salary' => 1000,
+                        ],
+                        [
+                            'name' => 'user2',
+                            'surname' => 'surname2',
+                            'salary' => 2000,
+                        ],
+                        [
+                            'name' => 'user3',
+                            'surname' => 'surname3',
+                            'salary' => 3000,
+                        ],
+                        [
+                            'name' => 'user4',
+                            'surname' => 'surname4',
+                            'salary' => 4000,
+                        ],
+                        [
+                            'name' => 'user5',
+                            'surname' => 'surname5',
+                            'salary' => 5000,
+                        ],
+                    ],
+
+                ]
+            ],
+            '5' => [
+                'text' => "Модифицируйте предыдущую задачу так, чтобы появилась еще одна колонка в начале таблицы, в которой будут выводится порядковые номера работников (то есть ключи элементов массива). Нумерация должна начинаться с единицы, а не с нуля.",
+                'data' => [
+                    'employees' => [
+                        [
+                            'name' => 'user1',
+                            'surname' => 'surname1',
+                            'salary' => 1000,
+                        ],
+                        [
+                            'name' => 'user2',
+                            'surname' => 'surname2',
+                            'salary' => 2000,
+                        ],
+                        [
+                            'name' => 'user3',
+                            'surname' => 'surname3',
+                            'salary' => 3000,
+                        ],
+                        [
+                            'name' => 'user4',
+                            'surname' => 'surname4',
+                            'salary' => 4000,
+                        ],
+                        [
+                            'name' => 'user5',
+                            'surname' => 'surname5',
+                            'salary' => 5000,
+                        ],
+                    ],
+
+                ]
+            ],
+            '6' => [
+                'text' => "Модифицируйте предыдущую задачу так, чтобы на экран выводились только работники с зарплатой более 2000.",
+                'data' => [
+                    'employees' => [
+                        [
+                            'name' => 'user1',
+                            'surname' => 'surname1',
+                            'salary' => 1000,
+                        ],
+                        [
+                            'name' => 'user2',
+                            'surname' => 'surname2',
+                            'salary' => 2000,
+                        ],
+                        [
+                            'name' => 'user3',
+                            'surname' => 'surname3',
+                            'salary' => 3000,
+                        ],
+                        [
+                            'name' => 'user4',
+                            'surname' => 'surname4',
+                            'salary' => 4000,
+                        ],
+                        [
+                            'name' => 'user5',
+                            'surname' => 'surname5',
+                            'salary' => 5000,
+                        ],
+                    ],
+
+                ]
+            ],
+            '7' => [
+                'text' => "Передайте из действия в представление массив с пользователей. Выведите этот массив в виде HTML таблицы с тремя колонками: имя, фамилия и статус. В последней колонке должен выводится статус пользователя: забанен он или нет. Если ключ banned для данного пользователя имеет значение true, то выводите слово 'забанен', а если false, то слово 'активен'.",
+                'data' => [
+                    'users' => [
+                        [
+                            'name' => 'user1',
+                            'surname' => 'surname1',
+                            'banned' => true,
+                        ],
+                        [
+                            'name' => 'user2',
+                            'surname' => 'surname2',
+                            'banned' => false,
+                        ],
+                        [
+                            'name' => 'user3',
+                            'surname' => 'surname3',
+                            'banned' => true,
+                        ],
+                        [
+                            'name' => 'user4',
+                            'surname' => 'surname4',
+                            'banned' => false,
+                        ],
+                        [
+                            'name' => 'user5',
+                            'surname' => 'surname5',
+                            'banned' => false,
+                        ],
+                    ],
+
+                ]
+            ],
+            '8' => [
+                'text' => "Модифицируйте предыдущую задачу так, чтобы цвет текста tr с забаненным пользователем был красного цвета, а с активным пользователем - зеленого.",
+                'data' => [
+                    'users' => [
+                        [
+                            'name' => 'user1',
+                            'surname' => 'surname1',
+                            'banned' => true,
+                        ],
+                        [
+                            'name' => 'user2',
+                            'surname' => 'surname2',
+                            'banned' => false,
+                        ],
+                        [
+                            'name' => 'user3',
+                            'surname' => 'surname3',
+                            'banned' => true,
+                        ],
+                        [
+                            'name' => 'user4',
+                            'surname' => 'surname4',
+                            'banned' => false,
+                        ],
+                        [
+                            'name' => 'user5',
+                            'surname' => 'surname5',
+                            'banned' => false,
+                        ],
+                    ],
+
+                ]
+            ],
+            '9' => [
+                'text' => "Из действия в представление передается массив со строками. Переберите этот массив циклом и в каждой итерации цикла создайте инпут, сделав значением инпута элемент массива.",
+                'data' => [
+                    'str' => [
+                        'string1',
+                        'string2',
+                        'string3',
+                        'string4',
+                        'string5',
+                        'string6',
+                        'string7',
+                    ],
+
+                ]
+            ],
+            '10' => [
+                'text' => "Из действия в представление передается массив со строками. Сделайте из этого массива выпадающий список select.",
+                'data' => [
+                    'str' => [
+                        'string1',
+                        'string2',
+                        'string3',
+                        'string4',
+                        'string5',
+                        'string6',
+                        'string7',
+                    ],
+
+                ]
+            ],
+            '11' => [
+                'text' => "Сделайте в действии контроллера массив с числами от 1 до последнего дня текущего месяца. Передайте этот массив в представление. Сделайте также переменную, в которой будет хранится номер текущего дня. Также передайте эту переменную в представление.
+                Переберите циклом переданный массив и выведите его в виде списка ul. При этом тегу li, в котором хранится номер текущего дня месяца добавьте класс active.",
+                'data' => [
+                    'arrMonthDay' => range(1, date('t')),
+                    'dayNow' => date('d')
+                ]
+            ],
+        ];
+
+        if ($getTask) {
+            return array_keys($task);
+        }
+
+        if (array_key_exists($id, $task)) {
+            return view('blade.blade-practicum-task', ['id' => $id, 'text' => $task[$id]['text'], 'data' => $task[$id]['data']]);
+        }
+    }
 }

@@ -4,10 +4,48 @@
 <head>
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <title>{{ isset($title) ? $title : 'Laravel' }}</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            font-family: sans-serif;
+            font-size: 16px;
+            text-align: left;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
 
+        tbody {
+            background-color: #f1f3f5;
+            cursor: pointer;
+        }
+
+        th,
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #dddddd;
+            color: #333333
+        }
+
+        .active {
+            color: green;
+        }
+
+        li {
+            display: inline;
+        }
+
+        body {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+    </style>
 </head>
-<nav>
-    @php
+
+<body>
+    <header>
+        <nav>
+            {{-- @php
         $fileDir = __DIR__;
         $publicDir = $_SERVER['DOCUMENT_ROOT'];
         $path = $publicDir . '../../routes/web.php';
@@ -21,12 +59,34 @@
     <a href="/">home</a>
     @foreach ($res[1] as $link)
         <a href="{{ $link }}">{{ $loop->iteration }} {{ trim(mb_substr($link, 7), '/') }}</a>
-    @endforeach
-</nav>
-
-<body>
+    @endforeach --}}
+            <ul>
+                <li><a href="/">Главная</a></li>
+            </ul>
+            <hr />
+            <h5>blade</h5>
+            <ul>
+                <li><a href="/blade/variables-attributes">Вывод переменных в атрибуты</a></li>
+                <li><a href="/blade/arbitrary-code">Выполнение производного кода</a></li>
+                <li><a href="/blade/arrays">Работа с массивами</a></li>
+                <li><a href="/blade/variables-checking">Проверка переменных</a></li>
+                <li><a href="/blade/unescaped-data-output">Вывод неэкранированных данных</a></li>
+                <li><a href="/blade/conditions">Условия</a></li>
+                <li><a href="/blade/foreach-directive">Циклы</a></li>
+                <li><a href="/blade/php-code-block">Блок кода PHP</a></li>
+                <li><a href="/blade/blade-practicum">Практика</a></li>
+            </ul>
+            <hr />
+            <ul>
+                <li><a href="/collections">Коллекции</a></li>
+            </ul>
+        </nav>
+        <hr />
+    </header>
     {{-- <h3>layout: Общий макет</h3> --}}
-    {{ $slot }}
+    <main>
+        {{ $slot }}
+    </main>
 </body>
 
 </html>

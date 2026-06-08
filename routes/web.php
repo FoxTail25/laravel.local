@@ -50,3 +50,12 @@ Route::get('/blade/php-code-block/', function () {
     return view('blade.php-code-block');
 });
 Route::get('/blade/php-code-block-task/{id}', [BladeController::class, 'phpCodeBlock'])->whereIn('id', (new BladeController)->phpCodeBlock(1, 1));
+
+Route::get('/blade/blade-practicum/', function () {
+    return view('blade.blade-practicum');
+});
+Route::get('/blade/blade-practicum-task/{id}', [BladeController::class, 'bladePracticum'])->whereIn('id', (new BladeController)->bladePracticum(1, 1));
+
+Route::get('/collections/', function () {
+    return view('collections');
+});
