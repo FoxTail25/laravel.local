@@ -59,3 +59,7 @@ Route::get('/blade/blade-practicum-task/{id}', [BladeController::class, 'bladePr
 Route::get('/collections/', function () {
     return view('collections');
 });
+
+Route::get('/collections/', function () {
+    return view('collections');
+});
