@@ -31,7 +31,7 @@
             color: green;
         }
 
-        li {
+        nav>ul>li {
             display: inline;
         }
 
@@ -42,6 +42,19 @@
 
         html {
             scroll-behavior: smooth;
+        }
+
+        pre,
+        code {
+            background: rgb(245, 245, 245);
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        li>code {
+            padding: 2px;
+            border-radius: 10px;
+            line-height: 22px;
         }
     </style>
 </head>
@@ -83,6 +96,14 @@
             <hr />
             <ul>
                 <li><a href="/collections">Коллекции</a></li>
+            </ul>
+            <hr />
+            <h5>Миграции</h5>
+            <ul>
+                <li><a href="/migrations/intro">Введение</a></li>
+                <li><a href="/migrations/file-structure">Структура файлов</a></li>
+                <li><a href="/migrations/running">Запуск миграций</a></li>
+                <li><a href="/migrations/tables-fields">Колонки таблиц в миграциях</a></li>
             </ul>
         </nav>
         <hr />
