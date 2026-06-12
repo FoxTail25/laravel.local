@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="RU">
 
 <head>
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
@@ -104,6 +104,9 @@
                 <li><a href="/migrations/file-structure">Структура файлов</a></li>
                 <li><a href="/migrations/running">Запуск миграций</a></li>
                 <li><a href="/migrations/tables-fields">Колонки таблиц в миграциях</a></li>
+                <li><a href="/migrations/migration-fields">Изменения полей в миграциях</a></li>
+                <li><a href="/migrations/del-change-table">Удаление и переименование таблиц</a></li>
+                <li><a href="/migrations/migration-rollback">Отмена миграций</a></li>
             </ul>
         </nav>
         <hr />

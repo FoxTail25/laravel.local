@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            // Изменяем имя солбцов
-            $table->renameColumn('name', 'first_name');
-            $table->renameColumn('surname', 'second_name');
+            // переименовываем поля name и surname
+            $table->renameColumn('name', 'first-name');
+            $table->renameColumn('surname', 'second-name');
         });
     }
 
@@ -24,9 +24,9 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            // Возвращаем первоначальные имена
-            $table->renameColumn('first_name', 'name');
-            $table->renameColumn('second_name', 'surname');
+            // переименовываем поля name и surname
+            $table->renameColumn('first-name', 'name');
+            $table->renameColumn('second-name', 'surname');
         });
     }
 };

@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            // Удаление столбцов name и surname
-            $table->dropColumn(['name', 'surname']);
+            // добавляем значение по умолчанию для поля name
+            $table->string('first-name')->default('some name')->change();
         });
     }
 
@@ -23,9 +23,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            // Добавление столбцов name и surname
-            $table->string('name', 50);
-            $table->string('surname');
+            // добавляем значение по умолчанию для поля name
+            $table->string('first-name')->change();
         });
     }
 };

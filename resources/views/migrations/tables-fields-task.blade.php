@@ -26,7 +26,7 @@ return new class extends Migration
 		public function up()
 		{
 			Schema::create('articles', function (Blueprint $table) {
-				$table->('id');
+				$table->id();
 				$table->string('header');
 				$table->text('content');
 			});
@@ -61,7 +61,7 @@ return new class extends Migration
 		public function up()
 		{
 			Schema::create('users', function (Blueprint $table) {
-				$table->('id');
+				$table->id();
 				$table->string('name',100);
 				$table->string('surname',100);
 				$table->date('birth_day');

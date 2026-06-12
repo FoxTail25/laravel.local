@@ -25,7 +25,7 @@
             </p>
             <div>
                 <pre>
-                    php artisan make:migration greate_users_table
+                    php artisan make:migration сreate_users_table
                 </pre>
             </div>
         </div>

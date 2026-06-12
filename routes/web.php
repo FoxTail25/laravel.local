@@ -82,4 +82,18 @@ Route::prefix('migrations')->group(function () {
         return view('migrations.tables-fields');
     });
     Route::get('/tables-fields-task/{id}', [MigrationController::class, 'tablesFields'])->whereIn('id', (new MigrationController)->tablesFields(1, 1));
+
+    Route::get('/migration-fields/', function () {
+        return view('migrations.migration-fields');
+    });
+    Route::get('/migration-fields-task/{id}', [MigrationController::class, 'updateFilds'])->whereIn('id', (new MigrationController)->updateFilds(1, 1));
+
+    Route::get('/del-change-table/', function () {
+        return view('migrations.del-change-table');
+    });
+
+    Route::get('/migration-rollback/', function () {
+        return view('migrations.migration-rollback');
+    });
+    Route::get('/migration-rollback-task/{id}', [MigrationController::class, 'migrationRollback'])->whereIn('id', (new MigrationController)->migrationRollback(1, 1));
 });
