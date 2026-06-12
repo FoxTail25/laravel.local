@@ -179,31 +179,7 @@ $table->timestamp('added_on');</pre>
                 <code>$table->boolean('is_active');</code> — <code>BOOLEAN</code>(в большинстве БД разворачивается в
                 TINYINT(1))
             </li>
-            <li>
-                <code>$table->tinyInteger('status');</code> — <code>TINYINT</code> (числа от -128 до 127)
-            </li>
-            <li>
-                <code>$table->smallInteger('age');</code> — <code>SMALLINT</code>
-            </li>
-            <li>
-                <code>$table->mediumInteger('rank');</code> — <code>MEDIUMINT</code>
-            </li>
-            <li>
-                <code>$table->bigInteger('count');</code> — <code>BIGINT</code>
-            </li>
-            <li>
-                <code>$table->unsignedInteger('user_id');</code> — <code>UNSIGNE INT</code> (только положительные числа)
-            </li>
-            <li>
-                <code>$table->decimal('price', 8, 2);</code> — точное число с плавающей точкой (всего цифр, цифр после
-                запятой)
-            </li>
-            <li>
-                <code>$table->float('lat', 10, 6);</code> — <code>FLOAT</code>
-            </li>
-            <li>
-                <code>$table->double('amount', 15, 8);</code> — <code>DOUBLE</code>
-            </li>
+
         </ul>
 
         <h3>
@@ -253,7 +229,6 @@ $table->timestamp('added_on');</pre>
             <li>
                 <code>$table->set('flavors', ['strawberry', 'vanilla']);</code> — тип данных <code>SET</code> (для
                 MySQL).
-                <code>updated_at</code> (ТИПА <code>TIMESTAMP</code>)
             </li>
         </ul>
 
