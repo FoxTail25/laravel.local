@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BladeController;
 use App\Http\Controllers\MigrationController;
+use App\Http\Controllers\SeederController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -96,4 +97,15 @@ Route::prefix('migrations')->group(function () {
         return view('migrations.migration-rollback');
     });
     Route::get('/migration-rollback-task/{id}', [MigrationController::class, 'migrationRollback'])->whereIn('id', (new MigrationController)->migrationRollback(1, 1));
+});
+
+Route::prefix('seeders')->group(function () {
+    Route::get('/intro/', function () {
+        return view('seeders.intro');
+    });
+
+    Route::get('/manual-seeder/', function () {
+        return view('seeders.manual-seeder');
+    });
+    Route::get('/manual-seeder-task/{id}', [SeederController::class, 'manualSeeder'])->whereIn('id', (new SeederController)->manualSeeder(1, 1));
 });

@@ -108,6 +108,13 @@
                 <li><a href="/migrations/del-change-table">Удаление и переименование таблиц</a></li>
                 <li><a href="/migrations/migration-rollback">Отмена миграций</a></li>
             </ul>
+            <hr />
+            <h5>Сидеры</h5>
+            <ul>
+                <li><a href="/seeders/intro">Введение</a></li>
+                <li><a href="/seeders/manual-seeder">Ручное заполнение</a></li>
+
+            </ul>
         </nav>
         <hr />
     </header>
