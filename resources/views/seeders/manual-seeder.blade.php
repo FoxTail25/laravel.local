@@ -118,5 +118,107 @@
 		}
 	}</pre>
     </pre>
-    <a href="/seeders/manual-seeder-task/2">Задача 2</a>
+    <a href="/seeders/manual-seeder-task/2">Задача 1</a>
+    <h4>
+        Хеширование паролей в сидерах в Laravel
+    </h4>
+    Таблица с юзерами в Laravel особенная. По ней осуществляется авторизация пользователей. Для этого в таблице должно
+    быть поле password, содержащее хеш пароля.
+    <br />
+    Поэтому при генерации юзеров мы должны вместо паролей вставлять хеши этих паролей. Давайте сделаем это. Для начала
+    подключим фасад Hash для хеширования пароля:
+    <pre>
+&lt;?php
+	use Illuminate\Support\Facades\Hash
+
+	class DatabaseSeeder extends Seeder
+	{
+	    public function run()
+	    {
+
+	    }
+	}</pre>
+    Теперь с помощью метода make при вставке нового юзера захешируем придуманный нами пароль:
+    <pre>
+&lt;?php
+	class DatabaseSeeder extends Seeder
+	{
+		public function run()
+		{
+			DB::table('users')->insert([
+				'name' => Str::random(10),
+				'email' => Str::random(10).'@gmail.com',
+				'password' => Hash::make('12345'),
+			]);
+		}
+	}
+    </pre>
+    <a href="/seeders/manual-seeder-task/3">Задача 1</a>
+
+    <h4>
+        Отдельные классы сидеров в Laravel
+    </h4>
+    Не обязательно размещать все сидеры в одном классе DatabaseSeeder. Их можно разносить по разным классам.
+    <br />
+    Сидеры можно создавать вручную (создать и назвать файл, прописать его содержимое.) Либо можно использовать artisan
+    <br />
+    <span class="red">
+        В laravel принято использовать единственное число для названия сидера
+    </span>
+    <pre>php artisan make:seeder PostSeeder</pre>
+
+    Сделаем, к примеру, сидер для заполнения таблицы с постами:
+    <pre>
+    &lt;?php
+    	namespace Database\Seeders;
+
+	use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+	use Illuminate\Database\Seeder;
+	use Illuminate\Support\Str;
+
+	class PostSeeder extends Seeder
+	{
+		public function run()
+		{
+
+		}
+	}</pre>
+    Запустим его отдельно следующей командой:
+    <pre>php artisan db:seed --class=PostSeeder</pre>
+    </pre>
+    <a href="/seeders/manual-seeder-task/4">Задача 1</a>
+    <a href="/seeders/manual-seeder-task/5">Задача 2</a>
+    <a href="/seeders/manual-seeder-task/6">Задача 3</a>
+
+
+    <h4>
+        Общий вызов отдельных сидеров в Laravel
+    </h4>
+    Удобно разбивать сидеры по отдельным файлам, но не очень удобно вызывать каждый сидер по-отдельности. Для упрощения
+    можно в DatabaseSeeder прописать автоматический вызов всех отдельных сидеров.
+    <br />
+    Пусть, к примеру, у нас есть два отдельных сидера: PostSeeder и CommentSeeder. Давайте вызовем их в основном сидере.
+    Для этого сначала заюзать наши отдельные сидеры:
+    <pre>
+    &lt;?php
+    	namespace Database\Seeders;
+
+	use PostSeeder;
+	use CommentSeeder;
+	class PostSeeder extends Seeder
+	{
+        public function run()
+		{
+            // А теперь пропишем их вызов с помощью специального метода call:
+			$this->call([
+				PostSeeder::class,
+				CommentSeeder::class,
+			]);
+		}
+	}</pre>
+    Теперь можно запустить все прописанные сидеры с помощью уже известной вам команды на запуск основного сидера:
+    <pre>php artisan db:seed</pre>
+    </pre>
+    <a href="/seeders/manual-seeder-task/7">Задача 1</a>
+
 </x-layout>

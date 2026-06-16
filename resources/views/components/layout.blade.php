@@ -113,7 +113,6 @@
             <ul>
                 <li><a href="/seeders/intro">Введение</a></li>
                 <li><a href="/seeders/manual-seeder">Ручное заполнение</a></li>
-
             </ul>
         </nav>
         <hr />

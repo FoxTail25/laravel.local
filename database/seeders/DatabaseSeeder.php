@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -21,18 +22,5 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        DB::table('users')->insert($this->getRendomUser(10));
-    }
-    public function getRendomUser(int $cycles)
-    {
-        $resultArr = [];
-        for ($i = 1; $i <= $cycles; $i++) {
-            $resultArr[] = [
-                'name' => Str::random(5),
-                'surname' => Str::random(7),
-                'email' => Str::random(5) . '@mail.ru'
-            ];
-        }
-        return $resultArr;
     }
 }
