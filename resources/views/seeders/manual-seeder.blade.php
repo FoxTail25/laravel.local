@@ -221,4 +221,37 @@
     </pre>
     <a href="/seeders/manual-seeder-task/7">Задача 1</a>
 
+    <h4>
+        Полное перестроение БД в Laravel
+    </h4>
+    Можно полностью перестроить базу данных, заново выполнив все миграции и сидеры. Это делается с помощью следующей
+    команды:
+    <pre>php artisan migrate:fresh --seed</pre>
+
+    <h4>
+        Тестовые таблицы в Laravel
+    </h4>
+    Давайте создадим и наполним тестовые таблицы, которыми мы будем пользоваться в следующих разделах учебника при
+    изучении работы с базами данных:
+    <h5 style="text-align: center">posts</h5>
+    <ul>
+        <li>id</li>
+        <li>title(varchr)</li>
+        <li>slug(varchr)</li>
+        <li>likes(integer)</li>
+        <li>created_at(datetime)</li>
+        <li>updated_at(datetime)</li>
+    </ul>
+    <h5 style="text-align: center">users</h5>
+    <ul>
+        <li>id</li>
+        <li>name(varchr)</li>
+        <li>email(varchr)</li>
+        <li>age(integer)</li>
+        <li>salary(integer)</li>
+        <li>created_at(datetime)</li>
+        <li>updated_at(datetime)</li>
+    </ul>
+    <a href="/seeders/manual-seeder-task/8">Задача 1</a>
+
 </x-layout>

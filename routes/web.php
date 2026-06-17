@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BladeController;
+use App\Http\Controllers\DbController;
 use App\Http\Controllers\MigrationController;
 use App\Http\Controllers\SeederController;
 use Illuminate\Support\Facades\Route;
@@ -108,4 +109,16 @@ Route::prefix('seeders')->group(function () {
         return view('seeders.manual-seeder');
     });
     Route::get('/manual-seeder-task/{id}', [SeederController::class, 'manualSeeder'])->whereIn('id', (new SeederController)->manualSeeder(1, 1));
+});
+
+Route::prefix('DB')->group(function () {
+    Route::get('/intro/', function () {
+        return view('DB.intro');
+    });
+    Route::get('/intro-task/{id}', [DbController::class, 'intro'])->whereIn('id', (new DbController)->intro(1, 1));
+
+    Route::get('/records/', function () {
+        return view('DB.records');
+    });
+    Route::get('/records-task/{id}', [DbController::class, 'record'])->whereIn('id', [1]);
 });

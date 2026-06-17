@@ -114,6 +114,12 @@
                 <li><a href="/seeders/intro">Введение</a></li>
                 <li><a href="/seeders/manual-seeder">Ручное заполнение</a></li>
             </ul>
+            <hr />
+            <h5>Построитель запросов (DB)</h5>
+            <ul>
+                <li><a href="/DB/intro">Введение</a></li>
+                <li><a href="/DB/records#record">Работа с записями</a></li>
+            </ul>
         </nav>
         <hr />
     </header>
