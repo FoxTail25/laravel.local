@@ -19,4 +19,12 @@ class UserController extends Controller
             return $allUsers;
         }
     }
+    public function getFieldRecord(array $filedsArr)
+    {
+        if (Schema::hasTable('users')) {
+
+            $allUsers = DB::table('users')->select('name', 'email')->get();
+            return $allUsers;
+        }
+    }
 }

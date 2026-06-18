@@ -27,6 +27,10 @@ class DbController extends Controller
                 'text' => "Получите все записи из таблицы users. Переберите полученные записи циклом и выведите их в представлении в виде HTML таблицы.",
                 'data' => [(new UserController)->getAllRecord()],
             ],
+            '2' => [
+                'text' => "При получении данных из таблицы с юзерами оставьте в выборке только поля name и email.",
+                'data' => [(new UserController)->getFieldRecord(['name', 'email'])],
+            ],
 
         ];
         if ($getTask) {

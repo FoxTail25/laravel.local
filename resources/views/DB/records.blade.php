@@ -52,4 +52,20 @@
 	}
     </pre>
     <a href="/DB/records-task/1">Задача 1</a>
+    <h3>
+        Поля выборки через DB в Laravel
+    </h3>
+    Не всегда нужно выбирать все столбцы из таблицы БД. С помощью метода select можно указать необходимые поля в
+    выборке:
+    <pre>$posts = DB::table('posts')->select('title', 'text')->get();</pre>
+    <a href="/DB/records-task/2">Задача 1</a>
+    <h3>
+        Переименование столбцов
+    </h3>
+    При выборке можно осуществлять переименовывание столбцов. Давайте сделаем так, чтобы поле text в полученной выборке
+    называлось post_text:
+    <pre>
+        $posts = DB::table('posts')->select('title', 'text as
+		post_text')->get();
+    </pre>
 </x-layout>

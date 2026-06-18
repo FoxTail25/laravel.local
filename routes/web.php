@@ -120,5 +120,5 @@ Route::prefix('DB')->group(function () {
     Route::get('/records/', function () {
         return view('DB.records');
     });
-    Route::get('/records-task/{id}', [DbController::class, 'record'])->whereIn('id', [1]);
+    Route::get('/records-task/{id}', [DbController::class, 'record'])->whereIn('id', [1, 2]);
 });
