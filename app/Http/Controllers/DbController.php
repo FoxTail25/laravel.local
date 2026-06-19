@@ -104,7 +104,9 @@ class DbController extends Controller
         if ($getTask) {
             return count($tasks);
         }
+
         $resultData = $tasks[$id]['data']();
+
         return view('DB.records-task', ['id' => $id, 'text' => $tasks[$id]['text'], 'data' => $resultData]);
     }
 }
