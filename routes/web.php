@@ -131,4 +131,9 @@ Route::prefix('DB')->group(function () {
         return view('DB.record-sort');
     });
     Route::get('/record-sort-task/{id}', [DbController::class, 'recordSort'])->whereIn('id', range(1, (new DbController)->record(1, 1)));
+
+    Route::get('/insert-update-del/', function () {
+        return view('DB.insert-update-del');
+    });
+    Route::get('/insert-update-del-task/{id}', [DbController::class, 'InsertUpdateDel'])->whereNumber('id');
 });

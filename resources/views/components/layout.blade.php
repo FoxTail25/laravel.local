@@ -121,6 +121,7 @@
                 <li><a href="/DB/records#record">Работа с записями</a></li>
                 <li><a href="/DB/record-where">Выборка записей (where)</a></li>
                 <li><a href="/DB/record-sort">Сортировка записей</a></li>
+                <li><a href="/DB/insert-update-del">insert, update, delete</a></li>
             </ul>
         </nav>
         <hr />

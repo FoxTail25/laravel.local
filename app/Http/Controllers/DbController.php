@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
@@ -48,6 +49,14 @@ class DbController extends Controller
                 'text' => "Получите одного юзера",
                 'data' => fn() => DB::table('users')->first(),
             ],
+            '6' => [
+                'text' => "Получите первых 3 юзера.",
+                'data' => fn() => DB::table('users')->take(3)->get(),
+            ],
+            '7' => [
+                'text' => "Получите первых 3 юзера, начиная с 4го",
+                'data' => fn() => DB::table('users')->skip(2)->take(3)->get(),
+            ],
 
 
 
@@ -60,6 +69,8 @@ class DbController extends Controller
 
         return view('DB.records-task', ['id' => $id, 'text' => $tasks[$id]['text'], 'data' => $resultData]);
     }
+
+
     public function recordWhere(int|string $id, int|null $getTask = null)
     {
         $tasks = [
@@ -195,5 +206,79 @@ class DbController extends Controller
         $resultData = $tasks[$id]['data']();
 
         return view('DB.record-sort-task', ['id' => $id, 'text' => $tasks[$id]['text'], 'data' => $resultData]);
+    }
+    public function InsertUpdateDel(int|string $id)
+    {
+
+        $tasks = [
+            '1' => [
+                'text' => "Вставьте нового юзера в таблицу с юзерами.",
+                'data' => function () {
+                    $nextUserNumber = DB::table('users')->count() + 1;
+                    $currentTime = Carbon::now();
+
+                    return DB::table('users')->insert([
+                        'name' => "userName{$nextUserNumber}",
+                        'email' => "userName{$nextUserNumber}@gmail.com",
+                        'age' => mt_rand(30, 50),
+                        'salary' => fake()->numberBetween(2000, 3000),
+                        'created_at' => $currentTime,
+                        'updated_at' => $currentTime,
+                    ]);
+                },
+            ],
+            '2' => [
+                'text' => "Вставьте нового юзера в таблицу с юзерами. Выведите на экран id вставленного юзера.",
+                'data' => function () {
+                    $nextUserNumber = DB::table('users')->count() + 1;
+                    $currentTime = Carbon::now();
+
+                    return DB::table('users')->insertGetId([
+                        'name' => "userName{$nextUserNumber}",
+                        'email' => "userName{$nextUserNumber}@gmail.com",
+                        'age' => mt_rand(30, 50),
+                        'salary' => fake()->numberBetween(2000, 3000),
+                        'created_at' => $currentTime,
+                        'updated_at' => $currentTime,
+                    ]);
+                },
+            ],
+            '3' => [
+                'text' => "Вставьте нового юзера в таблицу с юзерами. Выведите на экран id вставленного юзера.",
+                'data' => function () {
+                    // return DB::table('users')->insert([
+                    return  createNewUser(3);
+                    // ]);
+                },
+            ],
+        ];
+        function createNewUser(int $count)
+        {
+            $result = [];
+            $nextUserNumber = DB::table('users')->count();
+            $currentTime = Carbon::now();
+
+            for ($i = 1; $i <= $count; $i++) {
+                $result[] = [
+                    'name' => "userName" . $nextUserNumber + $i,
+                    'email' => "userName" . ($nextUserNumber + $i) . "@gmail.com",
+                    'age' => mt_rand(30, 50),
+                    'salary' => fake()->numberBetween(2000, 3000),
+                    'created_at' => $currentTime,
+                    'updated_at' => $currentTime,
+                ];
+            }
+            return $result;
+        }
+
+
+        // Проверка безопасности: если передали несуществующий ID задачи
+        if (!isset($tasks[$id])) {
+            abort(404, "Задача не найдена");
+        }
+
+        $resultData = $tasks[$id]['data']();
+
+        return view('DB.insert-update-del-task', ['id' => $id, 'text' => $tasks[$id]['text'], 'data' => $resultData]);
     }
 }

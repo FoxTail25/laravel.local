@@ -156,5 +156,123 @@ DB::table('users')->pluck('name')
         </table>
 
         <a href="/DB/records#recordsTask5">Назад</a>
+    @elseif ($id == 6)
+        <p>
+            {{ $text }}
+        </p>
+        <pre>
+    // Получение данных в Controllere:
+    'data' => Schema::hasTable('users') ?? DB::table('users')->take(3)->get;
+
+    // Blade Code:
+    &#123;&#123;-- Проерка на наличие данных --}}
+    &#64;if ($data->isNotEmpty())
+    &#64;php
+        // Безопасно получаем имена полей из первого объекта
+        $fields = array_keys(get_object_vars($data->first()));
+    &#64;endphp
+        &lt;table>
+            &lt;tr>
+                &#64;foreach ($fields as $field)
+                    &lt;th>&#123;&#123; $field &#125;&#125;&lt;/th>
+                &#64;endforeach
+            &lt;/tr>
+            &#64;foreach ($data as $user)
+            &lt;tr>
+                &#123;&#123;-- Динамический вывод свойства объекта --}}
+                &#64;foreach ($fields as $field)
+                    &lt;td>&#123;&#123; $user->$field &#125;&#125;&lt;/td>
+                &#64;endforeach
+                &lt;/tr>
+            &#64;endforeach
+        &lt;/table>
+    &#64;else
+        &lt;p>Нет данных для отображения.&lt;/p>
+    &#64;endif
+            </pre>
+        {{-- Проерка на наличие данных --}}
+        @if ($data->isNotEmpty())
+            @php
+                // Безопасно получаем имена полей из первого объекта
+                $fields = array_keys(get_object_vars($data->first()));
+            @endphp
+            <table>
+                <tr>
+                    @foreach ($fields as $field)
+                        <th>{{ $field }}</th>
+                    @endforeach
+                </tr>
+                @foreach ($data as $user)
+                    <tr>
+                        {{-- Динамический вывод свойства объекта --}}
+                        @foreach ($fields as $field)
+                            <td>{{ $user->$field }}</td>
+                        @endforeach
+                    </tr>
+                @endforeach
+            </table>
+        @else
+            <p>Нет данных для отображения.</p>
+        @endif
+        <a href="/DB/records#recordsTask6">Назад</a>
+    @elseif ($id == 7)
+        <p>
+            {{ $text }}
+        </p>
+        <pre>
+    // Получение данных в Controllere:
+    'data' => Schema::hasTable('users') ?? DB::table('users')->skip(2)->take(3)->get;
+
+    // Blade Code:
+    &#123;&#123;-- Проерка на наличие данных --}}
+    &#64;if ($data->isNotEmpty())
+    &#64;php
+        // Безопасно получаем имена полей из первого объекта
+        $fields = array_keys(get_object_vars($data->first()));
+    &#64;endphp
+        &lt;table>
+            &lt;tr>
+                &#64;foreach ($fields as $field)
+                    &lt;th>&#123;&#123; $field &#125;&#125;&lt;/th>
+                &#64;endforeach
+            &lt;/tr>
+            &#64;foreach ($data as $user)
+            &lt;tr>
+                &#123;&#123;-- Динамический вывод свойства объекта --}}
+                &#64;foreach ($fields as $field)
+                    &lt;td>&#123;&#123; $user->$field &#125;&#125;&lt;/td>
+                &#64;endforeach
+                &lt;/tr>
+            &#64;endforeach
+        &lt;/table>
+    &#64;else
+        &lt;p>Нет данных для отображения.&lt;/p>
+    &#64;endif
+            </pre>
+        {{-- Проерка на наличие данных --}}
+        @if ($data->isNotEmpty())
+            @php
+                // Безопасно получаем имена полей из первого объекта
+                $fields = array_keys(get_object_vars($data->first()));
+            @endphp
+            <table>
+                <tr>
+                    @foreach ($fields as $field)
+                        <th>{{ $field }}</th>
+                    @endforeach
+                </tr>
+                @foreach ($data as $user)
+                    <tr>
+                        {{-- Динамический вывод свойства объекта --}}
+                        @foreach ($fields as $field)
+                            <td>{{ $user->$field }}</td>
+                        @endforeach
+                    </tr>
+                @endforeach
+            </table>
+        @else
+            <p>Нет данных для отображения.</p>
+        @endif
+        <a href="/DB/records#recordsTask6">Назад</a>
     @endif
 </x-layout>
