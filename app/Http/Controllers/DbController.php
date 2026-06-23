@@ -244,12 +244,32 @@ class DbController extends Controller
                 },
             ],
             '3' => [
-                'text' => "Вставьте нового юзера в таблицу с юзерами. Выведите на экран id вставленного юзера.",
+                'text' => "Вставьте трех новых юзеров в таблицу с юзерами.",
                 'data' => function () {
-                    // return DB::table('users')->insert([
-                    return  createNewUser(3);
-                    // ]);
+                    return DB::table('users')->insert(
+                        createNewUser(3)
+                    );
                 },
+            ],
+            '4' => [
+                'text' => "Измените юзера с id, равным 5.",
+                'data' => fn() => DB::table('users')->where('id', 5)->update(['email' => 'userName5@gmail.com'])
+            ],
+            '5' => [
+                'text' => "Всем юзерам с возрастом более 30 установите зарплату 500.",
+                'data' => fn() => DB::table('users')->where('age', '>', 30)->update(['salary' => '5000'])
+            ],
+            '6' => [
+                'text' => "Увеличьте на 1 возраст заданному юзеру. с id, равным 1.",
+                'data' => fn() => DB::table('users')->where('id', 1)->increment('age')
+            ],
+            '7' => [
+                'text' => "Увеличьте на 1 возраст заданному юзеру. с id, равным 1.",
+                'data' => fn() => DB::table('users')->where('id', 1)->decrement('age')
+            ],
+            '8' => [
+                'text' => "Всем юзерам с возрастом 30 увеличьте зарплату на 100.",
+                'data' => fn() => DB::table('users')->where('age', 30)->increment('salary', 100)
             ],
         ];
         function createNewUser(int $count)
@@ -260,7 +280,7 @@ class DbController extends Controller
 
             for ($i = 1; $i <= $count; $i++) {
                 $result[] = [
-                    'name' => "userName" . $nextUserNumber + $i,
+                    'name' => "userName" . ($nextUserNumber + $i),
                     'email' => "userName" . ($nextUserNumber + $i) . "@gmail.com",
                     'age' => mt_rand(30, 50),
                     'salary' => fake()->numberBetween(2000, 3000),
