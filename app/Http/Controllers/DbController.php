@@ -268,8 +268,36 @@ class DbController extends Controller
                 'data' => fn() => DB::table('users')->where('id', 1)->decrement('age')
             ],
             '8' => [
-                'text' => "Всем юзерам с возрастом 30 увеличьте зарплату на 100.",
-                'data' => fn() => DB::table('users')->where('age', 30)->increment('salary', 100)
+                'text' => "Удалите юзера с id, равным 5.",
+                'data' => fn() => DB::table('users')->where('id', 5)->increment('salary', 100)
+            ],
+            '9' => [
+                'text' => "Удалите юзера с максимальным id",
+                'data' => function () {
+                    // вернётся количество удалённых строк
+                    return DB::table('users')
+                        ->where('id', DB::table('users')->max('id'))
+                        ->delete();
+                }
+            ],
+            '10' => [
+                'text' => "Удалите юзера с максимальным id",
+                'data' => function () {
+                    return 'Я не выполняю этот код что бы никого не удалять))';
+                }
+            ],
+            '11' => [
+                'text' => "Удалите юзера с максимальным id",
+                'data' => function () {
+                    return 'Я не выполняю этот код что бы никого не удалять))';
+                }
+            ],
+            '12' => [
+                'text' => "Сделайте таблицу users и таблицу cities с городами, в которых живут юзеры. С помощью построителя запросов получите список всех юзеров вместе с их городами.",
+                'data' => fn() => DB::table('users')
+                    ->leftJoin('citys', 'citys.id', '=', 'users.city')
+                    ->select('users.name as user', 'citys.name as city')
+                    ->get()
             ],
         ];
         function createNewUser(int $count)

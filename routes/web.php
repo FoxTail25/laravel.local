@@ -137,3 +137,10 @@ Route::prefix('DB')->group(function () {
     });
     Route::get('/insert-update-del-task/{id}', [DbController::class, 'InsertUpdateDel'])->whereNumber('id');
 });
+
+Route::prefix('eloquent')->group(function () {
+    Route::get('/intro/', function () {
+        return view('eloquent.intro');
+    });
+    // Route::get('/intro-task/{id}', [DbController::class, 'intro'])->whereIn('id', (new DbController)->intro(1, 1));
+});

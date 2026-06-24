@@ -3,6 +3,7 @@
 
 <head>
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <title>{{ isset($title) ? $title : 'Laravel' }}</title>
     <style>
         table {
@@ -36,7 +37,7 @@
         }
 
         body {
-            max-width: 800px;
+            max-width: 1024px;
             margin: 0 auto;
         }
 
@@ -61,75 +62,242 @@
 
 <body>
     <header>
-        <nav>
-            {{-- @php
-        $fileDir = __DIR__;
-        $publicDir = $_SERVER['DOCUMENT_ROOT'];
-        $path = $publicDir . '../../routes/web.php';
-        $str = file_get_contents($path);
+        <nav class="navbar navbar-expand-md bg-body-tertiary">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/">Home</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
-        $reg = '#(/blade/.*/)(\'\S)#';
+                        {{-- <li class="nav-item">
+                            <a class="nav-link" href="#">Link</a>
+                        </li> --}}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                blade
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        Something else here
+                                    </a>
+                                </li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="/blade/variables-attributes">
+                                        Вывод переменных в
+                                        атрибуты
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="/blade/arbitrary-code">
+                                        Выполнение производного кода
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="/blade/arrays">
+                                        Работа с массивами
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="/blade/variables-checking">
+                                        Проверка переменных
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="/blade/unescaped-data-output">
+                                        Вывод неэкранированных данных
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="/blade/conditions">
+                                        Условия
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="/blade/foreach-directive">
+                                        Циклы
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="/blade/php-code-block">
+                                        Блок кода PHP
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="/blade/blade-practicum">
+                                        Практика
+                                    </a>
+                                </li>
+                            </ul>
 
-        preg_match_all($reg, $str, $res);
-
-    @endphp
-    <a href="/">home</a>
-    @foreach ($res[1] as $link)
-        <a href="{{ $link }}">{{ $loop->iteration }} {{ trim(mb_substr($link, 7), '/') }}</a>
-    @endforeach --}}
-            <ul>
-                <li><a href="/">Главная</a></li>
-            </ul>
-            <hr />
-            <h5>blade</h5>
-            <ul>
-                <li><a href="/blade/variables-attributes">Вывод переменных в атрибуты</a></li>
-                <li><a href="/blade/arbitrary-code">Выполнение производного кода</a></li>
-                <li><a href="/blade/arrays">Работа с массивами</a></li>
-                <li><a href="/blade/variables-checking">Проверка переменных</a></li>
-                <li><a href="/blade/unescaped-data-output">Вывод неэкранированных данных</a></li>
-                <li><a href="/blade/conditions">Условия</a></li>
-                <li><a href="/blade/foreach-directive">Циклы</a></li>
-                <li><a href="/blade/php-code-block">Блок кода PHP</a></li>
-                <li><a href="/blade/blade-practicum">Практика</a></li>
-            </ul>
-            <hr />
-            <ul>
-                <li><a href="/collections">Коллекции</a></li>
-            </ul>
-            <hr />
-            <h5>Миграции</h5>
-            <ul>
-                <li><a href="/migrations/intro">Введение</a></li>
-                <li><a href="/migrations/file-structure">Структура файлов</a></li>
-                <li><a href="/migrations/running">Запуск миграций</a></li>
-                <li><a href="/migrations/tables-fields">Колонки таблиц в миграциях</a></li>
-                <li><a href="/migrations/migration-fields">Изменения полей в миграциях</a></li>
-                <li><a href="/migrations/del-change-table">Удаление и переименование таблиц</a></li>
-                <li><a href="/migrations/migration-rollback">Отмена миграций</a></li>
-            </ul>
-            <hr />
-            <h5>Сидеры</h5>
-            <ul>
-                <li><a href="/seeders/intro">Введение</a></li>
-                <li><a href="/seeders/manual-seeder">Ручное заполнение</a></li>
-            </ul>
-            <hr />
-            <h5>Построитель запросов (DB)</h5>
-            <ul>
-                <li><a href="/DB/intro">Введение</a></li>
-                <li><a href="/DB/records#record">Работа с записями</a></li>
-                <li><a href="/DB/record-where">Выборка записей (where)</a></li>
-                <li><a href="/DB/record-sort">Сортировка записей</a></li>
-                <li><a href="/DB/insert-update-del">insert, update, delete</a></li>
-            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/collections">Коллекции</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Миграции
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="dropdown-item" href="/migrations/intro">
+                                        Введение
+                                    </a>
+                                </li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="/migrations/file-structure">
+                                        Структура файлов
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="/migrations/running">
+                                        Запуск миграций
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="/migrations/tables-fields">
+                                        Колонки таблиц в миграциях
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="/migrations/migration-fields">
+                                        Изменения полей в миграциях
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="/migrations/del-change-table">
+                                        Удаление и переименование таблиц
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="/migrations/migration-rollback">
+                                        Отмена миграций
+                                    </a>
+                                </li>
+                            </ul>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Сидеры
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="dropdown-item" href="/seeders/intro">
+                                        Введение
+                                    </a>
+                                </li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="/seeders/manual-seeder">
+                                        Ручное заполнение
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Построитель запросов
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="dropdown-item" href="/DB/intro">
+                                        Введение
+                                    </a>
+                                </li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="/DB/records">
+                                        Работа с записями
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="/DB/record-where">
+                                        Выборка записей (where)
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="/DB/record-sort">
+                                        Сортировка записей
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="/DB/insert-update-del">
+                                        insert, update, delete, leftJoin
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Eloquent
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="dropdown-item" href="/eloquent/intro">
+                                        Введение
+                                    </a>
+                                </li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="/DB/records">
+                                        Работа с записями
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="/DB/record-where">
+                                        Выборка записей (where)
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="/DB/record-sort">
+                                        Сортировка записей
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="/DB/insert-update-del">
+                                        insert, update, delete, leftJoin
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        {{-- <li class="nav-item">
+                            <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+                        </li> --}}
+                    </ul>
+                    {{-- <form class="d-flex" role="search">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form> --}}
+                </div>
+            </div>
         </nav>
-        <hr />
     </header>
+    <hr />
     {{-- <h3>layout: Общий макет</h3> --}}
     <main>
         {{ $slot }}
     </main>
+    <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
 </body>
 
 </html>

@@ -7,7 +7,7 @@
         INSERT, UPDATE, DELETE в QueryBuilderв Laravel
     </h2>
     <h3>
-        Вставка данных через QueryBuilderв Laravel
+        Вставка данных через QueryBuilder в Laravel
     </h3>
     Для вставки данных используется метод insert. Он принимает параметром массив имен столбцов и значений:
     <pre>
@@ -147,9 +147,44 @@
     А теперь удалим вообще все записи:
     <pre>
 	DB::table('posts')
-		->where('id', '>', 5)
 		->delete();
     </pre>
+    <h4 id="task4">
+        Задачи:
+    </h4>
+    <a href="/DB/insert-update-del-task/9">
+        Удалите юзера с максимальным id
+    </a>
+    <br />
+    <a href="/DB/insert-update-del-task/10">
+        Удалите юзеров с возрастом 30.
+    </a>
+    <br />
+    <a href="/DB/insert-update-del-task/11">
+        Удалите всех юзеров
+    </a>
 
+    <h3>
+        Соединение таблиц в Laravel
+    </h3>
+    С помощью метода leftJoin можно выполнять соединение таблиц. Давайте посмотрим на примерах. Пусть у нас кроме
+    таблицы с постами есть еще и таблица с категориями, которым принадлежат посты.
+    <br />
+    Давайте напишем запрос, который получит посты вместе с их категориями:
+    <pre>
+    $posts = DB::table('posts')
+		->leftJoin('categories', 'category.id', '=', 'posts.category_id')
+	->get();
+
+	dump($posts);
+    </pre>
+    <h4 id="task5">
+        Задачи:
+    </h4>
+    <a href="/DB/insert-update-del-task/12">
+        Сделайте таблицу users и таблицу cities с городами, в которых живут юзеры.
+        С помощью построителя запросов получите список всех юзеров вместе с их городами.
+    </a>
+    <br />
 
 </x-layout>
