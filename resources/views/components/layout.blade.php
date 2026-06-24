@@ -4,59 +4,10 @@
 <head>
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
     <title>{{ isset($title) ? $title : 'Laravel' }}</title>
     <style>
-        table {
-            border-collapse: collapse;
-            font-family: sans-serif;
-            font-size: 16px;
-            text-align: left;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            overflow: hidden;
-        }
 
-        tbody {
-            background-color: #f1f3f5;
-            cursor: pointer;
-        }
-
-        th,
-        td {
-            padding: 12px 15px;
-            border-bottom: 1px solid #dddddd;
-            color: #333333
-        }
-
-        .active {
-            color: green;
-        }
-
-        nav>ul>li {
-            display: inline;
-        }
-
-        body {
-            max-width: 1024px;
-            margin: 0 auto;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        pre,
-        code {
-            background: rgb(245, 245, 245);
-            padding: 10px;
-            border-radius: 10px;
-        }
-
-        li>code {
-            padding: 2px;
-            border-radius: 10px;
-            line-height: 22px;
-        }
     </style>
 </head>
 
