@@ -2,17 +2,19 @@
 <html lang="RU">
 
 <head>
-    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-
+    {{-- <link rel="icon" type="image/x-icon" href="/favicon.ico"> --}}
+    {{-- <link rel="icon" type="image/x-icon" href="{{ url('favicon.ico') }}"> --}}
+    {{-- <link rel="icon" type="image/svg+xml"        href="data:image/svg+xml,<svg xmlns='http://w3.org' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>"> --}}
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48dGV4dCB5PSIuOWVtIiBmb250LXNpemU9IjkwIj7wn rocketsPC90ZXh0Pjwvc3ZnPg==">
     <title>{{ isset($title) ? $title : 'Laravel' }}</title>
-    <style>
 
-    </style>
 </head>
 
-<body class="container">
+<body>
+
+
     <header>
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
@@ -211,16 +213,25 @@
                                     <hr class="dropdown-divider">
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="/eloquent/create-and-use">
-                                        Создание и использование
+                                    <a class="dropdown-item" href="/DB/records">
+                                        Работа с записями
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="/eloquent/get-data">
-                                        Получение данных
+                                    <a class="dropdown-item" href="/DB/record-where">
+                                        Выборка записей (where)
                                     </a>
                                 </li>
-
+                                <li>
+                                    <a class="dropdown-item" href="/DB/record-sort">
+                                        Сортировка записей
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="/DB/insert-update-del">
+                                        insert, update, delete, leftJoin
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                         {{-- <li class="nav-item">
@@ -241,6 +252,7 @@
         {{ $slot }}
     </main>
     <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+
 </body>
 
 </html>

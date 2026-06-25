@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BladeController;
 use App\Http\Controllers\DbController;
+use App\Http\Controllers\EloqumentController;
 use App\Http\Controllers\MigrationController;
 use App\Http\Controllers\SeederController;
 use Illuminate\Support\Facades\Route;
@@ -142,5 +143,14 @@ Route::prefix('eloquent')->group(function () {
     Route::get('/intro/', function () {
         return view('eloquent.intro');
     });
-    // Route::get('/intro-task/{id}', [DbController::class, 'intro'])->whereIn('id', (new DbController)->intro(1, 1));
+
+    Route::get('/create-and-use/', function () {
+        return view('eloquent.create-and-use');
+    });
+    Route::get('/create-and-use-task/{id}', [EloqumentController::class, 'createAndUse'])->whereNumber('id');
+
+    Route::get('/eloquent/get-data/', function () {
+        return view('eloquent.get-data');
+    });
+    Route::get('/get-data-task/{id}', [EloqumentController::class, 'getData'])->whereNumber('id');
 });
