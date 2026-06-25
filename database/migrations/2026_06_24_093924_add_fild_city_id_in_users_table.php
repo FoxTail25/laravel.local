@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             // Добавляем поле user_city в таблицу users
-            $table->string('city');
+            $table->string('city')->nullable();
         });
     }
 
