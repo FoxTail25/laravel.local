@@ -149,8 +149,13 @@ Route::prefix('eloquent')->group(function () {
     });
     Route::get('/create-and-use-task/{id}', [EloqumentController::class, 'createAndUse'])->whereNumber('id');
 
-    Route::get('/eloquent/get-data/', function () {
+    Route::get('/get-data/', function () {
         return view('eloquent.get-data');
     });
     Route::get('/get-data-task/{id}', [EloqumentController::class, 'getData'])->whereNumber('id');
+
+    Route::get('/create-update-del/', function () {
+        return view('eloquent.create-update-del');
+    });
+    Route::get('/create-update-del-task/{id}', [EloqumentController::class, 'createUpdateDel'])->whereNumber('id');
 });

@@ -220,6 +220,11 @@
                                         Получение данных
                                     </a>
                                 </li>
+                                <li>
+                                    <a class="dropdown-item" href="/eloquent/create-update-del">
+                                        Create, update, del
+                                    </a>
+                                </li>
 
                             </ul>
                         </li>
