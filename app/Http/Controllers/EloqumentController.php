@@ -231,6 +231,39 @@ class EloqumentController extends Controller
                     return 'в таблице users нет пользователей';
                 },
             ],
+            '4' => [
+                'text' => 'Удалите юзера с максимальным id.',
+                'data' => function () {
+                    // Получаем ID последнего пользователя.
+                    // Если пользователей нет, запишется null
+                    $id = User::latest('id')->first()?->id;
+
+                    if ($id) {
+
+                        User::destroy($id); // Удалит юзера
+
+                        return (int) $id; // вренёт id удалённого юзера
+                    }
+
+                    return 'в таблице users нет пользователей';
+                },
+            ],
+            '5' => [
+                'text' => 'Удалите юзера с максимальным id.',
+                'data' => function () {
+                    // Получаем ID 3 последних пользователей в виде коллекции [5, 4, 3]
+                    $ids = User::latest('id')->take(3)->pluck('id');
+
+                    if ($ids->isNotEmpty()) {
+                        // Передаем всю коллекцию в destroy()
+                        User::destroy($ids);
+
+                        return $ids; // вренёт id удалённого юзера
+                    }
+
+                    return 'в таблице users нет пользователей';
+                },
+            ],
 
         ];
 

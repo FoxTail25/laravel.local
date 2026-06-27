@@ -89,6 +89,64 @@
         </pre>
         {{ is_int($data) ? "пользователь с id = $data удалён" : $data }}
         <br />
-        <a href="/eloquent/create-update-del#task2/">Назад</a>
+        <a href="/eloquent/create-update-del#task3/">Назад</a>
+    @elseif ($id == 4)
+        <p>
+            {{ $text }}
+        </p>
+        <pre>
+    //Controller code:
+
+    // Получаем ID последнего пользователя.
+    // Если пользователей нет, запишется null
+    $id = User::latest('id')->first()?->id;
+
+    if ($id) {
+
+        User::destroy($id); // Удалит юзера
+
+        return (int) $id; // вренёт id удалённого юзера
+    }
+    return 'в таблице users нет пользоателей';
+
+    //Blade code:
+    &#123;&#123; is_int($data) ? "пользователь с id = $data удалён" : $data }}
+
+    return $totalUsers;
+        </pre>
+        {{ is_int($data) ? "пользователь с id = $data удалён" : $data }}
+        <br />
+        <a href="/eloquent/create-update-del#task4/">Назад</a>
+    @elseif ($id == 5)
+        <p>
+            {{ $text }}
+        </p>
+        <pre>
+    //Controller code:
+
+    // Получаем ID последнего пользователя.
+    // Если пользователей нет, запишется null
+    $id = User::latest('id')->first()?->id;
+
+    // Получаем ID 3 последних пользователей в виде коллекции [5, 4, 3]
+    $ids = User::latest('id')->take(3)->pluck('id');
+
+    if ($ids->isNotEmpty()) {
+        // Передаем всю коллекцию в destroy()
+        User::destroy($ids);
+
+        return $ids; // вренёт id удалённого юзера
+    }
+
+    return 'в таблице users нет пользователей';
+
+    //Blade code:
+    &#123;&#123; is_string($data) ? $data : "Пользователи с ID = " . $data->implode(', ') . " удалены"  }}
+
+    return $totalUsers;
+        </pre>
+        {{ is_string($data) ? $data : 'Пользователи с ID = ' . $data->implode(', ') . ' удалены' }}
+        <br />
+        <a href="/eloquent/create-update-del#task4/">Назад</a>
     @endif
 </x-layout>
