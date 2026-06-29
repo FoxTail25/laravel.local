@@ -135,4 +135,99 @@
     <a href="/eloquent/create-update-del-task/5">
         Удалите юзеров с тремя последними id.
     </a>
+    <h3>
+        Мягкое удаление в моделях Eloquent в Laravel
+    </h3>
+    Кроме обычного удаления Eloquent также может мягко удалять записи. Мягкое удаление означает, что запись на самом
+    деле остаётся в базе данных, но в таблице для записи устанавливается поле deleted_at.
+    <br />
+    Что бы в Ларавель12 включить механизм "мягкого удаления" Необходимо сделать две вещи:
+    <ol>
+        <li>
+            <b>
+                Добавить колонку "мягкого удаления" в миграцию таблицы.
+            </b>
+            <br />
+            (Базе данных нужно поле, куда Laravel будет
+            записывать время удаления.)
+            Если мы только создаём таблицу (через Schema::create):
+            <pre>
+    Schema::create('users', function (Blueprint $table) {
+        $table->id();
+        $table->string('name');
+        // Создает nullable-колонку `deleted_at` с типом TIMESTAMP
+        $table->softDeletes();
+        $table->timestamps();
+    });</pre>
+            Если таблица <b>уже создана</b>, то необходимо создать миграцию (php artisan make:migration
+            add_soft_deletes_to_users_table) для апргейда этой таблицы:
+            <pre>
+public function up(): void
+    {
+        Schema::table('users', function (Blueprint $table) {
+            $table->softDeletes(); // Добавляет deleted_at
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropSoftDeletes(); // Удаляет deleted_at при откате
+        });
+    }</pre>
+            После этого останется только выполнить миграцию командой
+            <pre>php artisan migrate</pre>
+        </li>
+        <li>
+            <b>
+                Подклаем трейт в модели
+            </b>
+            <br />
+            <pre>
+    namespace App\Models;
+
+    use Illuminate\Database\Eloquent\Model;
+    use Illuminate\Database\Eloquent\SoftDeletes; // 1. Импортируем
+
+    class User extends Model
+    {
+        use SoftDeletes; // 2. Подключаем внутри класса
+
+        protected $fillable = ['name', 'email'];
+    }</pre>
+        </li>
+    </ol>
+    <b>Теперь всё готово к использованию механизма "мягкого удаления"!</b>
+    Теперь стандартные методы Laravel автоматически перестроят свою логику:
+    <ul>
+        <li>
+            <b>
+                Обычное удаление:
+            </b>
+            метод $user->delete() больше не сотрет строку, а запишет текущую дату в deleted_at.
+        </li>
+        <li>
+            <b>
+                Обычная выборка:
+            </b>
+            запросы вроде User::all() или User::find() автоматически игнорируют «удаленных» пользователей.
+        </li>
+    </ul>
+    <b>
+        Полезные методы для работы с мягким удалением:
+    </b>
+    <pre>
+    // Получить ВСЕХ пользователей, включая мягко удаленных
+    $allUsers = User::withTrashed()->get();
+
+    // Получить ТОЛЬКО удаленных пользователей
+    $trash = User::onlyTrashed()->get();
+
+    // Восстановить мягко удаленного пользователя (очистит поле deleted_at)
+    $user->restore();
+
+    // Удалить НАВСЕГДА (физически стереть строку из базы данных)
+    $user->forceDelete();
+        </pre>
+
 </x-layout>

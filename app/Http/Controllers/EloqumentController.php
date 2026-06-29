@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\User_r;
 
 class EloqumentController extends Controller
 {
@@ -275,5 +276,45 @@ class EloqumentController extends Controller
         $resultData = $tasks[$id]['data']();
 
         return view('eloquent.create-update-del-task', ['id' => $id, 'text' => $tasks[$id]['text'], 'data' => $resultData]);
+    }
+
+    public function oneToOne(int|string $id)
+    {
+
+        $tasks = [
+            '1' => [
+                'text' => 'Сделайте следующие таблицы:',
+                'data' => fn () => [],
+            ],
+            '2' => [
+                'text' => 'Свяжите эти таблицы отношением hasOne.',
+                'data' => fn () => [],
+            ],
+            '3' => [
+                'text' => 'Напишите сидер для заполнения данных в таблицах user_r и profile. И заполните их.',
+                'data' => fn () => [],
+            ],
+            '4' => [
+                'text' => 'Получите какого-нибудь юзера вместе с его профилем.',
+                'data' => function () {
+                    $user = User_r::find(1, ['id', 'login']);
+                    $profile = $user->profile;
+
+                    return [
+                        'user' => $user,
+                        'profile' => $profile,
+                    ];
+                },
+            ],
+        ];
+
+        // Проверка безопасности: если передали несуществующий ID задачи
+        if (! isset($tasks[$id])) {
+            abort(404, 'Задача не найдена');
+        }
+
+        $resultData = $tasks[$id]['data']();
+
+        return view('relationship.one-to-one-task', ['id' => $id, 'text' => $tasks[$id]['text'], 'data' => $resultData]);
     }
 }

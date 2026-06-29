@@ -158,4 +158,17 @@ Route::prefix('eloquent')->group(function () {
         return view('eloquent.create-update-del');
     });
     Route::get('/create-update-del-task/{id}', [EloqumentController::class, 'createUpdateDel'])->whereNumber('id');
+
+});
+
+Route::prefix('relationship')->group(function () {
+    Route::get('/intro/', function () {
+        return view('relationship.intro');
+    });
+
+    Route::get('/one-to-one/', function () {
+        return view('relationship.one-to-one');
+    });
+    Route::get('/one-to-one-task/{id}', [EloqumentController::class, 'oneToOne'])->whereNumber('id');
+
 });

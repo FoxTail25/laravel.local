@@ -225,6 +225,22 @@
                                         Create, update, del
                                     </a>
                                 </li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="/relationship/intro">
+                                        Связи введение
+                                    </a>
+                                </li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="/relationship/one-to-one">
+                                        Связь одни к одному
+                                    </a>
+                                </li>
 
                             </ul>
                         </li>
