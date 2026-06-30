@@ -238,7 +238,12 @@
                                 </li>
                                 <li>
                                     <a class="dropdown-item" href="/relationship/one-to-one">
-                                        Связь одни к одному
+                                        Связь один к одному
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="/relationship/one-to-many">
+                                        Связь один ко многим
                                     </a>
                                 </li>
 

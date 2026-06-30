@@ -93,18 +93,18 @@
     </h4>
     <a href="/relationship/one-to-one-task/1">
         Сделайте следующие таблицы:
+        <h5>
+            users_r
+        </h5>
         <ul>
-            <h5>
-                users_r
-            </h5>
             <li>id</li>
             <li>login</li>
             <li>password</li>
         </ul>
+        <h5>
+            profile
+        </h5>
         <ul>
-            <h5>
-                profile
-            </h5>
             <li>id</li>
             <li>name</li>
             <li>surname</li>
@@ -170,6 +170,113 @@
         Задачи:
     </h4>
     <a href="/relationship/one-to-one-task/4">
-        Получите какого-нибудь юзера вместе с его профилем.
+        Получите какого-нибудь юзера вместе с его профилем. Отправьте полученного юзера в представление и выведите его
+        данные в таблице.
     </a>
+    <h3>
+        Перебор записей со связью один к одному в Laravel
+    </h3>
+    Давайте теперь получим не один пост, а несколько, и перебем их циклом:
+    <pre>
+	class PostController extends Controller
+	{
+		public function show()
+		{
+			$posts = Post::all();
+
+			foreach ($posts as $post) {
+				dump($post->title);
+			}
+		}
+	}</pre>
+    При переборе для каждого поста также будет доступно свойство thumbnail, содержащее миниатюру:
+    <pre>
+	class PostController extends Controller
+	{
+		public function show()
+		{
+			$posts = Post::all();
+
+			foreach ($posts as $post) {
+				dump($post->thumbnail);
+			}
+		}
+	}</pre>
+    Давайте выведем какие-нибудь данные нашей миниатюры:
+    <pre>
+    class PostController extends Controller
+	{
+		public function show()
+		{
+			$posts = Post::all();
+
+			foreach ($posts as $post) {
+				dump($post->thumbnail->path);
+				dump($post->thumbnail->alt);
+			}
+		}
+	}</pre>
+    <h4 id="task3">
+        Задачи:
+    </h4>
+    <a href="/relationship/one-to-one-task/5">
+        Получите всех пользователей вместе с их профилями, передайте их в представление и выведите на экран в виде HTML
+        таблицы.
+    </a>
+    <h3>
+        Обратная связь один к одному в Laravel
+    </h3>
+    В предыдущих уроках у нас была связь один к одному между постом и миниатюрой. Такая связь может трактоваться двояко:
+    каждый пост имеет свою миниатюру или каждая миниатюра принадлежит посту.
+    <br />
+    Разница между имеет и принадлежит проявляется в том, в какой таблице находится поле связи. В нашем случае поле связи
+    - post_id, и находится оно таблице с миниатюрами.
+    <br />
+    Это значит, что пост имеет миниатюру. Но и миниатюра в свою очередь принадлежит посту. На практике это означает, что
+    можно получить миниатюру вместе с ее постом. Для этого нужно связать модель миниатюр с моделью постов через
+    отношение belongsTo. Давайте сделаем это:
+    <pre>
+	class Thumbnail extends Model
+	{
+		public function post()
+		{
+			return $this->belongsTo(Post::class);
+		}
+	}</pre>
+    После этого при получении миниатюры можно будет получить ее пост:
+    <pre>
+	class ThumbnailController extends Controller
+	{
+		public function show()
+		{
+			$thumbnail = Thumbnail::find(1);
+			dump($thumbnail);
+			dump($thumbnail->post);
+		}
+	}</pre>
+    авайте получим какое-нибудь поле связанного поста:
+    <pre>
+	class ThumbnailController extends Controller
+	{
+		public function show()
+		{
+			$thumbnail = Thumbnail::find(1);
+			dump($thumbnail->post->title);
+		}
+	}</pre>
+    <h4 id="task4">
+        Задачи:
+    </h4>
+    <a href="/relationship/one-to-one-task/6">
+        Свяжите таблицы с юзерами и профилями отношением belongsTo.
+    </a>
+    <br />
+    <a href="/relationship/one-to-one-task/7">
+        Получите профиль вместе с его юзером.
+    </a>
+    <br />
+    <a href="/relationship/one-to-one-task/8">
+        Получите все профили вместе с их юзерами. Выведите их в представлении в виде HTML таблицы.
+    </a>
+
 </x-layout>

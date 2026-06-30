@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Profile;
 use App\Models\User;
 use App\Models\User_r;
 
@@ -298,12 +299,87 @@ class EloqumentController extends Controller
                 'text' => 'Получите какого-нибудь юзера вместе с его профилем.',
                 'data' => function () {
                     $user = User_r::find(1, ['id', 'login']);
-                    $profile = $user->profile;
+                    if ($user) {
+
+                        $profile = ($user->profile)->only(['name', 'surname', 'email']);
+                        $user = $user->only(['id', 'login']);
+                        $mergedUser = array_merge($user, $profile);
+
+                        return ['users' => [$mergedUser], 'fields' => array_keys($mergedUser)];
+                    } else {
+                        return 'По такому запросу пользователей нет';
+                    }
+                },
+            ],
+            '5' => [
+                'text' => 'Получите всех пользователей вместе с их профилями, передайте их в представление и выведите на экран в виде HTML таблицы.',
+                'data' => function () {
+                    // 1. Загружаем пользователей и нужные поля профиля
+                    $users = User_r::with('profile:user_id,name,surname,email')->get(['id', 'login']);
+                    // Если пользователей вообще нет в базе — возвращаем пустую структуру
+                    if ($users->isEmpty()) {
+                        return ['users' => [], 'fields' => []];
+                    }
+                    // 2. Преобразуем каждого пользователя в плоский массив
+                    $usersArray = $users->map(function ($user) {
+                        return [
+                            'id' => $user->id,
+                            'login' => $user->login,
+                            'name' => $user->profile?->name,
+                            'surname' => $user->profile?->surname,
+                            'email' => $user->profile?->email,
+                        ];
+                    })->toArray();
+                    // 3. Динамически берем ключи (поля) из первого найденного пользователя
+                    $fields = array_keys($usersArray[0]);
 
                     return [
-                        'user' => $user,
-                        'profile' => $profile,
+                        'users' => $usersArray,
+                        'fields' => $fields,
                     ];
+                },
+            ],
+            '6' => [
+                'text' => 'Свяжите таблицы с юзерами и профилями отношением belongsTo.',
+                'data' => function () {
+                    return [];
+                },
+            ],
+            '7' => [
+                'text' => 'Получите профиль вместе с его юзером.',
+                'data' => function () {
+                    $profile = Profile::find(1);
+                    $user = $profile->user_r;
+
+                    $profile = $profile->only(['name', 'surname', 'email']);
+                    $user = $user->only(['login']);
+                    $mergedUser = array_merge($profile, $user);
+
+                    return ['users' => [$mergedUser], 'fields' => array_keys($mergedUser)];
+                },
+            ],
+            '8' => [
+                'text' => 'Получите все профили вместе с их юзерами. Выведите их в представлении в виде HTML таблицы.',
+                'data' => function () {
+                    // 1. Загружаем пользователей и нужные поля профиля
+                    $profilesCollection = Profile::with('user_r:id,login')->get(['user_id', 'name', 'surname', 'email']);
+                    // 2. Если пользователей нет, то вернётся пустой массив.
+                    if ($profilesCollection->isEmpty()) {
+                        return ['users' => [], 'fields' => []];
+                    }
+                    // 3. Преобразуем коллекцию
+                    $usersArray = $profilesCollection->map(function ($profile) {
+                        return [
+                            'login' => $profile->user_r?->login,
+                            'name' => $profile->name,
+                            'surname' => $profile->surname,
+                            'email' => $profile->email,
+                        ];
+                    })->toArray();
+                    // 4. Динамически берем ключи (поля) из первого найденного пользователя
+                    $fields = array_keys($usersArray[0]);
+
+                    return ['users' => $usersArray, 'fields' => $fields];
                 },
             ],
         ];
@@ -316,5 +392,29 @@ class EloqumentController extends Controller
         $resultData = $tasks[$id]['data']();
 
         return view('relationship.one-to-one-task', ['id' => $id, 'text' => $tasks[$id]['text'], 'data' => $resultData]);
+    }
+
+    public function oneToMany(int|string $id)
+    {
+
+        $tasks = [
+            '1' => [
+                'text' => 'Сделайте следующие таблицы:',
+                'data' => fn () => [],
+            ],
+            '2' => [
+                'text' => 'Свяжите таблицу countries с таблицей cities отношением hasMany.',
+                'data' => fn () => [],
+            ],
+        ];
+
+        // Проверка безопасности: если передали несуществующий ID задачи
+        if (! isset($tasks[$id])) {
+            abort(404, 'Задача не найдена');
+        }
+
+        $resultData = $tasks[$id]['data']();
+
+        return view('relationship.one-to-many-task', ['id' => $id, 'text' => $tasks[$id]['text'], 'data' => $resultData]);
     }
 }

@@ -7,18 +7,18 @@
         <p>
             {{ $text }}
         </p>
+        <h5>
+            users_r
+        </h5>
         <ul>
-            <h5>
-                users_r
-            </h5>
             <li>id</li>
             <li>login</li>
             <li>password</li>
         </ul>
+        <h5>
+            profile
+        </h5>
         <ul>
-            <h5>
-                profile
-            </h5>
             <li>id</li>
             <li>name</li>
             <li>surname</li>
@@ -126,9 +126,268 @@ class UserWithProfileSeeder extends Seeder
         <p>
             {{ $text }}
         </p>
-        {{ dump($data['user']) }}
-        {{ dump($data['profile']) }}
+        <pre>
+        //Controller code:
+        $user = User_r::find(1, ['id', 'login']);
+        if ($user) {
+
+            $profile = ($user->profile)->only(['name', 'surname', 'email']);
+            $user = $user->only(['id', 'login']);
+            $mergedUser = array_merge($user, $profile);
+
+            return ['users' => [$mergedUser], 'fields' => array_keys($mergedUser)];
+        } else {
+            return 'По такому запросу пользователей нет';
+        }
+
+        //Blade code:
+        &#64;if (is_string($data))
+            &#123;&#123; $data }}
+        &#64;else
+            &lt;table>
+                &lt;tr>
+                    &#64;foreach ($data['fields'] as $field)
+                        &lt;th>
+                            &#123;&#123; $field }}
+                        &lt;/th>
+                    &#64;endforeach
+                &lt;/tr>
+                &#64;foreach ($data['users'] as $user)
+                    &lt;tr>
+                        &#64;foreach ($data['fields'] as $field)
+                            &lt;td>
+                                &#123;&#123; $user[$field] }}
+                            &lt;/td>
+                        &#64;endforeach
+                    &lt;/tr>
+                &#64;endforeach
+            &lt;/table>
+        &#64;endif
+
+        &lt;a href="/relationship/one-to-one#task2">Назад&lt;/a>
+        </pre>
+        <div class="text-danger">
+            Сразу хочется заметить что представленный выше код,
+            далёк от оптимального. т.к. в нём отсутствуюет
+            "жадная загрузка" (защита от N+1). И защита от
+            отсутствия данных. Как это правильно реализовать
+            будет рассмотрено в дальнейших уроках.
+        </div>
+
+        @if (is_string($data))
+            {{ $data }}
+        @else
+            <table>
+                <tr>
+                    @foreach ($data['fields'] as $field)
+                        <th>
+                            {{ $field }}
+                        </th>
+                    @endforeach
+                </tr>
+                @foreach ($data['users'] as $user)
+                    <tr>
+                        @foreach ($data['fields'] as $field)
+                            <td>
+                                {{ $user[$field] }}
+                            </td>
+                        @endforeach
+                    </tr>
+                @endforeach
+            </table>
+        @endif
 
         <a href="/relationship/one-to-one#task2">Назад</a>
+    @elseif($id == 5)
+        <p>
+            {{ $text }}
+        </p>
+        <pre>
+        //Controller code:
+        // 1. Загружаем пользователей и нужные поля профиля
+        $users = User_r::with('profile:user_id,name,surname,email')->get(['id', 'login']);
+        // Если пользователей вообще нет в базе — возвращаем пустую структуру
+        if ($users->isEmpty()) {
+            return ['users' => [], 'fields' => []];
+        }
+        // 2. Преобразуем каждого пользователя в плоский массив
+        $usersArray = $users->map(function ($user) {
+            return [
+                'id' => $user->id,
+                'login' => $user->login,
+                'name' => $user->profile?->name,
+                'surname' => $user->profile?->surname,
+                'email' => $user->profile?->email,
+            ];
+        })->toArray();
+        // 3. Динамически берем ключи (поля) из первого найденного пользователя
+        $fields = array_keys($usersArray[0]);
+
+        return [
+            'users' => $usersArray,
+            'fields' => $fields,
+        ];
+
+        //Blade code:
+        &#64;if (empty($data['users']))
+            По такому запросу пользователей нет
+        &#64;else
+            &lt;table>
+                &lt;tr>
+                    &#64;foreach ($data['fields'] as $field)
+                        &lt;th>
+                            &#123;&#123; $field }}
+                        &lt;/th>
+                    &#64;endforeach
+                &lt;/tr>
+                &#64;foreach ($data['users'] as $user)
+                    &lt;tr>
+                        &#64;foreach ($data['fields'] as $field)
+                            &lt;td>
+                                &#123;&#123; $user[$field] ?? '' }}
+                            &lt;/td>
+                        &#64;endforeach
+                    &lt;/tr>
+                &#64;endforeach
+            &lt;/table>
+        &#64;endif
+
+        &lt;a href="/relationship/one-to-one#task2">Назад&lt;/a>
+        </pre>
+        @if (empty($data['users']))
+            По такому запросу пользователей нет
+        @else
+            <table>
+                <tr>
+                    @foreach ($data['fields'] as $field)
+                        <th>{{ $field }}</th>
+                    @endforeach
+                </tr>
+                @foreach ($data['users'] as $user)
+                    <tr>
+                        @foreach ($data['fields'] as $field)
+                            <td>{{ $user[$field] ?? '' }}</td>
+                        @endforeach
+                    </tr>
+                @endforeach
+            </table>
+        @endif
+
+        <a href="/relationship/one-to-one#task3">Назад</a>
+    @elseif($id == 6)
+        <p>
+            {{ $text }}
+        </p>
+        <pre>
+        //model code:
+        namespace App\Models;
+
+        use Illuminate\Database\Eloquent\Model;
+
+        class Profile extends Model
+        {
+            public function user_r()
+            {
+                return $this->belongsTo(User_r::class);
+            }
+        }</pre>
+        <a href="/relationship/one-to-one#task4">Назад</a>
+    @elseif($id == 7)
+        <p>
+            {{ $text }}
+        </p>
+        <pre>
+        </pre>
+        @if (empty($data['users']))
+            По такому запросу пользователей нет
+        @else
+            <table>
+                <tr>
+                    @foreach ($data['fields'] as $field)
+                        <th>{{ $field }}</th>
+                    @endforeach
+                </tr>
+                @foreach ($data['users'] as $user)
+                    <tr>
+                        @foreach ($data['fields'] as $field)
+                            <td>{{ $user[$field] ?? '' }}</td>
+                        @endforeach
+                    </tr>
+                @endforeach
+            </table>
+        @endif
+        <a href="/relationship/one-to-one#task4">Назад</a>
+    @elseif($id == 8)
+        <p>
+            {{ $text }}
+        </p>
+        <pre>
+        // Controller code:
+        // 1. Загружаем пользователей и нужные поля профиля
+        $profilesCollection = Profile::with('user_r:id,login')->get(['user_id', 'name', 'surname', 'email']);
+        // 2. Если пользователей нет, то вернётся пустой массив.
+        if ($profilesCollection->isEmpty()) {
+            return ['users' => [], 'fields' => []];
+        }
+        // 3. Преобразуем коллекцию
+        $usersArray = $profilesCollection->map(function ($profile) {
+            return [
+                'login' => $profile->user_r?->login,
+                'name' => $profile->name,
+                'surname' => $profile->surname,
+                'email' => $profile->email,
+            ];
+        })->toArray();
+        // 4. Динамически берем ключи (поля) из первого найденного пользователя
+        $fields = array_keys($usersArray[0]);
+
+        return ['users' => $usersArray, 'fields' => $fields];
+
+
+        //Blade code:
+        &#64;if (empty($data['users']))
+            По такому запросу пользователей нет
+        &#64;else
+            &lt;table>
+                &lt;tr>
+                    &#64;foreach ($data['fields'] as $field)
+                        &lt;th>
+                            &#123;&#123; $field }}
+                        &lt;/th>
+                    &#64;endforeach
+                &lt;/tr>
+                &#64;foreach ($data['users'] as $user)
+                    &lt;tr>
+                        &#64;foreach ($data['fields'] as $field)
+                            &lt;td>
+                                &#123;&#123; $user[$field] ?? '' }}
+                            &lt;/td>
+                        &#64;endforeach
+                    &lt;/tr>
+                &#64;endforeach
+            &lt;/table>
+        &#64;endif
+
+        &lt;a href="/relationship/one-to-one#task2">Назад&lt;/a>
+        </pre>
+        @if (empty($data['users']))
+            По такому запросу пользователей нет
+        @else
+            <table>
+                <tr>
+                    @foreach ($data['fields'] as $field)
+                        <th>{{ $field }}</th>
+                    @endforeach
+                </tr>
+                @foreach ($data['users'] as $user)
+                    <tr>
+                        @foreach ($data['fields'] as $field)
+                            <td>{{ $user[$field] ?? '' }}</td>
+                        @endforeach
+                    </tr>
+                @endforeach
+            </table>
+        @endif
+        <a href="/relationship/one-to-one#task4">Назад</a>
     @endif
 </x-layout>
