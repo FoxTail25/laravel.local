@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Country;
 use App\Models\Profile;
 use App\Models\User;
 use App\Models\User_r;
@@ -405,6 +406,45 @@ class EloqumentController extends Controller
             '2' => [
                 'text' => 'Свяжите таблицу countries с таблицей cities отношением hasMany.',
                 'data' => fn () => [],
+            ],
+            '3' => [
+                'text' => 'Для таблиц, созданных в предыдущем уроке получите все страны вместе с их городами.',
+                'data' => function () {
+                    $countries = Country::all();
+
+                    return $countries;
+                },
+            ],
+            '4' => [
+                'text' => 'Добавьте поле population в таблицу cities и заполните рандомным числом от 80 000 до 120 000',
+                'data' => function () {
+                    $countries = Country::all();
+
+                    return $countries;
+                },
+            ],
+            '5' => [
+                'text' => 'Получите все страны вместе с их городами, население в которых больше 100 тысяч.',
+                'data' => function () {
+                    // 1. Получаем все страны
+                    $countries = Country::all();
+                    $result = [];
+
+                    // 2. Перебираем каждую страну в цикле
+                    foreach ($countries as $country) {
+
+                        $largeCities = $country->cities()
+                            ->select('name', 'population')
+                            ->where('population', '>', 100000)
+                            ->get();
+                        // 3. Если в стране есть города > 100000
+                        if ($largeCities->isNotEmpty()) {
+                            $result[$country->name] = $largeCities->toArray();
+                        }
+                    }
+
+                    return $result;
+                },
             ],
         ];
 

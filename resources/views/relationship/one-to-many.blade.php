@@ -83,4 +83,127 @@
     <a href="/relationship/one-to-many-task/2">
         Свяжите таблицу countries с таблицей cities отношением hasMany.
     </a>
+    <h3>
+        Получение данных связь один ко многим в Laravel
+    </h3>
+    В предыдущем уроке мы связали категории и их посты отношением hasMany. Давайте теперь в контроллере получим
+    какую-нибудь категорию:
+    <pre>
+	class CategoryController extends Controller
+	{
+		public function show()
+		{
+			$category = Category::find(1);
+			dump($category);
+		}
+	}</pre>
+    Вместе с категорией мы автоматически получим коллекцию постов:
+    <pre>
+	class CategoryController extends Controller
+	{
+		public function show()
+		{
+			$category = Category::find(1);
+			dump($category->posts); // коллекция постов
+		}
+	}</pre>
+    Давайте переберем коллекцию с постами через цикл:
+    <pre>
+	class CategoryController extends Controller
+	{
+		public function show()
+		{
+			$category = Category::find(1);
+
+			foreach ($category->posts as $post) {
+				dump($post->title);
+			}
+		}
+	}</pre>
+    Давайте теперь получим коллекцию категорий. Переберем ее циклом, для каждой категории получим коллекцию постов и
+    также переберем ее циклом:
+    <pre>
+	class CategoryController extends Controller
+	{
+		public function show()
+		{
+			$categories = Category::all();
+
+			foreach ($categories as $category) {
+				dump($category->name);
+
+				foreach ($category->posts as $post) {
+					dump($post->title);
+				}
+			}
+		}
+	}
+    </pre>
+    <h4 id="task2">
+        Задачи:
+    </h4>
+    <a href="/relationship/one-to-many-task/3">
+        Для таблиц, созданных в предыдущем уроке получите все страны вместе с их городами.
+    </a>
+    <h3>
+        Условия в связи один ко многим в Laravel
+    </h3>
+    Можно добавлять дополнительные условия при получении связанных данных. Давайте посмотрим, как это делается. Пусть у
+    нашей таблицы с постами будет также и поле likes, содержащее количество лайков:
+    <h4>
+        posts
+    </h4>
+    <ul>
+        <li>id</li>
+        <li>title</li>
+        <li>likes</li>
+        <li>category_id</li>
+    </ul>
+    Давайте для начала получим категорию вместе с коллекцией ее постов:
+    <pre>
+	class CategoryController extends Controller
+	{
+		public function show()
+		{
+			$posts = Category::find(1)->posts;
+			dump($posts);
+		}
+	}
+    Теперь заменим свойство posts на метод posts(). В этом случае метод своим результатом вернет построитель запросов (Query Builder):
+    class CategoryController extends Controller
+	{
+		public function show()
+		{
+			$qb = Category::find(1)->posts();
+			dump($qb);
+		}
+	}
+    </pre>
+    Так как возвращается построитель запросов, то мы можем дальше продолжить цепочку, к примеру, наложив некоторое
+    условие на получаемые посты:
+    <pre>
+	class CategoryController extends Controller
+	{
+		public function show()
+		{
+			$posts = Category::find(1)
+				->posts()
+				->where('likes', '>', 10)
+				->get();
+
+			dump($posts);
+		}
+	}
+    </pre>
+    <h4 id="task3">
+        Задачи:
+    </h4>
+    <a href="/relationship/one-to-many-task/4">
+        Добавьте поле population в таблицу cities и заполните рандомным числом от 80 000 до 120 000
+    </a>
+    <br />
+    <a href="/relationship/one-to-many-task/5">
+        Получите все страны вместе с их городами, население в которых больше 100 тысяч.
+    </a>
+
 </x-layout>

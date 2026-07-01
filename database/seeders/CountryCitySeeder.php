@@ -13,10 +13,10 @@ class CountryCitySeeder extends Seeder
     public function run(): void
     {
         // 1. Создаем первую страну
-        $germany = Country::create(['name' => 'Россия']);
+        $russia = Country::create(['name' => 'Россия']);
 
         // Добавляем города для Германии через связь cities()
-        $germany->cities()->createMany([
+        $russia->cities()->createMany([
             ['name' => 'Москва'],
             ['name' => 'Санкт-Петербург'],
             ['name' => 'Казань'],
