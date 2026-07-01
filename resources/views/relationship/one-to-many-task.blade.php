@@ -149,7 +149,7 @@ php artisan make:migration add_field_population_in_cities
     {
         Schema::table('cities', function (Blueprint $table) {
             // Добавляем поле population в таблицу cities
-            $table->string('population')->nullable();
+            $table->integer('population')->nullable();
         });
     }
 
@@ -221,34 +221,85 @@ php artisan db:seed --class=CityPopulationSeeder
     }
 
     return $result;
-// Код очень плохой!!! Он это
+// Код очень плохой!!! Он имеет уязвимость N+1 !!!
+
+
 // Blade code:
-#$64;foreach ($data as $country)
-    &lt;h4> &#123;&#123; $country->name }}&lt;/h4>
+#$64;foreach ($data as $country => $cityArr)
+    &lt;h4> &#123;&#123; $country }}&lt;/h4>
     &lt;ul>
-        #$64;foreach ($country->cities as $city)
+        #$64;foreach ($citiesArr as $city)
             &lt;li>
-                &#123;&#123; $city->name }}
+                &#123;&#123; $city['name'] }}
+                &#123;&#123; $city['population'] }}
             &lt;/li>
         #$64;endforeach
     &lt;/ul>
 #$64;endforeach
-&lt;a href="/relationship/one-to-many#task2">Назад&lt;/a>
-
-        </pre>
-        {{-- @foreach ($data as $country)
-            <h4> {{ $country->name }}</h4>
+&lt;a href="/relationship/one-to-many#task2">Назад&lt;/a></pre>
+        @foreach ($data as $country => $citiesArr)
+            <h4> {{ $country }}</h4>
             <ul>
-                @foreach ($country->cities as $city)
+                @foreach ($citiesArr as $city)
                     <li>
-                        {{ $city->name }}
-                        {{ $city->population }}
+                        {{ $city['name'] }}
+                        {{ $city['population'] }}
                     </li>
                 @endforeach
             </ul>
-        @endforeach --}}
-        {{ var_dump($data) }}
-        <a href="/relationship/one-to-many#task2">Назад</a>
+        @endforeach
+        <a href="/relationship/one-to-many#task3">Назад</a>
+    @elseif($id == 6)
+        <p>
+            {{ $text }}
+        </p>
+        <pre>
+
+// Controller code:
+'data' => function () {
+    // 1. Получаем все страны
+    $countries = Country::all();
+    $result = [];
+
+    // 2. Перебираем каждую страну в цикле
+    foreach ($countries as $country) {
+
+        $result[$country->name] = $country->cities()
+            ->select('country_id', 'name', 'population')
+            // 3. Сортируем по полю population
+            ->orderBy('population')
+            ->get();
+    }
+
+    return $result;
+// Код очень плохой!!! Он имеет уязвимость N+1 !!!
+
+
+// Blade code:
+#$64;foreach ($data as $country => $cityArr)
+    &lt;h4> &#123;&#123; $country }}&lt;/h4>
+    &lt;ul>
+        #$64;foreach ($citiesArr as $city)
+            &lt;li>
+                &#123;&#123; $city['name'] }}
+                &#123;&#123; $city['population'] }}
+            &lt;/li>
+        #$64;endforeach
+    &lt;/ul>
+#$64;endforeach
+&lt;a href="/relationship/one-to-many#task2">Назад&lt;/a></pre>
+        @foreach ($data as $country => $citiesArr)
+            <h4> {{ $country }}</h4>
+            <ul>
+                @foreach ($citiesArr as $city)
+                    <li>
+                        {{ $city['name'] }}
+                        {{ $city['population'] }}
+                    </li>
+                @endforeach
+            </ul>
+        @endforeach
+        <a href="/relationship/one-to-many#task3">Назад</a>
     @endif
 
 

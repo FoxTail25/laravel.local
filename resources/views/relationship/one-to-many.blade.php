@@ -168,8 +168,10 @@
 			$posts = Category::find(1)->posts;
 			dump($posts);
 		}
-	}
-    Теперь заменим свойство posts на метод posts(). В этом случае метод своим результатом вернет построитель запросов (Query Builder):
+	}</pre>
+    Теперь заменим свойство posts на метод posts(). В этом случае метод своим результатом вернет построитель запросов
+    (Query Builder):
+    <pre>
     class CategoryController extends Controller
 	{
 		public function show()
@@ -177,8 +179,7 @@
 			$qb = Category::find(1)->posts();
 			dump($qb);
 		}
-	}
-    </pre>
+	}</pre>
     Так как возвращается построитель запросов, то мы можем дальше продолжить цепочку, к примеру, наложив некоторое
     условие на получаемые посты:
     <pre>
@@ -193,8 +194,7 @@
 
 			dump($posts);
 		}
-	}
-    </pre>
+	}</pre>
     <h4 id="task3">
         Задачи:
     </h4>
@@ -205,5 +205,51 @@
     <a href="/relationship/one-to-many-task/5">
         Получите все страны вместе с их городами, население в которых больше 100 тысяч.
     </a>
+    <br />
+    <a href="/relationship/one-to-many-task/6">
+        Получите все страны вместе с их городами. Города каждой страны отсортируйте по возрастанию населения.
+    </a>
+    <h3>
+        Обратная связь один ко многим в Laravel
+    </h3>
+    Пусть у нас опять есть таблица с категориями и таблица с постами. В предыдущих уроках мы говорили, что каждая
+    категория имеет много постов. Но это зависит от точки зрения.
+    <br />
+    Если посмотреть со стороны поста, то каждый пост принадлежит одной категории. Это значит, что пост можно связать с
+    категорией отношением belongsTo. Давайте сделаем это:
+    <pre>
+	class Post extends Model
+	{
+		public function category()
+		{
+			return $this->belongsTo(Category::class);
+		}
+	}</pre>
+    Получим теперь пост вместе с его категорией:
+    <pre>
+	class PostController extends Controller
+	{
+		public function show()
+		{
+			$post = Post::find(1);
+			dump($post);
+			dump($post->category);
+		}
+	}
+    </pre>
+    Получим все посты, переберем их циклом и выведем их вместе с их категориями:
+    <pre>
+	class PostController extends Controller
+	{
+		public function show()
+		{
+			$posts = Post::all();
 
+			foreach ($posts as $post) {
+				dump($post);
+				dump($post->category);
+			}
+		}
+	}
+    </pre>
 </x-layout>

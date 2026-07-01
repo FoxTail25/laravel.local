@@ -439,8 +439,28 @@ class EloqumentController extends Controller
                             ->get();
                         // 3. Если в стране есть города > 100000
                         if ($largeCities->isNotEmpty()) {
-                            $result[$country->name] = $largeCities->toArray();
+                            $result[$country->name] = $largeCities;
                         }
+                    }
+
+                    return $result;
+                },
+            ],
+            '6' => [
+                'text' => 'Получите все страны вместе с их городами, население в которых больше 100 тысяч.',
+                'data' => function () {
+                    // 1. Получаем все страны
+                    $countries = Country::all();
+                    $result = [];
+
+                    // 2. Перебираем каждую страну в цикле
+                    foreach ($countries as $country) {
+
+                        $result[$country->name] = $country->cities()
+                            ->select('country_id', 'name', 'population')
+                            // 3. Сортируем по полю population
+                            ->orderBy('population')
+                            ->get();
                     }
 
                     return $result;
