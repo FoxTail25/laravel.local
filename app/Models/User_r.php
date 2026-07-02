@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class User_r extends Model
 {
-    // Принудительно связываем модель с вашей конкретной таблицей
+    // Принудительно связываем модель с нашей конкретной таблицей
     protected $table = 'users_r';
 
     public function profile()

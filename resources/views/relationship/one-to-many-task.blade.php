@@ -300,6 +300,234 @@ php artisan db:seed --class=CityPopulationSeeder
             </ul>
         @endforeach
         <a href="/relationship/one-to-many#task3">Назад</a>
+    @elseif($id == 7)
+        <p>
+            {{ $text }}
+        </p>
+        <pre>
+// class City code:
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class City extends Model
+{
+    public function category()
+    {
+        return $this->belongsTo(Country::class);
+    }
+}</pre>
+        <a href="/relationship/one-to-many#task4">Назад</a>
+    @elseif($id == 8)
+        <p>
+            {{ $text }}
+        </p>
+        <pre>
+// Controller code:
+// 1. Узнаём количество записей в таблице cities
+$count = City::count();
+// 2. Получаем один рандомный город
+$city = $count > 0 ? City::skip(rand(0, $count - 1))->first() : null;
+
+return $city;
+
+// Blade code:
+Город: &#123;&#123; $data->name }}
+Страна: &#123;&#123; $data->country->name }}
+</pre>
+        Город: {{ $data->name }}
+        Страна: {{ $data->country->name }}
+        <br />
+        <a href="/relationship/one-to-many#task4">Назад</a>
+    @elseif($id == 9)
+        <p>
+            {{ $text }}
+        </p>
+        <pre>
+// Controller code:
+// 1. Получаем все города
+$cities = City::All();
+
+return $cities;
+
+// Blade code:
+&#64;foreach ($data as $city)
+    Город: &#123;&#123; $data->name }}
+    Страна: &#123;&#123; $data->country->name }}
+&lt;br />
+&#64;endforeach
+</pre>
+        @foreach ($data as $city)
+            Город: {{ $city->name }}
+            Страна: {{ $city->country->name }}
+            <br />
+        @endforeach
+        <br />
+        <a href="/relationship/one-to-many#task4">Назад</a>
+    @elseif($id == 10)
+        <p>
+            {{ $text }}
+        </p>
+        <pre>
+// Controller code:
+// 1. Получаем все города, где население больше 100 000
+$cities = City::where('population', '>', 100000)->get();
+
+return $cities;
+
+// Blade code:
+&#64;foreach ($data as $city)
+    Город: &#123;&#123; $data->name }}
+    Население: &#123;&#123; $data->population }}
+    Страна: &#123;&#123; $data->country->name }}
+&lt;br />
+&#64;endforeach
+
+// Снова подчеркну что это очень неоптимизированные решения
+// Отягощённые проблемой N+1 (т.е. очень большое количество обращений к БД)
+// Это решается "жадной загрузкой" и будет рассмотренно позже.
+</pre>
+        @foreach ($data as $city)
+            Город: {{ $city->name }}
+            Население: {{ $city->population }}
+            Страна: {{ $city->country->name }}
+            <br />
+        @endforeach
+        <br />
+        <a href="/relationship/one-to-many#task4">Назад</a>
+    @elseif($id == 11)
+        <p>
+            {{ $text }}
+        </p>
+        <h4>
+            employees
+        </h4>
+        <ul>
+            <li>id</li>
+            <li>name</li>
+            <li>city_id</li>
+            <li>position_id</li>
+        </ul>
+        <h4>
+            positions
+        </h4>
+        <ul>
+            <li>id</li>
+            <li>name</li>
+        </ul>
+        <pre>
+    // 1) создаём миграцию на создание таблицы employees:
+    // php artisan make:migration create_employees
+    // 2) прописываем методы up и down
+    public function up(): void
+    {
+        Schema::create('employees', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->integer('city_id');
+            $table->integer('position_id');
+            $table->timestamps(); // эти поля хоть и не обязательны но лучше их добавить
+        });
+    }
+    public function down(): void
+    {
+        Schema::dropIfExists('employees');
+    }
+    // 3) создаём миграцию на создание таблицы positions:
+    // php artisan make:migration create_positions
+    // 4) прописываем методы up и down
+    public function up(): void
+    {
+        Schema::create('positions', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->timestamps(); // эти поля хоть и не обязательны но лучше их добавить
+        });
+    }
+    public function down(): void
+    {
+        Schema::dropIfExists('positions');
+    }
+    // 5) Запускаем миграции
+    // php artisan migrate
+    // 6) Создаём классы для созданных таблиц:
+    // php artisan make:model Employee
+    // php artisan make:model Position
+    // 7) Создаём Seeder для заплнения созданных таблиц:
+    // php artisan make:seeder EmployeeWithPositionSeeder
+    // 8) Пишем Seeder для заплнения созданных таблиц:
+    namespace Database\Seeders;
+
+    use App\Models\Employee;
+    use App\Models\Position;
+    use Illuminate\Database\Seeder;
+
+    class EmployeeWithPositionSeeder extends Seeder
+    {
+        public function run(): void
+        {
+            // 1. Сначала создаем должности, чтобы у них появились ID 1 и 2
+            // Используем метод insert() или create()
+            Position::query()->create(['name' => 'chief']);
+            Position::query()->create(['name' => 'worker']);
+
+            // 2. Цикл создания сотрудников
+            for ($i = 1; $i <= 10; $i++) {
+                Employee::query()->create([
+                    'name' => 'employee'.$i,
+                    'city_id' => rand(1, 8),
+                    'position_id' => in_array($i, [5, 10]) ? 1 : 2,
+                ]);
+            }
+        }
+    }
+    9) Запускаем "сеятель"
+    php artisan db:seed --class=EmployeeWithPositionSeeder
+
+        </pre>
+        <a href="/relationship/one-to-many#task5">Назад</a>
+    @elseif($id == 12)
+        <p>
+            {{ $text }}
+        </p>
+
+        <pre>
+class Employee extends Model
+{
+    public function city()
+    {
+        return $this->belongsTo(City::class);
+    }
+
+    public function position()
+    {
+        return $this->belongsTo(Position::class);
+    }
+}
+        </pre>
+        <a href="/relationship/one-to-many#task5">Назад</a>
+    @elseif($id == 13)
+        <p>
+            {{ $text }}
+        </p>
+
+        <pre>
+// Controller code:
+// узнаём количество записей в таблице employees:
+$count = Employee::count();
+
+// возвращаем рандомного сотрудника в представелние
+return $count > 0 ? Employee::skip(rand(0, $count - 1))->first() : null;
+
+// Blade code:
+Имя: &#123;&#123; $data->name }}<br />
+Город: &#123;&#123; $data->city->name }}<br />
+Должность: &#123;&#123; $data->position->name }}<br />
+        </pre>
+        Имя: {{ $data->name }}<br />
+        Город: {{ $data->city->name }}<br />
+        Должность: {{ $data->position->name }}<br />
+        <a href="/relationship/one-to-many#task5">Назад</a>
     @endif
 
 

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\City;
 use App\Models\Country;
+use App\Models\Employee;
 use App\Models\Profile;
 use App\Models\User;
 use App\Models\User_r;
@@ -466,6 +468,98 @@ class EloqumentController extends Controller
                     return $result;
                 },
             ],
+            '7' => [
+                'text' => 'Свяжите таблицу cities с таблицей countries отношением belongsTo.',
+                'data' => function () {
+                    // 1. Получаем все страны
+                    $countries = Country::all();
+                    $result = [];
+
+                    // 2. Перебираем каждую страну в цикле
+                    foreach ($countries as $country) {
+
+                        $result[$country->name] = $country->cities()
+                            ->select('country_id', 'name', 'population')
+                            // 3. Сортируем по полю population
+                            ->orderBy('population')
+                            ->get();
+                    }
+
+                    return $result;
+                },
+            ],
+            '8' => [
+                'text' => 'Получите город вместе с его страной.',
+                'data' => function () {
+                    // 1. Узнаём количество записей в таблице cities
+                    $count = City::count();
+                    // 2. Получаем один рандомный город
+                    $city = $count > 0 ? City::skip(rand(0, $count - 1))->first() : null;
+
+                    return $city;
+                },
+            ],
+            '9' => [
+                'text' => 'Получите все города вместе с их странами.',
+                'data' => function () {
+                    // 1. Получаем все города
+                    $cities = City::All();
+
+                    return $cities;
+                },
+            ],
+            '10' => [
+                'text' => 'Получите все города вместе с их странами.',
+                'data' => function () {
+                    // 1. Получаем все города
+                    $cities = City::where('population', '>', 100000)->get();
+
+                    return $cities;
+                },
+            ],
+            '11' => [
+                'text' => 'сделайте (и заполните) следующие таблицы:',
+                'data' => function () {
+                    return [];
+                },
+            ],
+            '12' => [
+                'text' => 'Свяжите "сотрудника" (employee) с его городом и с его должностью отношением belongsTo.',
+                'data' => function () {
+                    return [];
+                },
+            ],
+            '13' => [
+                'text' => 'Получите сотрудника вместе с его городом и должностью.',
+                'data' => function () {
+                    // узнаём количество записей в таблице employees:
+                    $count = Employee::count();
+
+                    // возвращаем рандомного сотрудника в представелние
+                    return $count > 0 ? Employee::skip(rand(0, $count - 1))->first() : null;
+                },
+            ],
+        ];
+
+        // Проверка безопасности: если передали несуществующий ID задачи
+        if (! isset($tasks[$id])) {
+            abort(404, 'Задача не найдена');
+        }
+
+        $resultData = $tasks[$id]['data']();
+
+        return view('relationship.one-to-many-task', ['id' => $id, 'text' => $tasks[$id]['text'], 'data' => $resultData]);
+    }
+
+    public function manyToMany(int|string $id)
+    {
+
+        $tasks = [
+            '1' => [
+                'text' => 'Сделайте следующие таблицы:',
+                'data' => fn () => [],
+            ],
+
         ];
 
         // Проверка безопасности: если передали несуществующий ID задачи

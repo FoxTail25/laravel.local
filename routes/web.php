@@ -176,4 +176,8 @@ Route::prefix('relationship')->group(function () {
     });
     Route::get('/one-to-many-task/{id}', [EloqumentController::class, 'oneToMany'])->whereNumber('id');
 
+    Route::get('/many-to-many/', function () {
+        return view('relationship.many-to-many');
+    });
+    Route::get('/many-to-many-task/{id}', [EloqumentController::class, 'manyToMany'])->whereNumber('id');
 });

@@ -252,4 +252,102 @@
 		}
 	}
     </pre>
+    <h4 id="task4">
+        Задачи:
+    </h4>
+    <a href="/relationship/one-to-many-task/7">
+        Свяжите таблицу cities с таблицей countries отношением belongsTo.
+    </a>
+    <br />
+    <a href="/relationship/one-to-many-task/8">
+        Получите город вместе с его страной.
+    </a>
+    <br />
+    <a href="/relationship/one-to-many-task/9">
+        Получите все города вместе с их странами.
+    </a>
+    <br />
+    <a href="/relationship/one-to-many-task/10">
+        Получите все города с населением больше 100 тысяч вместе с их странами.
+    </a>
+    <h3>
+        Несколько обратных связей один ко многим в Laravel
+    </h3>
+    Может такое быть, что одна таблица имеет несколько связей. Давайте посмотрим, как действовать в таком случае.
+    <br />
+    Пусть у нас есть таблица с постами:
+    <h4>posts</h4>
+    <ul>
+        <li>id</li>
+        <li>title</li>
+    </ul>
+    Таблица с юзерами:
+    <h4>users</h4>
+    <ul>
+        <li>id</li>
+        <li>name</li>
+    </ul>
+    И пусть у нас есть таблица с комментами, в который каждый коммент связан со своим постом и со своим юзером:
+    <h4>comments</h4>
+    <ul>
+        <li>id</li>
+        <li>text</li>
+        <li>post_id</li>
+        <li>user_id</li>
+    </ul>
+    Давайте пропишем эту связь в модели для комментов:
+    <pre>
+	class Comment extends Model
+	{
+		public function post()
+		{
+			return $this->belongsTo(Post::class);
+		}
+		public function user()
+		{
+			return $this->belongsTo(User::class);
+		}
+	}</pre>
+    Теперь при получении коммента мы можем получить его пост и его юзера:
+    <pre>
+	class CommentController extends Controller
+	{
+		public function show()
+		{
+			$comment = Comment::find(1);
+			dump($comment);
+			dump($comment->post);
+			dump($comment->user);
+		}
+	}</pre>
+    <h4 id="task5">
+        Задачи:
+    </h4>
+    <a href="/relationship/one-to-many-task/11">
+        сделайте (и заполните) следующие таблицы:
+        <h4>
+            employees
+        </h4>
+        <ul>
+            <li>id</li>
+            <li>name</li>
+            <li>city_id</li>
+            <li>position_id</li>
+        </ul>
+        <h4>
+            positions
+        </h4>
+        <ul>
+            <li>id</li>
+            <li>name</li>
+        </ul>
+    </a>
+    <br />
+    <a href="/relationship/one-to-many-task/12">
+        Свяжите "сотрудника" (employee) с его городом и с его должностью отношением belongsTo.
+    </a>
+    <br />
+    <a href="/relationship/one-to-many-task/13">
+        Получите сотрудника вместе с его городом и должностью.
+    </a>
 </x-layout>
