@@ -246,6 +246,11 @@
                                         Связь один ко многим
                                     </a>
                                 </li>
+                                <li>
+                                    <a class="dropdown-item" href="/relationship/many-to-many">
+                                        Связь многие ко многим
+                                    </a>
+                                </li>
 
                             </ul>
                         </li>

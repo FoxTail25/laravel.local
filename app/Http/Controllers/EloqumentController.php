@@ -556,7 +556,7 @@ class EloqumentController extends Controller
 
         $tasks = [
             '1' => [
-                'text' => 'Сделайте следующие таблицы:',
+                'text' => 'Таблица employee у нас уже есть. Теперь нам нужно создать таблицу professions и таблицу связи. А так же заполнить их данными.',
                 'data' => fn () => [],
             ],
 
@@ -569,6 +569,6 @@ class EloqumentController extends Controller
 
         $resultData = $tasks[$id]['data']();
 
-        return view('relationship.one-to-many-task', ['id' => $id, 'text' => $tasks[$id]['text'], 'data' => $resultData]);
+        return view('relationship.many-to-many-task', ['id' => $id, 'text' => $tasks[$id]['text'], 'data' => $resultData]);
     }
 }
