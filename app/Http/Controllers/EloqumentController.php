@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\City;
 use App\Models\Country;
 use App\Models\Employee;
+use App\Models\Profession;
 use App\Models\Profile;
 use App\Models\User;
 use App\Models\User_r;
@@ -559,6 +560,20 @@ class EloqumentController extends Controller
                 'text' => 'Таблица employee у нас уже есть. Теперь нам нужно создать таблицу professions и таблицу связи. А так же заполнить их данными.',
                 'data' => fn () => [],
             ],
+            '2' => [
+                'text' => 'Получите всех сотрудников вместе с их профессиями.',
+                'data' => function() {
+                    $employees = Employee::all();
+                    return $employees;
+                },
+            ],
+            '3' => [
+                'text' => 'Получите всех профессии вместе с сотрудниками, которые ими владеют',
+                'data' => function() {
+                    $professions = Profession::all();
+                    return $professions;
+                },
+            ],
 
         ];
 
@@ -570,5 +585,28 @@ class EloqumentController extends Controller
         $resultData = $tasks[$id]['data']();
 
         return view('relationship.many-to-many-task', ['id' => $id, 'text' => $tasks[$id]['text'], 'data' => $resultData]);
+    }
+
+    public function load(int|string $id)
+    {
+
+        $tasks = [
+            '1' => [
+                'text' => 'Выберите несколько задач из предыдущих уроков и переделайте их код на жадную загрузку.',
+                'data' => function(){
+                    $professions = Profession::with(['employees'])->get();
+                    return $professions;
+                },
+            ],
+        ];
+
+        // Проверка безопасности: если передали несуществующий ID задачи
+        if (! isset($tasks[$id])) {
+            abort(404, 'Задача не найдена');
+        }
+
+        $resultData = $tasks[$id]['data']();
+
+        return view('relationship.load-task', ['id' => $id, 'text' => $tasks[$id]['text'], 'data' => $resultData]);
     }
 }

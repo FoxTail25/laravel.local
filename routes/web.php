@@ -180,4 +180,10 @@ Route::prefix('relationship')->group(function () {
         return view('relationship.many-to-many');
     });
     Route::get('/many-to-many-task/{id}', [EloqumentController::class, 'manyToMany'])->whereNumber('id');
+
+    Route::get('/load/', function () {
+        return view('relationship.load');
+    });
+    Route::get('/load-task/{id}', [EloqumentController::class, 'load'])->whereNumber('id');
+
 });

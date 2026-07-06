@@ -15,4 +15,8 @@ class Employee extends Model
     {
         return $this->belongsTo(Position::class);
     }
+
+    public function professions(){
+        return $this->belongsToMany(Profession::class);
+    }
 }

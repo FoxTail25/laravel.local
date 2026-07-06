@@ -251,6 +251,14 @@
                                         Связь многие ко многим
                                     </a>
                                 </li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="/relationship/load">
+                                        Ленивая и жадная загрузки
+                                    </a>
+                                </li>
 
                             </ul>
                         </li>
