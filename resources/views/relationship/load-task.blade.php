@@ -38,5 +38,40 @@
             </ul>
         @endforeach
         <a href="/relationship/load#task1">назад</a>
+    @elseif($id == 2)
+        <p>
+            {{ $text }}
+        </p>
+        У нас сформировался очень похожий пример! Таблица employees, котороя соединена связью "многие к одному" с
+        таблицами cities и positions. А так же
+        связью "многие ко многим" с professions. Попробуем на этом примере решить предложенную задачу:
+        <pre>
+        // Controller code:
+        $employees = Employee::with(['city', 'position', 'professions'])->get();
+        return $employees;
+
+        // Blade code:
+        &#64;foreach ($data as $employee)
+            Сотрудник &#123;&#123; $employee->name }} из города &#123;&#123; $employee->city->name }}
+            &lt;br />
+            Владеет следующими профессиями:
+            &lt;ul>
+                &#64;foreach ($employee->professions as $profession)
+                    &lt;li>&#123;&#123; $profession->name }}&lt;/li>
+                &#64;endforeach
+            &lt;/ul>
+        &#64;endforeach
+        </pre>
+        @foreach ($data as $employee)
+            Сотрудник {{ $employee->name }} из города {{ $employee->city->name }}
+            <br />
+            Владеет следующими профессиями:
+            <ul>
+                @foreach ($employee->professions as $profession)
+                    <li>{{ $profession->name }}</li>
+                @endforeach
+            </ul>
+        @endforeach
+        <a href="/relationship/load#task2">назад</a>
     @endif
 </x-layout>

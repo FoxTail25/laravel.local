@@ -598,6 +598,13 @@ class EloqumentController extends Controller
                     return $professions;
                 },
             ],
+            '2' => [
+                'text' => 'Выберите несколько задач из предыдущих уроков и переделайте их код на жадную загрузку.',
+                'data' => function(){
+                    $employees = Employee::with(['city', 'position', 'professions'])->get();
+                    return $employees;
+                },
+            ],
         ];
 
         // Проверка безопасности: если передали несуществующий ID задачи

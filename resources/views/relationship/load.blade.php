@@ -76,4 +76,114 @@
         Выберите несколько задач из предыдущих уроков и переделайте их код на жадную загрузку.
     </a>
     <br />
+    <h3>
+        Жадная загрузка множественных отношений в Laravel
+    </h3>
+    Пусть у нас есть таблица с комментами, в который каждый коммент связан со своим постом и со своим юзером:
+    <h5>
+        comments
+    </h5>
+    <ul>
+        <li>id</li>
+        <li>text</li>
+        <li>post_id</li>
+        <li>user_id</li>
+    </ul>
+    Пропишем эту связь:
+    <pre>
+	class Comment extends Model
+	{
+		public function post()
+		{
+			return $this->belongsTo(Post::class);
+		}
+
+		public function user()
+		{
+			return $this->belongsTo(User::class);
+		}
+	}</pre>
+    Давайте получим все комменты:
+    <pre>
+	class CommentController extends Controller
+	{
+		public function show()
+		{
+			$comments = Comment::all();
+			dump($comments);
+		}
+	}</pre>
+    Переберем комменты циклом и в цикле для каждого коммента будем получать его пост и его юзера:
+    <pre>
+	class CommentController extends Controller
+	{
+		public function show()
+		{
+			$comments = Comment::all();
+
+			foreach ($comments as $comment) {
+				dump($comment);
+				dump($comment->post);
+				dump($comment->user);
+			}
+		}
+	}</pre>
+    В этом случае в каждой итерации цикла будут выполнятся лишние SQL запросы. Давайте исправим проблему, заранее
+    загрузив данные двух связанных моделей:
+    <pre>
+	class CommentController extends Controller
+	{
+		public function show()
+		{
+			$comments = Comment::with(['post', 'user'])->get();
+
+			foreach ($comments as $comment) {
+				dump($comment);
+				dump($comment->post);
+				dump($comment->user);
+			}
+		}
+	}</pre>
+    <h4 id="task2">
+        Задачи:
+    </h4>
+    <a href="/relationship/load-task/2">
+        Придумайте аналогичную задачу со своими таблицами и реализуйте ее.
+    </a>
+    <h3>
+        Жадная загрузка по умолчанию в Laravel
+    </h3>
+    Иногда требуется постоянная загрузка некоторых отношений при извлечении модели. Для этого нужно определить свойство
+    $with в модели.
+    <br />
+    Для примера давайте сделаем так, чтобы категории всегда загружались вместе со своими постами:
+    <pre>
+	class Category extends Model
+	{
+		protected $with = ['posts'];
+
+		public function posts()
+		{
+			return $this->hasMany(Post::class);
+		}
+	}</pre>
+    Теперь при переборе постов лишнего запроса не будет:
+    <pre>
+	class CategoryController extends Controller
+	{
+		public function show()
+		{
+			$category = Category::find(1);
+
+			foreach ($category->posts as $post) {
+				dump($post); // лишнего запроса не будет
+			}
+		}
+	}</pre>
+    <h3>
+        Документация про связи моделей в Laravel
+    </h3>
+    В предыдущих уроках я рассказал вам основные виды связей моделей и операций с этими связями. Я намеренно опускал
+    часть теории, чтобы не перегружать вас лишней информацией. Подробное описание работы связывания вы найдете в <a
+        href="https://github.com/russsiq/laravel-docs-ru/blob/9.x/docs/eloquent-relationships.md">документации.</a>
 </x-layout>
