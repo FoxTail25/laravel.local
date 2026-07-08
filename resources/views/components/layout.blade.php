@@ -35,14 +35,6 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a class="dropdown-item" href="#">
-                                        Something else here
-                                    </a>
-                                </li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li>
                                     <a class="dropdown-item" href="/blade/variables-attributes">
                                         Вывод переменных в
                                         атрибуты
@@ -260,6 +252,27 @@
                                     </a>
                                 </li>
 
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Формы
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="dropdown-item" href="/form/object-request">
+                                        Объект Request в Laravel
+                                    </a>
+                                </li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="/eloquent/create-and-use">
+                                        Создание и использование
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                         {{-- <li class="nav-item">

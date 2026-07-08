@@ -3,6 +3,7 @@
 use App\Http\Controllers\BladeController;
 use App\Http\Controllers\DbController;
 use App\Http\Controllers\EloqumentController;
+use App\Http\Controllers\FormController;
 use App\Http\Controllers\MigrationController;
 use App\Http\Controllers\SeederController;
 use Illuminate\Support\Facades\Route;
@@ -186,4 +187,11 @@ Route::prefix('relationship')->group(function () {
     });
     Route::get('/load-task/{id}', [EloqumentController::class, 'load'])->whereNumber('id');
 
+});
+
+Route::prefix('form')->group(function () {
+    Route::get('/object-request/', function () {
+        return view('form.object-request');
+    });
+    Route::match(['get', 'post'],'/object-request-task/{id}', [FormController::class, 'objectRequest'])->whereNumber('id');
 });
