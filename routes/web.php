@@ -6,6 +6,7 @@ use App\Http\Controllers\EloqumentController;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\MigrationController;
 use App\Http\Controllers\SeederController;
+use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -194,4 +195,16 @@ Route::prefix('form')->group(function () {
         return view('form.object-request');
     });
     Route::match(['get', 'post'],'/object-request-task/{id}', [FormController::class, 'objectRequest'])->whereNumber('id');
+
+    Route::get('/object-request-method/', function () {
+        return view('form.object-request-method');
+    });
+    Route::get('/object-request-method-task/{id}', [FormController::class, 'objectRequestMethod'])->whereNumber('id');
+});
+
+Route::prefix('pagination')->group(function () {
+    Route::get('/intro/', function () {
+        return view('pagination.intro');
+    });
+Route::get('/users', [TestController::class, 'paginateTest']);
 });

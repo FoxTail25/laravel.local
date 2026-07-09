@@ -253,8 +253,34 @@ class FormController extends Controller {
             {{ $text }}
         </p>
         <pre>
+        // Controller code:
+        'data' => function() use ($request){
+        if ($request->hasAny(['inp1', 'inp2','inp3'])) {
+            // $request->all() возвращает все данные формы в виде массива
+            return $request->all();
+            }
+            return null; // Форма еще не отправлялась
+        },
 
-</pre>
+        // Blade code:
+        &#64;if (!is_null($data))
+            &lt;p>
+                Выводим данные в виде ul
+            &lt;/p>
+            &lt;ul>
+                &#64;foreach ($data as $inputName => $inputValue)
+                    &lt;li>&#123;&#123; $inputName }} = &#123;&#123; $inputValue }}&lt;/li>
+                &#64;endforeach
+            &lt;/ul>
+            &lt;a href="&#123;&#123; url()->current() }}">Ввести данные заново&lt;/a>
+        &#64;endif
+        &lt;div>произвольное количество инпутов))&lt;/div>
+        &lt;form action="&#123;&#123; url()->current() }}" method="GET">
+            &lt;input type="text" name="inp1" required />
+            &lt;input type="text" name="inp2" required />
+            &lt;input type="text" name="inp3" required />
+            &lt;input type="submit">
+        &lt;/form></pre>
 
         @if (!is_null($data))
             <p>
@@ -275,6 +301,138 @@ class FormController extends Controller {
             <input type="submit">
         </form>
         <br />
-        <a href="/form/object-request#task4">назад</a>
+        <a href="/form/object-request#task5">назад</a>
+    @elseif($id == 6)
+        <p>
+            {{ $text }}
+        </p>
+        <pre>
+        // Controller code:
+        'data' => function() use ($request){
+        if ($request->hasAny(['name', 'login'])) {
+            return $request->only('name', 'login');
+            }
+            return null; // Форма еще не отправлялась
+        },
+
+        // Blade code:
+        &#64;if (!is_null($data))
+            &lt;p>
+                Выводим данные в виде ul
+            &lt;/p>
+            &lt;ul>
+                &#64;foreach ($data as $inputName => $inputValue)
+                    &lt;li>&#123;&#123; $inputName }} = &#123;&#123; $inputValue }}&lt;/li>
+                &#64;endforeach
+            &lt;/ul>
+            &lt;a href="&#123;&#123; url()->current() }}">Ввести данные заново&lt;/a>
+        &#64;endif
+        &lt;form action="&#123;&#123; url()->current() }}" method="GET">
+            &lt;input type="text" name="name" required />
+            &lt;input type="text" name="login" required />
+            &lt;input type="text" name="email" required />
+            &lt;input type="text" name="password" required />
+            &lt;input type="submit">
+        &lt;/form></pre>
+
+        @if (!is_null($data))
+            <p>
+                Выводим данные в виде ul
+            </p>
+            <ul>
+                @foreach ($data as $inputName => $inputValue)
+                    <li>{{ $inputName }} = {{ $inputValue }}</li>
+                @endforeach
+            </ul>
+            <a href="{{ url()->current() }}">Ввести данные заново</a>
+        @endif
+        <form action="{{ url()->current() }}" method="GET">
+            <label>
+                Имя:<br />
+                <input type="text" name="name" required />
+            </label><br />
+            <label>
+                Логин:<br />
+                <input type="text" name="login" required />
+            </label><br />
+            <label>
+                Емаил:<br />
+                <input type="text" name="email" required />
+            </label><br />
+            <label>
+                Пароль:<br />
+                <input type="text" name="password" required />
+            </label><br />
+
+            <input type="submit">
+        </form>
+        <br />
+        <a href="/form/object-request#task6">назад</a>
+    @elseif($id == 7)
+        <p>
+            {{ $text }}
+        </p>
+        <pre>
+        // Controller code:
+        'data' => function() use ($request){
+        if ($request->hasAny(['name', 'login'])) {
+            return $request->except('email', 'password');
+            }
+            return null; // Форма еще не отправлялась
+        },
+
+        // Blade code:
+        &#64;if (!is_null($data))
+            &lt;p>
+                Выводим данные в виде ul
+            &lt;/p>
+            &lt;ul>
+                &#64;foreach ($data as $inputName => $inputValue)
+                    &lt;li>&#123;&#123; $inputName }} = &#123;&#123; $inputValue }}&lt;/li>
+                &#64;endforeach
+            &lt;/ul>
+            &lt;a href="&#123;&#123; url()->current() }}">Ввести данные заново&lt;/a>
+        &#64;endif
+        &lt;form action="&#123;&#123; url()->current() }}" method="GET">
+            &lt;input type="text" name="name" required />
+            &lt;input type="text" name="login" required />
+            &lt;input type="text" name="email" required />
+            &lt;input type="text" name="password" required />
+            &lt;input type="submit">
+        &lt;/form></pre>
+
+        @if (!is_null($data))
+            <p>
+                Выводим данные в виде ul
+            </p>
+            <ul>
+                @foreach ($data as $inputName => $inputValue)
+                    <li>{{ $inputName }} = {{ $inputValue }}</li>
+                @endforeach
+            </ul>
+            <a href="{{ url()->current() }}">Ввести данные заново</a>
+        @endif
+        <form action="{{ url()->current() }}" method="GET">
+            <label>
+                Имя:<br />
+                <input type="text" name="name" required />
+            </label><br />
+            <label>
+                Логин:<br />
+                <input type="text" name="login" required />
+            </label><br />
+            <label>
+                Емаил:<br />
+                <input type="text" name="email" required />
+            </label><br />
+            <label>
+                Пароль:<br />
+                <input type="text" name="password" required />
+            </label><br />
+
+            <input type="submit">
+        </form>
+        <br />
+        <a href="/form/object-request#task7">назад</a>
     @endif
 </x-layout>

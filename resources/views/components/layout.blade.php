@@ -269,11 +269,14 @@
                                     <hr class="dropdown-divider">
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="/eloquent/create-and-use">
-                                        Создание и использование
+                                    <a class="dropdown-item" href="/form/object-request-method">
+                                        методы request
                                     </a>
                                 </li>
                             </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/pagination/intro">Пагинация</a>
                         </li>
                         {{-- <li class="nav-item">
                             <a class="nav-link disabled" aria-disabled="true">Disabled</a>
