@@ -5,17 +5,16 @@
     <h2>
         Вывод неэкранированных данных в Blade в Laravel
     </h2>
-    @if($id == 1)
-    <div>
+    @if ($id == 1)
         <p>
             {{ $text }}
         </p>
-        <div>
-            {!! $data !!}
-        </div>
-    </div>
-
+        <pre>
+    // Blade code:
+    &#123;!! $data !!}</pre>
+        {!! $data !!}
     @endif
-    <a href="/blade/unescaped-data-output">Назад</a>
+    <br />
+    <a href="/blade/fundamentals#unescaped-data-output">Назад</a>
 
 </x-layout>

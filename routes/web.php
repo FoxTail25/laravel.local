@@ -17,6 +17,9 @@ Route::get('/', function () {
 });
 Route::prefix('blade')->group(function () {
 
+    Route::get('/fundamentals/', function () {
+        return view('blade.fundamentals');
+    });
     Route::get('/variables-attributes/', function () {
         return view('blade.variables-attributes');
     });
@@ -160,7 +163,6 @@ Route::prefix('eloquent')->group(function () {
         return view('eloquent.create-update-del');
     });
     Route::get('/create-update-del-task/{id}', [EloqumentController::class, 'createUpdateDel'])->whereNumber('id');
-
 });
 
 Route::prefix('relationship')->group(function () {
@@ -187,14 +189,13 @@ Route::prefix('relationship')->group(function () {
         return view('relationship.load');
     });
     Route::get('/load-task/{id}', [EloqumentController::class, 'load'])->whereNumber('id');
-
 });
 
 Route::prefix('form')->group(function () {
     Route::get('/object-request/', function () {
         return view('form.object-request');
     });
-    Route::match(['get', 'post'],'/object-request-task/{id}', [FormController::class, 'objectRequest'])->whereNumber('id');
+    Route::match(['get', 'post'], '/object-request-task/{id}', [FormController::class, 'objectRequest'])->whereNumber('id');
 
     Route::get('/object-request-method/', function () {
         return view('form.object-request-method');
@@ -206,5 +207,5 @@ Route::prefix('pagination')->group(function () {
     Route::get('/intro/', function () {
         return view('pagination.intro');
     });
-Route::get('/users', [TestController::class, 'paginateTest']);
+    Route::get('/users', [TestController::class, 'paginateTest']);
 });

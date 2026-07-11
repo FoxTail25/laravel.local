@@ -8,6 +8,9 @@
             <p>
                 {{ $text }}
             </p>
+            <pre>
+    // blade code:
+    &lt;p class="{{ $data['class'] }}">some text&lt;/p></pre>
             <p class="{{ $data['class'] }}">some text</p>
         </div>
     @elseif($id == 2)
@@ -15,6 +18,11 @@
             <p>
                 {{ $text }}
             </p>
+            <pre>
+    // blade code:
+    &lt;input value="&#123;&#123; $data['var1'] }}" />
+    &lt;input value="&#123;&#123; $data['var2'] }}" />
+    &lt;input value="&#123;&#123; $data['var3'] }}" /></pre>
             <input value="{{ $data['var1'] }}" />
             <input value="{{ $data['var2'] }}" />
             <input value="{{ $data['var3'] }}" />
@@ -24,6 +32,11 @@
             <p>
                 {{ $text }}
             </p>
+            <pre>
+    // blade code:
+    &lt;p style="&#123;&#123; $data['myCssRules'] }}">
+        &#123;&#123; $data['myCssRules'] }}
+    &lt;/p></pre>
             <p style="{{ $data['myCssRules'] }}">
                 {{ $data['myCssRules'] }}
             </p>
@@ -33,9 +46,14 @@
             <p>
                 {{ $text }}
             </p>
+            <pre>
+    // blade code:
+    &lt;a href="&#123;&#123; $data['href'] }}">
+        &#123;&#123; $data['text'] }}
+    &lt;/a></pre>
             <a href="{{ $data['href'] }}">{{ $data['text'] }}</a>
         </div>
     @endif
-    <a href="/blade/variables-attributes">Назад</a>
+    <a href="/blade/fundamentals#variable-attributes">Назад</a>
 
 </x-layout>

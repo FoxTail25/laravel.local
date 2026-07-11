@@ -3,14 +3,16 @@
         blade - выполение произвольного кода
     </x-slot:title>
 
-    @if($id == 1)
-    <div>
+    @if ($id == 1)
         <p>
-            {{$text}}
+            {{ $text }}
         </p>
+        <pre>
+    // Blade code:
+    &#123;&#123; date('d.m.y') }}
+            </pre>
         {{ date('d.m.y') }}
-    </div>
-
     @endif
-    <a href="/blade/arrays">Назад</a>
+    <br />
+    <a href="/blade/fundamentals#arbitrary-code">Назад</a>
 </x-layout>
