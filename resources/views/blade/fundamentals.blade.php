@@ -18,7 +18,7 @@
     &lt;p class="&#123;&#123; $var &#125;&#125;">&lt;/p>
     &lt;p style="&#123;&#123; $var &#125;&#125;">&lt;/p>
     &lt;input value="&#123;&#123; $var &#125;&#125;"></pre>
-    <h5 id="variable-attributes">
+    <h5 id="variable-attributes" class="task_head">
         Задачи:
     </h5>
     <ol>
@@ -56,7 +56,7 @@
     В фигурных скобках Blade можно не только выводить переменные, но и выполнять произвольный PHP код, например,
     вызывать стандартные функции:
     <pre>&#123;&#123; time() &#125;&#125;</pre>
-    <h5 id="arbitrary-code">
+    <h5 id="arbitrary-code" class="task_head">
         Задача:
     </h5>
     <ol>
@@ -83,7 +83,7 @@
     <pre>сумма: &#123;&#123; $arr[0] + $arr[1] &#125;&#125;</pre>
     Можно также найти количество элементов массива с помощью PHP функции count:
     <pre>сумма: &#123;&#123; count($arr) &#125;&#125;</pre>
-    <h5 id="arrays">
+    <h5 id="arrays" class="task_head">
         Задачи:
     </h5>
     <ol>
@@ -108,7 +108,7 @@
     <pre>&#123;&#123; $var ?? 'eee' &#125;&#125;</pre>
     В результате проверки можно выполнять произвольный код:
     <pre>&#123;&#123; $year ?? date('Y') &#125;&#125;</pre>
-    <h5 id="variables-checking">
+    <h5 id="variables-checking" class="task_head">
         Задачи:
     </h5>
     <ol>
@@ -143,7 +143,7 @@
         предотвращения XSS-атак. Если вы не хотите экранировать данные, используйте такой синтаксис:
         <pre>Hello, &#123;!! $name !!&#125;</pre>
     </div>
-    <h5 id="unescaped-data-output">
+    <h5 id="unescaped-data-output" class="task_head">
         Задача:
     </h5>
     <ol>

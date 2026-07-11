@@ -653,4 +653,94 @@ class BladeController extends Controller
             return view('blade.blade-practicum-task', ['id' => $id, 'text' => $task[$id]['text'], 'data' => $task[$id]['data']]);
         }
     }
+    public function components(Request $request, int $id)
+    {
+        $tasks = [
+            '1' => [
+                'text' => $request->text,
+                'data' => function () {
+                    return null;
+                },
+            ],
+            '2' => [
+                'text' => $request->text,
+                'data' => function () {
+                    return null;
+                },
+            ],
+            '3' => [
+                'text' => $request->text,
+                'data' => function () {
+                    return null;
+                },
+            ],
+            '4' => [
+                'text' => $request->text,
+                'data' => function () {
+                    return null;
+                },
+            ],
+            '5' => [
+                'text' => $request->text,
+                'data' => function () {
+                    return null;
+                },
+            ],
+            '6' => [
+                'text' => $request->text,
+                'data' => function () {
+                    return null;
+                },
+            ],
+            '7' => [
+                'text' => $request->text,
+                'data' => function () {
+                    return null;
+                },
+            ],
+            '8' => [
+                'text' => $request->text,
+                'data' => function () {
+                    return null;
+                },
+            ],
+            '9' => [
+                'text' => $request->text,
+                'data' => function () {
+                    return null;
+                },
+            ],
+            '10' => [
+                'text' => $request->text,
+                'data' => function () {
+                    return null;
+                },
+            ],
+            '11' => [
+                'text' => $request->text,
+                'data' => function () {
+                    return null;
+                },
+            ],
+            '12' => [
+                'text' => $request->text,
+                'data' => function () {
+                    return null;
+                },
+            ],
+        ];
+
+        // Проверка безопасности: если передали несуществующий ID задачи
+        if (!isset($tasks[$id])) {
+            abort(404, 'Задача не найдена');
+        }
+
+        $resultData = $tasks[$id]['data']();
+
+        return view('blade.components-task', [
+            'id' => $id,
+            'text' => $tasks[$id]['text'],
+            'data' => $resultData
+        ]);
+    }
 }

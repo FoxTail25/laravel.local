@@ -30,8 +30,11 @@ code {
     padding: 10px;
     border-radius: 10px;
 }
-.task_head{
+.task_head {
     scroll-margin-top:50px
+}
+.advanced_section {
+    background-color: #dfddd7;
 }
 
 /* .red {
