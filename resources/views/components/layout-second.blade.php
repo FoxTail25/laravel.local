@@ -19,7 +19,7 @@
         </div>
     </main>
     {{-- Компонет footer --}}
-    <x-footer />
+    {{-- <x-footer /> --}}
     <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('js/shadowInHeaderMenu.js') }}"></script>
 </body>

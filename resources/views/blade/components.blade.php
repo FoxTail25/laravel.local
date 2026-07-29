@@ -210,7 +210,153 @@
     &lt;x-logo :attrs="['path' => 'some path', 'alt' => 'some alt', 'title' => 'some title']"/></pre>
     внутри компонета &lt;x-logo/> это используется так:
     <pre>
-&#64;props(['attrs']) // вроде без этого тоже работает
+&#64;props(['attrs']) // вроде без этого тоже работает ))
 &lt;img src="$attrs['path']" alt="$attrs['alt']" title="$attrs['title']"/></pre>
+    <br />
+    <br />
+    <h4>
+        Макет сайта как компонент в Laravel
+    </h4>
+    Макет сайта в Laravel сам является компонентом. Он находится в файле resources/views/components/layout.blade.php.
+    Давайте
+    посмотрим на его код:
+    <pre>
+&lt;!DOCTYPE html>
+&lt;html>
+	&lt;head>
+		&lt;title>&#123;&#123; $title }}&lt;/title>
+	&lt;/head>
+	&lt;body>
+		&#123;&#123; $slot }}
+	&lt;/body>
+&lt;/html></pre>
+    Как вы видите, контент сайта является основным слотом, а тайтл - дополнительным. Именно так мы и задаем их в
+    представлениях:
+    file: resources/views/post/show.blade.php
+    <pre>
+&lt;x-layout>
+	&lt;x-slot:title>
+		page title
+	&lt;/x-slot>
+
+	page content
+&lt;/x-layout></pre>
+    Технически это означает, что мы можем передавать в макет и другие дополнительные слоты, а также для разных
+    представлений использовать различные макеты сайта.
+    <x-task.head :data="['components_task7', 'Задачи:']" />
+    <x-task.body :tasks="[
+        '/blade/components-task/13' =>
+            'Сделайте в макете дополнительный слот, в котором будет задаваться мета описание страницы.',
+        '/blade/components-task/14' =>
+            'Сделайте два отличающихся макета сайта. Для одного представления используйте первый макет, а для другого - второй.',
+    ]" />
+    <br />
+    <br />
+    <h3>
+        Класс компонента в Laravel
+    </h3>
+    Для компонента при необходимости можно создавать управляющий им PHP класс. Эти классы размещаются в папке
+    app/View/Components.
+    <br />
+    Давайте создадим класс для компонента Header:
+    <pre>//file: app/View/Components/Header.php
+&lt;?php
+	namespace App\View\Components;
+	use Illuminate\View\Component;
+
+	class Header extends Component
+	{
+
+	}</pre>
+    В методе render укажем, что мы хотим рендерить файл представления нашего компонента:
+    <pre>//file: app/View/Components/Header.php
+&lt;?php
+	namespace App\View\Components;
+	use Illuminate\View\Component;
+
+	class Header extends Component
+	{
+		public function render()
+		{
+			return view('components.header');
+		}
+	}</pre>
+    <x-task.head :data="['components_task8', 'Задача:']" />
+    <x-task.body :tasks="[
+        '/blade/components-task/16' => 'Сделайте класс для компонента Footer.',
+    ]" />
+    <br />
+    <br />
+    <h3>
+        Передача данных в представление компонента в Laravel
+    </h3>
+    В представление компонента можно передавать данные. Смотрите пример:
+    <pre>//file: app/View/Components/Header.php
+	class Header extends Component
+	{
+		public function render()
+		{
+			return view('components.header', [
+				'var1' => 1,
+				'var2' => 2,
+			]);
+		}
+	}</pre>
+    Выведем переданные данные в представлении:
+    <pre>//file: resources/views/components/header.blade.php
+&lt;p>&#123;&#123; $var1 }}&lt;/p>
+&lt;p>&#123;&#123; $var2 }}&lt;/p></pre>
+    <x-task.head :data="['components_task9', 'Задача:']" />
+    <x-task.body :tasks="[
+        '/blade/components-task/17' =>
+            'Передайте в компонент User имя, фамилию и возраст юзера. Выведите эти данные в отдельных тегах.',
+        '/blade/components-task/18' => 'Передайте в компонент Info массив строк. Выведите их в виде списка ul.',
+    ]" />
+    <br />
+    <br />
+    <h3>
+        Получение данных из БД в компоненте в Laravel
+    </h3>
+    В классах компонентов можно получать данные из БД и отправлять в представление для отрисовки. Для примера давайте
+    сделаем компонент, динамически формирующий меню сайта. Пусть в этом меню будут ссылки на категории.
+    <br />
+    Для начала заюзаем модель категорий:
+    <pre>//filepath: App/View/Components/Nav.php
+
+&lt;?php
+	use App\Models\Category;
+
+	class Nav extends Component
+	{
+
+	}</pre>
+    Теперь получим список категорий и отравим их в представление:
+    <pre>//filepath: App/View/Components/Nav.php
+
+&lt;?php
+	class Nav extends Component
+	{
+		public function render()
+		{
+			$categories = Category::all();
+
+			return view('components.nav', [
+				'categories' => $categories,
+			]);
+		}
+	}</pre>
+    А теперь выведем переданные данные в представлении:
+    <pre>//filepath: App/View/Components/Nav.php
+
+&lt;nav>
+	&#64;foreach ($categories as $category)
+		&lt;a href="&#123;&#123; $category['slug'] }}">&#123;&#123; $category['name'] }}&lt;/a>
+	&#64;endforeach
+&lt;/nav></pre>
+    <x-task.head :data="['components_task10', 'Задача:']" />
+    <x-task.body :tasks="[
+        '/blade/components-task/19' => 'Сделайте компонент, выводящий ссылки на 5 самых популярных постов.',
+    ]" />
+
 
 </x-layout>

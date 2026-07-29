@@ -728,6 +728,48 @@ class BladeController extends Controller
                     return null;
                 },
             ],
+            '13' => [
+                'text' => $request->text,
+                'data' => function () {
+                    return null;
+                },
+            ],
+            '14' => [
+                'text' => $request->text,
+                'data' => function () {
+                    return null;
+                },
+            ],
+            '15' => [
+                'text' => $request->text,
+                'data' => function () {
+                    return null;
+                },
+            ],
+            '16' => [
+                'text' => $request->text,
+                'data' => function () {
+                    return null;
+                },
+            ],
+            '17' => [
+                'text' => $request->text,
+                'data' => function () {
+                    return null;
+                },
+            ],
+            '18' => [
+                'text' => $request->text,
+                'data' => function () {
+                    return null;
+                },
+            ],
+            '19' => [
+                'text' => $request->text,
+                'data' => function () {
+                    return null;
+                },
+            ],
         ];
 
         // Проверка безопасности: если передали несуществующий ID задачи
@@ -737,10 +779,19 @@ class BladeController extends Controller
 
         $resultData = $tasks[$id]['data']();
 
-        return view('blade.components-task', [
-            'id' => $id,
-            'text' => $tasks[$id]['text'],
-            'data' => $resultData
-        ]);
+        if ($id != 15) {
+
+            return view('blade.components-task', [
+                'id' => $id,
+                'text' => $tasks[$id]['text'],
+                'data' => $resultData
+            ]);
+        } else {
+            return view('blade.components-sec-task', [
+                'id' => $id,
+                'text' => $tasks[$id]['text'],
+                'data' => $resultData
+            ]);
+        }
     }
 }

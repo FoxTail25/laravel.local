@@ -162,5 +162,182 @@
         внутри компонента &lt;x-logo/>:
         <pre>&lt;img src="&#123;&#123; $slot }}" alt="&#123;&#123; $alt }}" title="&#123;&#123; $title }}"/></pre>
         <a href="/blade/components#components_task6">Назад</a>
+    @elseif ($id == 13)
+        <p>
+            {{ $text }}
+        </p>
+
+        <br>
+        Создаём файл resources/views/components/meta.blade.php
+        И добавляем в него следующее содержимое:
+        <pre>
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Основное SEO -->
+    &lt;meta name="description"
+        content="Мой личный конспект по фреймворку Laravel.
+        Пошаговые заметки, разбор архитектуры,
+        Eloquent ORM, маршрутизации
+         и практические примеры кода.">
+    &lt;meta name="author" content="FoxTail25"></pre>
+        Теперь подключаем файл с мета данными в layout. Добавляем тег &lt;x-meta/> в раздел head в файле
+        resources/views/components/layout.blade.php
+        <a href="/blade/components#components_task7">Назад</a>
+    @elseif ($id == 14)
+        <p>
+            {{ $text }}
+        </p>
+        <h4>Это основной layout</h4>
+        Я сделал дополнительный layout таким же как и основной. Только в дополнительном убрал footer
+        <br />
+        <a href="/blade/components-task/15">дополнительный layout</a>
+        <br />
+        <a href="/blade/components#components_task7">Назад</a>
+        {{-- 15я задача в другом layout --}}
+    @elseif ($id == 16)
+        <p>
+            {{ $text }}
+        </p>
+        <pre>
+//file: app/View/Components/Footer.php
+
+namespace App\View\Components;
+
+use Illuminate\View\Component;
+
+class Footer extends Component
+{
+    public function render()
+    {
+        return view('components.footer');
+    }
+}</pre>
+        <a href="/blade/components#components_task8">Назад</a>
+    @elseif ($id == 17)
+        <p>
+            {{ $text }}
+        </p>
+        1) Создаём файл в котором хранится класс управляющий компонентом:
+        <pre>//filepath: app/View/Components/education/User.php
+
+&lt;?php
+// !!! Очень внимательно относимся к namespace !!!
+namespace App\View\Components\education;
+
+use Illuminate\View\Component;
+
+class User extends Component
+{
+    public function render()
+    {
+        return view('components.education.user', [
+            'firstName' => 'Smit',
+            'secondName' => 'John',
+            'age' => '42',
+        ]);
+    }
+}</pre>
+        2) Создаём blade представления user:
+        <pre>//filepath: resources/views/components/education/user.blade.php
+
+&lt;div>
+    User
+    &lt;p>
+    Firstname: &#123;&#123; $firstName }}
+    &lt;p />
+    &lt;p>
+    Secondname: &#123;&#123; $secondName }}
+    &lt;p />
+    &lt;p>
+    Age: &#123;&#123; $age }}
+    &lt;p />
+&lt;/div>
+}</pre>
+        3) Подключаем компонент:
+        <pre>&lt;x-education.User /></pre>
+        4) В результате получаем:
+        <x-education.User />
+        <a href="/blade/components#components_task9">Назад</a>
+    @elseif ($id == 18)
+        <p>
+            {{ $text }}
+        </p>
+        1) Создаём файл в котором хранится класс управляющий компонентом:
+        <pre>//filepath: app/View/Components/education/Info.php
+
+&lt;?php
+// !!! Очень внимательно относимся к namespace !!!
+namespace App\View\Components\education;
+
+use Illuminate\View\Component;
+
+class Info extends Component
+{
+    public function render()
+    {
+        return view('components.education.info', [
+            'strArr' =>
+            [
+                'some str0',
+                'some str1',
+                'some str2',
+            ]
+        ]);
+    }
+}</pre>
+        2) Создаём blade представления user:
+        <pre>//filepath: resources/views/components/education/info.blade.php
+
+&lt;div>
+    &lt;ul>
+        &#64;foreach ($strArr as $str)
+            &lt;li>&#123;&#123; $str }}&lt;/li>
+        &#64;endforeach
+    &lt;/ul>
+&lt;/div>
+}</pre>
+        3) Подключаем компонент:
+        <pre>&lt;x-education.User /></pre>
+        4) В результате получаем:
+        <x-education.Info />
+        <a href="/blade/components#components_task9">Назад</a>
+    @elseif ($id == 19)
+        <p>
+            {{ $text }}
+        </p>
+        1) Создаём файл в котором хранится класс управляющий компонентом:
+        <pre>//filepath: app/View/Components/education/Info.php
+
+&lt;?php
+// !!! Очень внимательно относимся к namespace !!!
+namespace App\View\Components\education;
+
+use App\Models\Post;
+use Illuminate\View\Component;
+
+class FivePosts extends Component
+{
+    public function render()
+    {
+        $posts = Post::All();
+        return view('components.education.fiveposts', ['posts' => $posts]);
+    }
+}</pre>
+        2) Создаём blade представления user:
+        <pre>//filepath: resources/views/components/education/info.blade.php
+
+&lt;div>
+    &lt;ul>
+        &#64;foreach ($strArr as $str)
+            &lt;li>&#123;&#123; $str }}&lt;/li>
+        &#64;endforeach
+    &lt;/ul>
+&lt;/div>
+}</pre>
+        3) Подключаем компонент:
+        <pre>&lt;x-education.User /></pre>
+        4) В результате получаем:
+        <x-education.fiveposts />
+        <a href="/blade/components#components_task9">Назад</a>
     @endif
 </x-layout>
