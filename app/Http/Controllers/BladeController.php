@@ -770,6 +770,30 @@ class BladeController extends Controller
                     return null;
                 },
             ],
+            '20' => [
+                'text' => $request->text,
+                'data' => function () {
+                    return null;
+                },
+            ],
+            '21' => [
+                'text' => $request->text,
+                'data' => function () {
+                    return null;
+                },
+            ],
+            '22' => [
+                'text' => $request->text,
+                'data' => function () {
+                    return null;
+                },
+            ],
+            '23' => [
+                'text' => $request->text,
+                'data' => function () {
+                    return null;
+                },
+            ],
         ];
 
         // Проверка безопасности: если передали несуществующий ID задачи

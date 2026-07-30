@@ -9,7 +9,7 @@ class FivePosts extends Component
 {
     public function render()
     {
-        $posts = Post::All();
+        $posts = Post::take(5)->orderBy('likes')->get();
         return view('components.education.fiveposts', ['posts' => $posts]);
     }
 }

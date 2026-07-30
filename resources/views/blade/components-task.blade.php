@@ -306,38 +306,126 @@ class Info extends Component
             {{ $text }}
         </p>
         1) Создаём файл в котором хранится класс управляющий компонентом:
-        <pre>//filepath: app/View/Components/education/Info.php
+        <pre>//filepath: app/View/Components/education/FivaPosts.php
 
 &lt;?php
 // !!! Очень внимательно относимся к namespace !!!
 namespace App\View\Components\education;
 
-use App\Models\Post;
+use App\Models\Post; //подключаем модель!
 use Illuminate\View\Component;
 
 class FivePosts extends Component
 {
     public function render()
     {
-        $posts = Post::All();
+        $posts = Post::take(5)->orderBy('likes')->get();
         return view('components.education.fiveposts', ['posts' => $posts]);
     }
 }</pre>
         2) Создаём blade представления user:
-        <pre>//filepath: resources/views/components/education/info.blade.php
+        <pre>//filepath: resources/views/components/education/fiveposts.blade.php
 
-&lt;div>
-    &lt;ul>
-        &#64;foreach ($strArr as $str)
-            &lt;li>&#123;&#123; $str }}&lt;/li>
-        &#64;endforeach
-    &lt;/ul>
-&lt;/div>
+&lt;ul>
+    &#64;foreach ($posts as $post)
+        &lt;li>
+                &lt;a href="/education-task/post/&#123;&#123; $post->id }}">
+            &#123;&#123; $post->title }}
+        &lt;/li>
+    &#64;endforeach
+&lt;/ul>
 }</pre>
         3) Подключаем компонент:
-        <pre>&lt;x-education.User /></pre>
+        <pre>&lt;x-education.fiveposts /></pre>
         4) В результате получаем:
         <x-education.fiveposts />
-        <a href="/blade/components#components_task9">Назад</a>
+        <span id="task19"></span>
+        5) Что бы эти ссылки были рабочими, необходимо внести изменения в роутер и в контроллер который будет
+        обробатывать данный роут. А так же создать предстваление для отображения данных!
+        <a href="/blade/components#components_task10">Назад</a>
+    @elseif ($id == 20)
+        <p>
+            {{ $text }}
+        </p>
+        <pre>
+            php artisan make:component Menu</pre>
+
+        <a href="/blade/components#components_task11">Назад</a>
+    @elseif ($id == 21)
+        <p>
+            {{ $text }}
+        </p>
+        <pre>
+            php artisan make:component Nav --view</pre>
+
+        <a href="/blade/components#components_task11">Назад</a>
+    @elseif ($id == 22)
+        <p>
+            {{ $text }}
+        </p>
+        1) Создаём компонент Logo (управляющий класс и предствление)
+        <pre>php artisan make:component education/Logo</pre>
+        2) Пишем код в управляющем классе:
+        <pre>//filepath: App/View/Components/education/Logo.php
+&lt;?php
+
+namespace App\View\Components\education;
+
+use Closure;
+use Illuminate\Contracts\View\View;
+use Illuminate\View\Component;
+
+class Logo extends Component
+{
+    public string $path;
+    public string $alt;
+
+    public function __construct(string $path, string $alt)
+    {
+        $this->path = $path;
+        $this->alt = $alt;
+    }
+
+    public function render(): View|Closure|string
+    {
+        return view('components.education.logo', ['path' => $this->path, 'alt' => $this->alt]);
+    }
+}</pre>
+        2) Пишем код в предствлении:
+        <pre>
+&lt;div>
+    &lt;img src="&#123;&#123; $path }}" alt="&#123;&#123; $alt }}" width="75"/>
+&lt;/div>
+</pre>
+        3) Подключаем компонет и передаём в него данные:
+        <pre>&lt;x-education.logo path="/img/smile.png" alt="Улыбка" width="100"/></pre>
+        Результат: <x-education.logo path="/img/smile.png" alt="Улыбка" />
+
+        <a href="/blade/components#components_task12">Назад</a>
+    @elseif ($id == 23)
+        <p>
+            {{ $text }}
+        </p>
+        На самом деле, это задачка "со звёздочкой(*)))". Ведь у нас уже есть компонет Logo в котором мы в прошлой задаче
+        захардокодили атрибут width="75"! Если мы сейчас его перепишем, то он перестанет корректно работать в
+        предыдушей задаче...
+        <br />
+        На самом деле, решение лежит на поверхности. Нам просто нужно дописать проверку на наличии свойства width в
+        массиве $attributes
+        <br />
+        Исправляем компонет Logo:
+        <pre>
+&lt;div>
+    &lt;img
+        src="&#123;&#123; $path }}"
+        alt="&#123;&#123; $alt }}"
+        &#123;&#123; is_null($attributes['width']) ? 'width=75' : $attributes }} />
+&lt;/div>
+</pre>
+        3) Подключаем компонет и передаём в него данные:
+        <pre>&lt;x-education.logo path="/img/smile.png" alt="Улыбка" width="100"/></pre>
+        Результат: <x-education.logo path="/img/smile.png" alt="Улыбка" width="100" />
+
+        <a href="/blade/components#components_task13">Назад</a>
     @endif
 </x-layout>

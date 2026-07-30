@@ -199,3 +199,7 @@ Route::prefix('pagination')->group(function () {
     });
     Route::get('/users', [TestController::class, 'paginateTest']);
 });
+
+Route::prefix('education-task')->group(function () {
+    Route::get('/post/{id}', [TestController::class, 'post'])->whereNumber('id');
+});

@@ -1,7 +1,9 @@
 <ul>
     @foreach ($posts as $post)
         <li>
-            {{ $post->title }}
+            <a href="/education-task/post/{{ $post->id }}">
+                {{ $post->title }}
+            </a>
         </li>
     @endforeach
 </ul>

@@ -357,6 +357,113 @@
     <x-task.body :tasks="[
         '/blade/components-task/19' => 'Сделайте компонент, выводящий ссылки на 5 самых популярных постов.',
     ]" />
+    <br />
+    <br />
+    <h4>
+        Генерация компонентов в Laravel
+    </h4>
+    Можно генерировать файлы компонентов через artisan. Давайте разберемся, как это делать.
+    <br />
+    Следующая команда создаст для компонента файл его представления и файл его класса:
+    <pre>php artisan make:component Alert</pre>
+    Можно создать только файл представления:
+    <pre>php artisan make:component Alert --view</pre>
+    Можно создать компонент в подпапке:
+    <pre>php artisan make:component Header/Alert</pre>
+    <x-task.head :data="['components_task11', 'Задачи:']" />
+    <x-task.body :tasks="[
+        '/blade/components-task/20' => 'С помощью терминала создайте файлы представления и класса компонента Menu.',
+        '/blade/components-task/21' => 'С помощью терминала создайте файл представления компонента Nav.',
+    ]" />
+    <br />
+    <br />
+    <h3>
+        Передача данных в классы компонентов в Laravel
+    </h3>
+    Можно передавать данные в классы компонентов, используя атрибуты HTML. Давайте для примера сделаем два атрибута:
+    <pre>
+        &lt;x-alert type="error" message="text" /></pre>
+    Давайте теперь получим эти данные в классе компонента. Для этого для начала объявим наши атрибуты свойствами класса
+    компонента:
+    <pre>
+&lt;?php
+	class Alert extends Component
+	{
+		public $type;
+		public $message;
+	}</pre>
+    Теперь получим данные атрибутов в конструкторе:
+    <pre>
+&lt;?php
+	class Alert extends Component
+	{
+		public $type;
+		public $message;
 
+		public function __construct($type, $message)
+		{
+			$this->type = $type;
+			$this->message = $message;
+		}
+	}</pre>
+    Теперь можем сделать что-нибудь с полученными данными. Например, передадим их в представление:
+    <pre>
+&lt;?php
+	class Alert extends Component
+	{
+		public $type;
+		public $message;
 
+		public function __construct($type, $message)
+		{
+			$this->type = $type;
+			$this->message = $message;
+		}
+
+		public function render()
+		{
+			return view('components.alert', [
+				'type' => $this->type,
+				'message' => $this->message,
+			]);
+		}
+	}</pre>
+    Выведем их в представлении:
+    <pre>
+&lt;div class="alert alert-&#123;&#123; $type }}">
+	&#123;&#123; $message }}
+&lt;/div>
+    </pre>
+    <x-task.head :data="['components_task12', 'Задача:']" />
+    <x-task.body :tasks="[
+        '/blade/components-task/22' => 'Передайте в компонент Logo путь к картинке и ее alt.',
+    ]" />
+    <br />
+    <br />
+    <h3>
+        Передача значений переменных в классы компонентов в Laravel
+    </h3>
+    Можно передавать не только строки, но и значения переменных. Для этого перед именем такого атрибута нужно поставить
+    двоеточие:
+    <pre>&lt;x-alert type="error" :message="$message" /></pre>
+    <h3>
+        Передача обычных атрибутов в компоненты в Laravel
+    </h3>
+    Некоторые атрибуты должны быть просто переданы в представление. Пусть, к примеру, мы хотим передать атрибут class:
+    <pre>&lt;x-alert type="error" class="alert" /></pre>
+    Все атрибуты, которые не являются частью конструктора компонента, будут автоматически добавлены в коллекцию
+    атрибутов компонента.
+    <br />
+    Эта коллекция атрибутов автоматически становится доступной для компонента через переменную $attributes. Все атрибуты
+    могут отображаться в компоненте путем вывода этой переменной:
+    <pre>
+&lt;div &#123;&#123; $attributes }}>
+&lt;/div></pre>
+    Передайте в компонент Logo атрибуты width и height.
+    <x-task.head :data="['components_task13', 'Задача:']" />
+    <x-task.body :tasks="[
+        '/blade/components-task/23' => 'Передайте в компонент Logo атрибут width.',
+    ]" />
+    <br />
+    <br />
 </x-layout>
