@@ -401,7 +401,7 @@ class Logo extends Component
         <pre>&lt;x-education.logo path="/img/smile.png" alt="Улыбка" width="100"/></pre>
         Результат: <x-education.logo path="/img/smile.png" alt="Улыбка" />
 
-        <a href="/blade/components#components_task12">Назад</a>
+        <a href="{{ route('components') }}#components_task12">Назад</a>
     @elseif ($id == 23)
         <p>
             {{ $text }}
@@ -426,6 +426,6 @@ class Logo extends Component
         <pre>&lt;x-education.logo path="/img/smile.png" alt="Улыбка" width="100"/></pre>
         Результат: <x-education.logo path="/img/smile.png" alt="Улыбка" width="100" />
 
-        <a href="/blade/components#components_task13">Назад</a>
+        <a href="{{ route('components') }}#components_task13">Назад</a>
     @endif
 </x-layout>

@@ -19,17 +19,22 @@ Route::prefix('blade')->group(function () {
 
     Route::get('/fundamentals/', function () {
         return view('blade.fundamentals');
-    });
+    })->name('fundamentals');
+    Route::get('/fundamentals-task/{id}', [BladeController::class, 'fundamentals'])->whereNumber('id')->name('fundamentals-task');
 
-    Route::get('/variables-attributes-task/{id}', [BladeController::class, 'variablesAttributes'])->whereIn('id', (new BladeController)->variablesAttributes(1, 1));
+    // Route::get('/components-task/{id}', [BladeController::class, 'components'])->whereNumber('id')->name('components-task');
 
-    Route::get('/arbitrary-code-task/{id}', [BladeController::class, 'arbitraryCode'])->whereIn('id', (new BladeController)->arbitraryCode(1, 1));
 
-    Route::get('/arrays-task/{id}', [BladeController::class, 'arrays'])->whereIn('id', (new BladeController)->arrays(1, 1));
 
-    Route::get('/variables-checking-task/{id}', [BladeController::class, 'variablesChecking'])->whereIn('id', (new BladeController)->variablesChecking(1, 1));
+    // Route::get('/variables-attributes-task/{id}', [BladeController::class, 'variablesAttributes'])->whereIn('id', (new BladeController)->variablesAttributes(1, 1));
 
-    Route::get('/unescaped-data-output-task/{id}', [BladeController::class, 'unescapedDataOutput'])->whereIn('id', [1]);
+    // Route::get('/arbitrary-code-task/{id}', [BladeController::class, 'arbitraryCode'])->whereIn('id', (new BladeController)->arbitraryCode(1, 1));
+
+    // Route::get('/arrays-task/{id}', [BladeController::class, 'arrays'])->whereIn('id', (new BladeController)->arrays(1, 1));
+
+    // Route::get('/variables-checking-task/{id}', [BladeController::class, 'variablesChecking'])->whereIn('id', (new BladeController)->variablesChecking(1, 1));
+
+    // Route::get('/unescaped-data-output-task/{id}', [BladeController::class, 'unescapedDataOutput'])->whereIn('id', [1]);
 
     Route::get('/conditions/', function () {
         return view('blade.conditions');
@@ -53,8 +58,8 @@ Route::prefix('blade')->group(function () {
 
     Route::get('/components/', function () {
         return view('blade.components');
-    });
-    Route::get('/components-task/{id}', [BladeController::class, 'components'])->whereNumber('id');
+    })->name('components');
+    Route::get('/components-task/{id}', [BladeController::class, 'components'])->whereNumber('id')->name('components-task');
 });
 
 Route::get('/collections/', function () {

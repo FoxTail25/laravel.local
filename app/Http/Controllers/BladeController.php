@@ -6,66 +6,38 @@ use Illuminate\Http\Request;
 
 class BladeController extends Controller
 {
-    public function variablesAttributes(int|string $id, $getTask = null)
+    public function fundamentals(Request $request, int $id)
     {
-        $task = [
+
+        $tasks = [
             '1' => [
-                'text' => 'Пусть в действии дана переменная, содержащая CSS класс. Передайте эту переменную в представление и для какого-нибудь тега значением атрибута class укажите нашу переменную.',
-                'data' => [
+                'data' => fn() => [
                     'class' => 'red',
                 ]
             ],
             '2' => [
-                'text' => 'Пусть в представлении даны 3 инпута. Передайте из действия в представление 3 переменные, значения которых запишите в атрибуты value наших инпутов.',
-                'data' => [
+                'data' => fn() => [
                     'var1' => 'первый инпут',
                     'var2' => 'второй инпут',
                     'var3' => 'третий инпут',
                 ]
             ],
             '3' => [
-                'text' => 'Пусть в представлении дан абзац. Передайте из действия в представление переменную, содержащую CSS код, задающий красный цвет текста. С помощью атрибута style покрасьте наш абзац в красный цвет.',
-                'data' => [
+                'data' => fn() => [
                     'myCssRules' => 'color:red;'
                 ]
             ],
             '4' => [
-                'text' => 'Пусть в действии дана переменная $text, содержащая текст ссылки, и переменная $href, содержащая адрес ссылки. Передайте эти переменные в представление и сформируйте с их помощью HTML ссылку.',
-                'data' => [
+                'data' => fn() => [
                     'text' => 'Home',
                     'href' => '/'
                 ]
             ],
-
-        ];
-
-        if ($getTask) {
-            return array_keys($task);
-        }
-
-        return view('blade.variables-attributes-task', ['id' => $id, 'text' => $task[$id]['text'], 'data' => $task[$id]['data']]);
-    }
-    public function arbitraryCode(int|string $id, $getTask = null)
-    {
-        $task = [
-            '1' => [
-                'text' => 'Выведите в представлении текущую дату в формате день.месяц.год.',
-                'data' => []
+            '5' => [
+                'data' => fn() => []
             ],
-        ];
-
-        if ($getTask) {
-            return array_keys($task);
-        }
-
-        return view('blade.arbitrary-code-task', ['id' => $id, 'text' => $task[$id]['text'], 'data' => $task[$id]['data']]);
-    }
-    public function arrays(int|string $id, $getTask = null)
-    {
-        $task = [
-            '1' => [
-                'text' => 'Пусть из действия в представление передаются данные работника в виде массива. Пусть в массиве будет ключ name, ключ age и ключ salary. Выведите каждый элемент массива в отдельном абзаце.',
-                'data' => [
+            '6' => [
+                'data' => fn() => [
                     'employee' =>
                     [
                         'name' => 'Johan',
@@ -74,9 +46,8 @@ class BladeController extends Controller
                     ],
                 ]
             ],
-            '2' => [
-                'text' => 'Передайте в представление какой-нибудь массив. Выведите на экран количество элементов в этом массиве.',
-                'data' => [
+            '7' => [
+                'data' => fn() => [
                     'employee' =>
                     [
                         'name' => 'Johan',
@@ -85,54 +56,38 @@ class BladeController extends Controller
                     ],
                 ]
             ],
+            '8' => [
+                'data' => fn() => ['city' => 'Minsk']
+            ],
+            '9' => [
+                'data' => fn() => ['location' => ['country' => null, 'city' => 'Kazan']]
+            ],
+            '10' => [
+                'data' => fn() => ['day' => '01', 'month' => '05', 'year' => '2025']
+            ],
+            '11' => [
+                'data' => fn() => '<b>text</b>'
+            ],
+
 
         ];
-        if ($getTask) {
-            return array_keys($task);
+
+
+        // Проверка безопасности: если передали несуществующий ID задачи
+        if (!isset($tasks[$id])) {
+            abort(404, 'Задача не найдена');
         }
-        if (array_key_exists($id, $task)) {
-            return view('blade.arrays-task', ['id' => $id, 'text' => $task[$id]['text'], 'data' => $task[$id]['data']]);
-        }
+
+        $resultData = $tasks[$id]['data']();
+
+
+        return view('blade.fundamentals-task', [
+            'id' => $id,
+            'text' => $request->text,
+            'data' => $resultData
+        ]);
     }
-    public function variablesChecking(int|string $id, $getTask = null)
-    {
-        $task = [
-            '1' => [
-                'text' => 'Пусть из действия в представление передается переменная $city. Выведите в представлении названия города из этой переменной. Если же город не передан - пусть по умолчанию выведется город "Москва".',
-                'data' => ['city' => 'Minsk']
-            ],
-            '2' => [
-                'text' => 'Пусть из действия в представление передается массив $location с ключами country, city. Выведите каждый элемент это массива в отдельном абзаце. Сделайте так, чтобы, если не задана страна, то по умолчанию вывелась "Россия", а если не задан город, то по умолчанию вывелась "Москва".',
-                'data' => ['location' => ['country' => null, 'city' => 'Kazan']]
-            ],
-            '3' => [
-                'text' => 'Пусть из действия в представление передаются переменные $year, $month и $day. Сделайте так, чтобы, если какая-либо из этих переменных не задана, то вместо нее выведется текущее значение (текущий год, месяц или день).',
-                'data' => ['day' => '01', 'month' => '05', 'year' => '2025']
-            ]
-        ];
-        if ($getTask) {
-            return array_keys($task);
-        }
-        if (array_key_exists($id, $task)) {
-            return view('blade.variables-checking-task', ['id' => $id, 'text' => $task[$id]['text'], 'data' => $task[$id]['data']]);
-        }
-    }
-    public function unescapedDataOutput(int|string $id, $getTask = null)
-    {
-        $task = [
-            '1' => [
-                'text' => 'Пусть в переменной хранится строка с тегами, например:
-                $str = "<b>text</b>" Выведите эту строку на экран так, чтобы теги выполнили свое действие (то есть чтобы в данном случае текст стал жирным).',
-                'data' => '<b>text</b>',
-            ]
-        ];
-        if ($getTask) {
-            return array_keys($task);
-        }
-        if (array_key_exists($id, $task)) {
-            return view('blade.unescaped-data-output-task', ['id' => $id, 'text' => $task[$id]['text'], 'data' => $task[$id]['data']]);
-        }
-    }
+
     public function conditions(int|string $id, $getTask = null)
     {
         $task = [
@@ -655,166 +610,24 @@ class BladeController extends Controller
     }
     public function components(Request $request, int $id)
     {
-        $tasks = [
-            '1' => [
-                'text' => $request->text,
-                'data' => function () {
-                    return null;
-                },
-            ],
-            '2' => [
-                'text' => $request->text,
-                'data' => function () {
-                    return null;
-                },
-            ],
-            '3' => [
-                'text' => $request->text,
-                'data' => function () {
-                    return null;
-                },
-            ],
-            '4' => [
-                'text' => $request->text,
-                'data' => function () {
-                    return null;
-                },
-            ],
-            '5' => [
-                'text' => $request->text,
-                'data' => function () {
-                    return null;
-                },
-            ],
-            '6' => [
-                'text' => $request->text,
-                'data' => function () {
-                    return null;
-                },
-            ],
-            '7' => [
-                'text' => $request->text,
-                'data' => function () {
-                    return null;
-                },
-            ],
-            '8' => [
-                'text' => $request->text,
-                'data' => function () {
-                    return null;
-                },
-            ],
-            '9' => [
-                'text' => $request->text,
-                'data' => function () {
-                    return null;
-                },
-            ],
-            '10' => [
-                'text' => $request->text,
-                'data' => function () {
-                    return null;
-                },
-            ],
-            '11' => [
-                'text' => $request->text,
-                'data' => function () {
-                    return null;
-                },
-            ],
-            '12' => [
-                'text' => $request->text,
-                'data' => function () {
-                    return null;
-                },
-            ],
-            '13' => [
-                'text' => $request->text,
-                'data' => function () {
-                    return null;
-                },
-            ],
-            '14' => [
-                'text' => $request->text,
-                'data' => function () {
-                    return null;
-                },
-            ],
-            '15' => [
-                'text' => $request->text,
-                'data' => function () {
-                    return null;
-                },
-            ],
-            '16' => [
-                'text' => $request->text,
-                'data' => function () {
-                    return null;
-                },
-            ],
-            '17' => [
-                'text' => $request->text,
-                'data' => function () {
-                    return null;
-                },
-            ],
-            '18' => [
-                'text' => $request->text,
-                'data' => function () {
-                    return null;
-                },
-            ],
-            '19' => [
-                'text' => $request->text,
-                'data' => function () {
-                    return null;
-                },
-            ],
-            '20' => [
-                'text' => $request->text,
-                'data' => function () {
-                    return null;
-                },
-            ],
-            '21' => [
-                'text' => $request->text,
-                'data' => function () {
-                    return null;
-                },
-            ],
-            '22' => [
-                'text' => $request->text,
-                'data' => function () {
-                    return null;
-                },
-            ],
-            '23' => [
-                'text' => $request->text,
-                'data' => function () {
-                    return null;
-                },
-            ],
-        ];
-
+        // В этом разделе 23 задачи. создаём массив с номерами задач для проверки
+        $tasks = range(1, 23);
         // Проверка безопасности: если передали несуществующий ID задачи
-        if (!isset($tasks[$id])) {
+        if (!isset($tasks[($id - 1)])) {
             abort(404, 'Задача не найдена');
         }
 
-        $resultData = $tasks[$id]['data']();
 
         if ($id != 15) {
 
             return view('blade.components-task', [
                 'id' => $id,
-                'text' => $tasks[$id]['text'],
-                'data' => $resultData
+                'text' => $request->text,
             ]);
         } else {
             return view('blade.components-sec-task', [
                 'id' => $id,
-                'text' => $tasks[$id]['text'],
-                'data' => $resultData
+                'text' => $request->text,
             ]);
         }
     }
