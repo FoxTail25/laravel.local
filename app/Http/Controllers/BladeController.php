@@ -617,7 +617,6 @@ class BladeController extends Controller
             abort(404, 'Задача не найдена');
         }
 
-
         if ($id != 15) {
 
             return view('blade.components-task', [
