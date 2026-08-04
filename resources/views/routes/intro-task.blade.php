@@ -171,6 +171,175 @@
         <br />
         <br />
         <a href="{{ route('routes-intro') }}#routes_task6">Назад к задачам</a>
+    @elseif ($id == 11)
+        <x-page.tasks.header :text="$text" />
+        Что бы выполнить эту задачу, нам необходимо отредаткировать файл <b>routes/web.php</b> что бы добавить в него
+        нужный маршрут.
+        <pre>Route::get('/user/{id}', function ($id) {
+    return "В order было записано значение: $order";
+})->whereNumber('id');</pre>
+        В таком виде, наш роут будет обрабатывать маршруты только если id будет записано числом.
+        <br />
+        <br />
+        <a href="{{ route('routes-intro') }}#routes_task7">Назад к задачам</a>
+    @elseif ($id == 12)
+        <x-page.tasks.header :text="$text" />
+        Что бы выполнить эту задачу, нам необходимо отредаткировать файл <b>routes/web.php</b> что бы добавить в него
+        нужный маршрут.
+        <pre>Route::get('/city/{name}', function ($order) {
+    return "В order было записано значение: $order";
+})->whereAlpha('name');</pre>
+        В таком виде, наш роут будет обрабатывать маршруты только если name будет записано буквами.
+        <br />
+        <br />
+        <a href="{{ route('routes-intro') }}#routes_task7">Назад к задачам</a>
+    @elseif ($id == 13)
+        <x-page.tasks.header :text="$text" />
+        Что бы выполнить эту задачу, нам необходимо сначала отредаткировать файл
+        <b>App/Providers/RouteServiceProvider.php</b> что бы добавить в него глобальное ограничение на часть маршрута
+        routeslug:
+        <pre>&lt;?php
+namespace App\Providers;
+
+use Illuminate\Support\ServiceProvider;
+use Route;
+
+class AppServiceProvider extends ServiceProvider
+{
+    public function register(): void
+    {
+
+    }
+    public function boot(): void
+    {
+        Route::pattern('testslug', '[a-z0-9_-]+');
+    }
+}</pre>
+
+        Затем отредаткировать файл <b>routes/web.php</b> что бы добавить в него
+        нужный маршрут для теста.
+
+        <pre>Route::get('/test_slug/{testslug}', function ($testslug) {
+    return "Вы перешли по маршруту: /test_slug/$testslug";
+});</pre>
+        В таком виде, наш роут будет обрабатывать маршруты только если testslug будет содержать толь маленькие латинские
+        буквы и цифры, а также дефис и подчеркивание.
+        <br />
+        Это сработает: <a href="/test_slug/4_2">маршрут /test_slug/42</a><br />
+        И это сработает: <a href="/test_slug/42-abc">маршрут /test_slug/42-abc</a><br />
+        А это нет: <a href="/test_slug/42-ABC">маршрут /test_slug/42-ABC</a> (потому что мы не разрешили использовать в
+        маршруте большие латински будквы)<br />
+        <br />
+        <a href="{{ route('routes-intro') }}#routes_task8">Назад к задачам</a>
+    @elseif ($id == 14)
+        <h5>Задача:</h5>
+        Разрулите конфликт маршрутов:
+        <pre>	Route::get('/user/{id}', function ($id) {
+		return 'id';
+	});
+	Route::get('/user/all', function () {
+		return 'all';
+	});</pre>
+        <h5>Решение:</h5>
+        Что бы эти маршруты отробатывали правильно, нужно поменять их местами.
+        <pre>	Route::get('/user/all', function () {
+		return 'all';
+	});
+    Route::get('/user/{id}', function ($id) {
+		return 'id';
+	});</pre>
+
+        <a href="{{ route('routes-intro') }}#routes_task9">Назад к задачам</a>
+    @elseif ($id == 15)
+        <h5>Задача:</h5>
+        Разрулите конфликт маршрутов:
+        <pre>	Route::get('/user/{id?}', function ($id = null) {
+		return 'id';
+	});
+	Route::get('/user/', function () {
+		return 'user';
+	});
+	Route::get('/user/all', function () {
+		return 'all';
+	});</pre>
+        <h5>Решение:</h5>
+        Что бы эти маршруты отробатывали правильно, нужно поменять их местами.
+        <pre>	Route::get('/user/', function () {
+		return 'user';
+	});
+	Route::get('/user/all', function () {
+		return 'all';
+	});
+	Route::get('/user/{id?}', function ($id = null) {
+		return 'id';
+	});</pre>
+
+        <a href="{{ route('routes-intro') }}#routes_task9">Назад к задачам</a>
+    @elseif ($id == 16)
+        <h5>Задача:</h5>
+        Разрулите конфликт маршрутов:
+        <pre>	Route::get('/user/{name}/{id?}', function ($name, $id) {
+		return 'name id';
+	});
+	Route::get('/user/all', function () {
+		return 'all';
+	});
+	Route::get('/user/all/desc', function () {
+		return 'all desc';
+	});</pre>
+        <h5>Решение:</h5>
+        Что бы эти маршруты отробатывали правильно, нужно поменять их местами.
+        <pre>	Route::get('/user/all', function () {
+		return 'all';
+	});
+	Route::get('/user/all/desc', function () {
+		return 'all desc';
+	});
+	Route::get('/user/{name}/{id?}', function ($name, $id) {
+		return 'name id';
+	});</pre>
+
+        <a href="{{ route('routes-intro') }}#routes_task9">Назад к задачам</a>
+    @elseif ($id == 17)
+        <h5>Задача:</h5>
+        Разрулите конфликт маршрутов:
+        <pre>	Route::get('/user/{id}', function ($id) {
+		return 'id';
+	})->where('id', '[a-z0-9_-]+');
+	Route::get('/user/{id}', function ($id) {
+		return 'id';
+	})->where('id', '[0-9]+');</pre>
+        <h5>Решение:</h5>
+        Что бы эти маршруты отробатывали правильно, нужно поменять их местами.
+        <pre>	Route::get('/user/{id}', function ($id) {
+		return 'id';
+	})->where('id', '[0-9]+');
+	Route::get('/user/{id}', function ($id) {
+		return 'id';
+	})->where('id', '[a-z0-9_-]+');</pre>
+
+        <a href="{{ route('routes-intro') }}#routes_task9">Назад к задачам</a>
+    @elseif ($id == 18)
+        <h5>Задача:</h5>
+        Сгрупируйте следующие маршруты:
+        <pre>	Route::get('/admin/users', function () {
+		return 'all';
+	});
+	Route::get('/admin/user/{id}', function ($id) {
+		return $id;
+	});</pre>
+        <h5>Решение:</h5>
+        У обоих маршрутов общий префикс admin вынесем его в группу:
+        <pre>	Route::prefix('admin')->group(function () {
+		Route::get('/users', function () {
+			return 'all';
+		});
+		Route::get('/user/{id}', function ($id) {
+			return $id;
+		});
+	});</pre>
+
+        <a href="{{ route('routes-intro') }}#routes_task10">Назад к задачам</a>
     @endif
 
 

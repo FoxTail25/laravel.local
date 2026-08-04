@@ -163,6 +163,7 @@
     ]" />
     <br />
     <br />
+
     <h3>
         Ограничения на несколько параметров маршрутов в Laravel
     </h3>
@@ -200,5 +201,301 @@
     <br />
     <br />
 
+    <h3>
+        Шаблонные ограничения параметров маршрутов в Laravel
+    </h3>
+    Не очень удобно каждый раз для ограничения параметров прописывать одни и те же регулярки. Поэтому для популярных
+    ограничений в Laravel созданы специальные методы. Давайте их рассмотрим.
+    <br />
+    Следующий метод ограничивает параметр только цифрами:
+    <pre>&lt;?php
+	Route::get('/post/{id}', function ($id) {
+		//
+	})->whereNumber('id');</pre>
+    Следующий метод ограничивает параметр только буквами:
+    <pre>&lt;?php
+	Route::get('/post/{slug}', function ($slug) {
+		//
+	})->whereAlpha('slug');</pre>
+    Следующий метод ограничивает параметр цифрами и буквами:
+    <pre>&lt;?php
+	Route::get('/post/{slug}', function ($slug) {
+		//
+	})->whereAlphaNumeric('slug');</pre>
+    Следующий метод ограничивает параметр списком значений:
+    <pre>&lt;?php
+	Route::get('/post/{category}', function ($slug) {
+		//
+	})->whereIn('category', ['news', 'blog']);</pre>
+    <x-page.content.task.head :data="['routes_task7', 'Задачи:']" />
+    <x-page.content.task.body href='routes-task' :tasks="[
+        11 => [
+            'text' => 'Сделайте маршрут вида /user/:id, где вместо :id должно быть число.',
+        ],
+        12 => [
+            'text' => 'Сделайте маршрут вида /city/:name, где вместо :name должны быть буквы.',
+        ],
+    ]" />
+    <br />
+    <br />
+
+    <h3>
+        Глобальные ограничения параметров в Laravel
+    </h3>
+    Можно сделать так, чтобы параметр с определенным именем всегда имел заданное ограничение в любых маршрутах. Это
+    нужно прописовать в методе boot класса RouteServiceProvider. (path: App/Providers/RouteServiceProvider.php)
+    <br />
+    Давайте для примера зададим глобальное ограничение для параметра с именем id:
+    <pre>&lt;?php
+	public function boot()
+	{
+	    Route::pattern('id', '[0-9]+');
+	}</pre>
+    Теперь любой маршрут, у которого есть параметр id, выполнится только если id будет числом:
+    <pre>&lt;?php
+	Route::get('/post/{id}', function ($id) {
+		return '!!!'; // только если число
+	});</pre>
+    <x-page.content.task.head :data="['routes_task8', 'Задача:']" />
+    <x-page.content.task.body href='routes-task' :tasks="[
+        13 => [
+            'text' =>
+                'Наложите глобальное ограничение на параметр routslug. Пусть он может содержать буквы и цифры, а также дефис и подчеркивание.',
+        ],
+    ]" />
+    <br />
+    <br />
+
+    <h3>
+        Разрешение конфликтов маршрутов в Laravel
+    </h3>
+    Laravel проверяет маршруты по порядку их записи. Если найден подходящий маршрут, то дальнейшая проверка
+    прекращается.
+    <br />
+    Из-за этого маршруты могут конфликтовать друг с другом. Например, в следующем примере второй маршут никогда не будет
+    достигнут, так обращение к нему будет перехвачено первым маршрутом:
+    <pre>&lt;?php
+	Route::get('/post/{id}', function ($id) {
+		return 'id';
+	});
+	Route::get('/post/all', function () {
+		return 'all';
+	});</pre>
+    Для избежания конфликтов следует писать более частные случаи маршрутов вначале, а потом - более общие. Поменяем
+    порядок следования наших маршрутов и проблема исчезнет:
+    <pre>&lt;?php
+	Route::get('/post/all', function () {
+		return 'all';
+	});
+	Route::get('/post/{id}', function ($id) {
+		return 'id';
+	});</pre>
+    Можно также наложить ограничение на параметры. В этом случае причина конфликта исчезнет. Давайте укажем, что наши id
+    должны быть числами. В этом случае второй маршрут уже не будет частным случаем первого и все будет работать верно:
+    <pre>&lt;?php
+	Route::get('/post/{id}', function ($id) {
+		return 'id';
+	})->where('id', '[0-9]+');
+	Route::get('/post/all', function () {
+		return 'all';
+	});</pre>
+    <x-page.content.task.head :data="['routes_task9', 'Задачи:']" />
+    <ol>
+        <li>
+            <a href="{{ route('routes-task', ['id' => 14]) }}" style="text-decoration: none;">Разрулите конфликт
+                маршрутов:
+                <pre>	Route::get('/user/{id}', function ($id) {
+		return 'id';
+	});
+	Route::get('/user/all', function () {
+		return 'all';
+	});</pre>
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('routes-task', ['id' => 15]) }}" style="text-decoration: none;">Разрулите конфликт
+                маршрутов:
+                <pre>	Route::get('/user/{id?}', function ($id = null) {
+		return 'id';
+	});
+	Route::get('/user/', function () {
+		return 'user';
+	});
+	Route::get('/user/all', function () {
+		return 'all';
+	});</pre>
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('routes-task', ['id' => 16]) }}" style="text-decoration: none;">Разрулите конфликт
+                маршрутов:
+                <pre>	Route::get('/user/{name}/{id?}', function ($name, $id) {
+		return 'name id';
+	});
+	Route::get('/user/all', function () {
+		return 'all';
+	});
+	Route::get('/user/all/desc', function () {
+		return 'all desc';
+	});</pre>
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('routes-task', ['id' => 17]) }}" style="text-decoration: none;">Разрулите конфликт
+                маршрутов:
+                <pre>	Route::get('/user/{id}', function ($id) {
+		return 'id';
+	})->where('id', '[a-z0-9_-]+');
+	Route::get('/user/{id}', function ($id) {
+		return 'id';
+	})->where('id', '[0-9]+');</pre>
+            </a>
+        </li>
+    </ol>
+    <br />
+    <br />
+
+    <h3>
+        Группировка маршрутов в Laravel
+    </h3>
+    Можно группировать маршруты, адреса которых начинаются на одинаковую часть. Давайте посмотрим на примере. Пусть у
+    нас есть такие адреса:
+    <pre>&lt;?php
+	Route::get('/blog/post/all', function () {
+		return 'all';
+	});
+	Route::get('/blog/post/{id}', function ($id) {
+		return $id;
+	});</pre>
+    Вынесем общую часть:
+    <pre>&lt;?php
+	Route::prefix('blog')->group(function () {
+		Route::get('/post/all', function () {
+			return 'all';
+		});
+		Route::get('/post/{id}', function ($id) {
+			return $id;
+		});
+	});</pre>
+    <x-page.content.task.head :data="['routes_task10', 'Задача:']" />
+    <ol>
+        <li>
+            <a href="{{ route('routes-task', ['id' => 18]) }}" style="text-decoration: none;">Сгрупируйте следующие
+                маршруты:
+                <pre>	Route::get('/admin/users', function () {
+		return 'all';
+	});
+	Route::get('/admin/user/{id}', function ($id) {
+		return $id;
+	});</pre>
+            </a>
+        </li>
+    </ol>
+    <br />
+    <br />
+
+    <h3>
+        Именованные маршруты в Laravel
+    </h3>
+    Маршрутам можно давать имена. Эти имена в дальнейшем могут быть использованы для различных целей. Давайте посмотрим
+    на примере. Пусть дан такой маршрут:
+    <pre>	Route::get('/post/all', function () {
+		return 'all';
+	});</pre>
+    Давайте дадим ему имя:
+    <pre>	Route::get('/post/all', function () {
+		return 'all';
+	})->name('posts');</pre>
+    <br />
+    <br />
+    <i>
+        <b>
+            Изначально, я не оценил важности этой темы. И вообще не понял зачем это нужно. А потом кааак
+            пооонял....))))
+        </b>
+        <br />
+        p.s. Понимание пришло ко мне только после серьёзного знакомства с темами Controller и Blade (components).
+    </i>
+    <br />
+    <br />
+    Сейчас попробую объяснить суть этого "именования маршрута". По сути, name('posts') - сообщает laravel
+    "короткое/(внутреннее)" имя маршрута. Которое видит только сам Laravel. Возьмём последний пример кода. Там указывает
+    маршрут, который будет обрабатывать роутер (/post/all) и по идее, что бы попасть на эту страницу, вы будете
+    указывать в ссылке адрес &lt;a> href="/post/all">все посты&lt;/a> И таких ссылок в ваше проекте может быть очень
+    много. Но вот вы (или заказчик) решил что теперь "все посты" должны находиться по ссылке (/post/all-posts). В
+    результате, вам необходимо исправить ссылку в роуте, и ВСЕ ссылки типа <b>&lt;a> href="/post/all">все
+        посты&lt;/a></b> вам
+    нужно будет найти и заменить на <b>&lt;a> href="/post/all-posts">все посты&lt;/a></b>...
+    Представили сколько работы вам предстоит?? И если проект не маленький, обязательно можно что-то пропустить((
+    <br />
+    <i>Вот тут нам и пригодится "именованнай маршрут!")))</i>Вместо<b>&lt;a> href="/post/all">все
+        посты&lt;/a></b>в шаблонах blade (будут рассмотрены далее) можно указать <b>&lt;a>
+        href="&#123;&#123; route('posts') }}">все
+        посты&lt;/a></b> при формировании ответа сервара клиенту, подобные ссылки будет автоматически подменяться
+    абсолютным путём указанным в роутере!
+    <br />
+    <br />
+    <h3>
+        Передача get-параметров в именованный маршрут
+    </h3>
+    Для передачи GET-параметров (Query String) в именованный маршрут в Laravel передайте их в виде ассоциативного
+    массива вторым аргументом в хелпер route().Все элементы массива, ключи которых не совпадают с обязательными
+    параметрами самого пути ({id}, {slug}), Laravel автоматически преобразует в GET-параметры и добавит в конец URL.
+    <br />
+    Примеры использования:
+    <ol>
+        <li>
+            <b>Маршрут без параметров в пути</b>
+            <br />
+            Если в самом URL нет динамических переменных, все переданные данные станут GET-параметрами.
+            <br />
+            Определение маршрута в routes/web.php
+            <pre>Route::get('/search', [SearchController::class, 'index'])->name('search');</pre>
+            // Генерация ссылки в контроллере или blade
+            <pre>$url = route('search', ['query' => 'laravel', 'page' => 2]);</pre>
+            // Результат:
+            <pre>/search?query=laravel&page=2</pre>
+        </li>
+        <li>
+            <b>Маршрут с параметрами пути и GET-параметрами</b>
+            <br />
+            Если в маршруте есть обязательный параметр (например, {category}), то первый элемент массива заполнит
+            его, а остальные уйдут в Query String
+            <br />
+            Определение маршрута в routes/web.php
+            <pre>Route::get('/catalog/{category}', [CatalogController::class, 'show'])->name('catalog.show');</pre>
+
+            // Генерация ссылкив в контроллере или blade
+            <pre>$url = route('catalog.show', [
+            'category' => 'electronics', // Подставится вместо {category}
+            'sort' => 'price_desc', // Станет GET-параметром
+            'instock' => 'yes' // Станет GET-параметром
+            ]);</pre>
+
+            // Результат:
+            <pre>/catalog/electronics?sort=price_desc&instock=yes</pre>
+        </li>
+        <li>
+            <b>Перенаправление (Redirect) с GET-параметрами</b>
+            <br />
+            Для редиректа используется аналогичный синтаксис с хелпером
+            to_route() или методом route()
+            <pre>return to_route('search', ['query' => 'php', 'filter' => 'active']);
+// или через старый синтаксис:
+return redirect()->route('search', ['query' => 'php', 'filter' => 'active']);</pre>
+            <br />
+            <b>Как получить эти параметры в контроллере</b>
+            <br />
+            В принимающем контроллере вы вытаскиваете GET-параметры через объект Request:phpuse Illuminate\Http\Request;
+            <pre>public function index(Request $request)
+    {
+        $query = $request->query('query'); // 'laravel'
+        $page = $request->input('page'); // 2
+
+        // Получить все GET-параметры сразу:
+        $allGetParameters = $request->query();
+    }</pre>
+        </li>
+    </ol>
 
 </x-layout>

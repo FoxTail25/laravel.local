@@ -57,9 +57,13 @@ Route::get('/users/{order}', function ($order) {
     return "В order было записано значение: $order";
 })->where('order', '\b(name|surname|age)\b');
 
-
-
+Route::get('/test_slug/{testslug}', function ($testslug) {
+    return "Вы перешли по маршруту: /test_slug/$testslug";
+});
 // окончание маршрутов по задачам раздела route
+
+
+
 
 Route::prefix('blade')->group(function () {
 
