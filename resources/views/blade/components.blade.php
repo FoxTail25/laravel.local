@@ -461,9 +461,7 @@
 &lt;/div></pre>
     Передайте в компонент Logo атрибуты width и height.
     <x-task.head :data="['components_task13', 'Задача:']" />
-    {{-- <x-task.body :tasks="[
-        '/blade/components-task/23' => 'Передайте в компонент Logo атрибут width.',
-    ]" /> --}}
+
     <x-task.body2 href='components-task' :tasks="[
         23 => [
             'text' => 'Передайте в компонент Logo атрибут width.',

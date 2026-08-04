@@ -2,8 +2,8 @@
 <html lang="RU">
 
 <head>
-    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
     <x-meta />
     <title>{{ isset($title) ? $title : 'Laravel' }}</title>

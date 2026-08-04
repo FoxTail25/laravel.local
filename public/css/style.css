@@ -22,13 +22,15 @@ td {
 
 main {
     scroll-behavior: smooth;
+    tab-size: 4;
 }
 
-pre,
-code {
+pre {
     background: rgb(245, 245, 245);
-    padding: 10px;
+    padding: 5px;
     border-radius: 10px;
+    margin-block:0;
+    margin-bottom:0;
 }
 
 .task_head {

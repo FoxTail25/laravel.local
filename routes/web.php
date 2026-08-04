@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RoutesController;
 use App\Http\Controllers\BladeController;
 use App\Http\Controllers\DbController;
 use App\Http\Controllers\EloqumentController;
@@ -15,26 +16,57 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('home', ['title' => 'home']);
 });
+Route::prefix('routes')->group(function () {
+    Route::get('/', fn() => view('routes.intro'))->name('routes-intro');
+    Route::get('/routes-task/{id}', [RoutesController::class, 'routes'])->whereNumber('id')->name('routes-task');
+});
+
+// маршруты по задачам раздела route
+Route::get('/test', function () {
+    return 'вы перешли по адресу: /test';
+});
+Route::get('/dir/test', function () {
+    return 'вы перешли по адресу: /dir/test';
+});
+Route::get('/user/{name}', function ($name) {
+    return 'вы перешли по адресу: /user/' . $name;
+});
+Route::get('/user/{surname}/{name}', function ($surname, $name) {
+    return "вы перешли по адресу: $surname $name";
+});
+Route::get('/city/{city?}', function ($city = 'Minsk') {
+    return "Город: $city";
+});
+Route::get('/usernum/{id}', function ($id) {
+    return "id = $id";
+})->where('id', '[0-9]+');
+
+Route::get('/userwhere/{id}/{name}', function ($id, $name) {
+    return "id = $id name = $name";
+})->where('id', '[0-9]+')->where('name', '[a-z]{2,}');
+
+Route::get('/posts/{date}', function ($date) {
+    return "дата: $date";
+})->where('date', '\d{2}-\d{2}-\d{4}');
+
+Route::get('/{year}/{month}/{day}', function ($year, $month, $day) {
+    return "дата: $year-$month-$day";
+})->where('year', '\d{4}')->where('month', '\d{2}')->where('day', '\d{2}');
+
+Route::get('/users/{order}', function ($order) {
+    return "В order было записано значение: $order";
+})->where('order', '\b(name|surname|age)\b');
+
+
+
+// окончание маршрутов по задачам раздела route
+
 Route::prefix('blade')->group(function () {
 
     Route::get('/fundamentals/', function () {
         return view('blade.fundamentals');
     })->name('fundamentals');
     Route::get('/fundamentals-task/{id}', [BladeController::class, 'fundamentals'])->whereNumber('id')->name('fundamentals-task');
-
-    // Route::get('/components-task/{id}', [BladeController::class, 'components'])->whereNumber('id')->name('components-task');
-
-
-
-    // Route::get('/variables-attributes-task/{id}', [BladeController::class, 'variablesAttributes'])->whereIn('id', (new BladeController)->variablesAttributes(1, 1));
-
-    // Route::get('/arbitrary-code-task/{id}', [BladeController::class, 'arbitraryCode'])->whereIn('id', (new BladeController)->arbitraryCode(1, 1));
-
-    // Route::get('/arrays-task/{id}', [BladeController::class, 'arrays'])->whereIn('id', (new BladeController)->arrays(1, 1));
-
-    // Route::get('/variables-checking-task/{id}', [BladeController::class, 'variablesChecking'])->whereIn('id', (new BladeController)->variablesChecking(1, 1));
-
-    // Route::get('/unescaped-data-output-task/{id}', [BladeController::class, 'unescapedDataOutput'])->whereIn('id', [1]);
 
     Route::get('/conditions/', function () {
         return view('blade.conditions');
