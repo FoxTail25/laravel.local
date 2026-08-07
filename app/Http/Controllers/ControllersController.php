@@ -4,12 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class RoutesController extends Controller
+class ControllersController extends Controller
 {
-    public function routes(Request $request, int $id)
+    public function base(Request $request, int $id)
     {
         // В этом разделе ?? задачи. создаём массив с номерами задач для проверки
-        $tasks = range(1, 18);
+        $tasks = range(1, 9);
 
         // Проверка безопасности: если передали несуществующий ID задачи
         if (!isset($tasks[($id - 1)])) {
@@ -17,7 +17,7 @@ class RoutesController extends Controller
         }
 
 
-        return view('routes.intro-task', [
+        return view('controllers.fundamentals-task', [
             'id' => $id,
             'text' => $request->text,
         ]);

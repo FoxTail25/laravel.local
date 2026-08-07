@@ -2,12 +2,15 @@
 
 use App\Http\Controllers\RoutesController;
 use App\Http\Controllers\BladeController;
+use App\Http\Controllers\ControllersController;
 use App\Http\Controllers\DbController;
 use App\Http\Controllers\EloqumentController;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\MigrationController;
 use App\Http\Controllers\SeederController;
 use App\Http\Controllers\TestController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ViewController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -19,6 +22,7 @@ Route::get('/', function () {
 Route::prefix('routes')->group(function () {
     Route::get('/', fn() => view('routes.intro'))->name('routes-intro');
     Route::get('/routes-task/{id}', [RoutesController::class, 'routes'])->whereNumber('id')->name('routes-task');
+    Route::get('/advanced', fn() => view('routes.advanced'))->name('routes-advanced');
 });
 
 // маршруты по задачам раздела route
@@ -64,7 +68,26 @@ Route::get('/test_slug/{testslug}', function ($testslug) {
 
 
 
+Route::prefix('controllers')->group(function () {
+    Route::get('/', fn() => view('controllers.fundamentals'))->name('controllers-fundamentals');
+    Route::get('/controllers-task/{id}', [ControllersController::class, 'base'])->whereNumber('id')->name('controllers-task');
+    // Route::get('/advanced', fn() => view('routes.advanced'))->name('routes-advanced');
+});
+// Маршруты по задачем раздела Контроллеры:
 
+Route::get('/user', [UserController::class, 'show']);
+Route::get('/controll/user/all', [UserController::class, 'all']);
+Route::get('/controll/user/{name}', [UserController::class, 'name']);
+Route::get('/controll/user/{surname}/{name}', [UserController::class, 'surnameAndName']);
+Route::get('/controll/user-city/{user}', [UserController::class, 'userCity']);
+Route::get('/controll/user-citysave/{user?}', [UserController::class, 'userCitySave']);
+
+// Окончание маршрутов по задачем раздела Контроллеры:
+
+Route::prefix('views')->group(function () {
+    Route::get('/base', fn() => view('views.base'))->name('views-base');
+    Route::get('/views-task/{id}', [ViewController::class, 'base'])->whereNumber('id')->name('views-task');
+});
 Route::prefix('blade')->group(function () {
 
     Route::get('/fundamentals/', function () {

@@ -6,12 +6,12 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 flex-wrap justify-content-center">
 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                         aria-expanded="false">
-                        Routes
+                        Маршруты (Routes)
                     </a>
                     <ul class="dropdown-menu">
                         <li>
@@ -24,19 +24,31 @@
                             <hr class="dropdown-divider">
                         </li>
                         <li class="advanced_section">
-                            <a class="dropdown-item" href="/blade/components">
-                                Компоненты
+                            <a class="dropdown-item" href="{{ route('routes-advanced') }}">
+                                Продвинутый
                             </a>
                         </li>
                     </ul>
-
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page"
+                        href="{{ route('controllers-fundamentals') }}">Контроллеры (Controllers)</a>
+                </li>
+
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                         aria-expanded="false">
-                        blade
+                        Представления (view) и blade
                     </a>
                     <ul class="dropdown-menu">
+                        <li>
+                            <a class="dropdown-item" href="{{ route('views-base') }}">
+                                View
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
                         <li>
                             <a class="dropdown-item" href="/blade/fundamentals">
                                 Основы
