@@ -15,11 +15,20 @@ class ViewController extends Controller
         if (!isset($tasks[($id - 1)])) {
             abort(404, 'Задача не найдена');
         }
+        $data = [];
 
+        if ($id == 2) {
+            $data = ['name' => 'John', 'surname' => 'Smit'];
+        }
 
-        return view('views.base-task', [
+        return view('view.view-base-task', [
             'id' => $id,
             'text' => $request->text,
+            'data' => $data
         ]);
+    }
+    public function task1()
+    {
+        return view('view.task1');
     }
 }

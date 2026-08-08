@@ -46,4 +46,16 @@ class UserController extends Controller
             return 'запрошенные данные отсутствуют';
         }
     }
+    public function viewOne()
+    {
+        return view('user.viewOne', ['title' => 'title vievOne', 'content' => 'content viewOne']);
+    }
+    public function viewTwo()
+    {
+        return view('user.viewTwo', ['title' => 'title vievTwo', 'content' => 'content viewTwo']);
+    }
+    public function viewThree()
+    {
+        return view('user.viewThree', ['title' => 'title vievThree', 'content' => 'content viewThree']);
+    }
 }

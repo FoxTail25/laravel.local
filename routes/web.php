@@ -85,9 +85,17 @@ Route::get('/controll/user-citysave/{user?}', [UserController::class, 'userCityS
 // Окончание маршрутов по задачем раздела Контроллеры:
 
 Route::prefix('views')->group(function () {
-    Route::get('/base', fn() => view('views.base'))->name('views-base');
+    Route::get('/base', fn() => view('view.base'))->name('views-base');
     Route::get('/views-task/{id}', [ViewController::class, 'base'])->whereNumber('id')->name('views-task');
+    Route::get('/views-test/1', [ViewController::class, 'task1'])->name('views-task-1');
 });
+// маршруты для задач по теме представления
+Route::get('/view/viewOne', [UserController::class, 'viewOne']);
+Route::get('/view/viewTwo', [UserController::class, 'viewTwo']);
+Route::get('/view/viewThree', [UserController::class, 'viewThree']);
+// окончание маршрутов для задач по теме представления
+
+
 Route::prefix('blade')->group(function () {
 
     Route::get('/fundamentals/', function () {
