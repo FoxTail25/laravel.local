@@ -92,9 +92,6 @@ return new class extends Migration
         Schema::dropIfExists('posts');
     }
 };</pre>
-    {{-- <a href="/migrations/file-structure-task/1">Задача 1</a> --}}
-    {{-- <a href="/migrations/file-structure-task/2">Задача 2</a> --}}
-
     <x-page.content.task.head :data="['migrations_task1', 'Задачи:']" />
     <x-page.content.task.body href='migration-file-structure-tasks' :tasks="[
         1 => [

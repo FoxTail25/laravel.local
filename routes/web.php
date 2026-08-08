@@ -145,17 +145,17 @@ Route::prefix('migrations')->group(function () {
 
     Route::get('/running/', function () {
         return view('migrations.running');
-    });
-    Route::get('/running-task/{id}', [MigrationController::class, 'running'])->whereIn('id', (new MigrationController)->running(1, 1));
+    })->name('migration-running');
+    Route::get('/running-task/{id}', [MigrationController::class, 'running'])->name('migration-running-tasks');
 
     Route::get('/tables-fields/', function () {
         return view('migrations.tables-fields');
-    });
-    Route::get('/tables-fields-task/{id}', [MigrationController::class, 'tablesFields'])->whereIn('id', (new MigrationController)->tablesFields(1, 1));
+    })->name('migration-tables-fields');
+    Route::get('/tables-fields-task/{id}', [MigrationController::class, 'tablesFields'])->name('migration-tables-fields-tasks');
 
     Route::get('/migration-fields/', function () {
         return view('migrations.migration-fields');
-    });
+    })->name('migration-fields');
     Route::get('/migration-fields-task/{id}', [MigrationController::class, 'updateFilds'])->whereIn('id', (new MigrationController)->updateFilds(1, 1));
 
     Route::get('/del-change-table/', function () {

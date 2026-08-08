@@ -18,45 +18,30 @@ class MigrationController extends Controller
 
         return view('migrations.file-structure-task', ['id' => $id, 'text' => $request->text,]);
     }
-    public function running(string $id, bool|null $getTask = null)
+    public function running(Request $request, string $id)
     {
 
-        $task = [
-            '1' => [
-                'text' => "Сделайте миграцию, создающую таблицу с юзерами. Примените ее. Откройте PMA и убедитесь, что ваша миграция применилась.",
-                'data' => [],
-            ],
-        ];
+        // В этом разделе ?? задачи. создаём массив с номерами задач для проверки
+        $tasks = range(1, 1);
 
-        if ($getTask) {
-            return array_keys($task);
+        // Проверка безопасности: если передали несуществующий ID задачи
+        if (!isset($tasks[($id - 1)])) {
+            abort(404, 'Задача не найдена');
         }
 
-        if (array_key_exists($id, $task)) {
-            return view('migrations.running-task', ['id' => $id, 'text' => $task[$id]['text'], 'data' => $task[$id]['data']]);
-        }
+        return view('migrations.running-task', ['id' => $id, 'text' => $request->text]);
     }
-    public function tablesFields(string $id, bool|null $getTask = null)
+    public function tablesFields(Request $request, string $id)
     {
+        // В этом разделе ?? задачи. создаём массив с номерами задач для проверки
+        $tasks = range(1, 2);
 
-        $task = [
-            '1' => [
-                'text' => "Сделайте миграцию, создающую таблицу со статьями. Пусть у этой таблицы будут поля с заголовком статьи, ее текстом, датой создания.",
-                'data' => [],
-            ],
-            '2' => [
-                'text' => "Сделайте миграцию, создающую таблицу с юзерами. Пусть у этой таблицы будут поля с именем, фамилией, датой рождения, датой создания юзера.",
-                'data' => [],
-            ],
-        ];
-
-        if ($getTask) {
-            return array_keys($task);
+        // Проверка безопасности: если передали несуществующий ID задачи
+        if (!isset($tasks[($id - 1)])) {
+            abort(404, 'Задача не найдена');
         }
 
-        if (array_key_exists($id, $task)) {
-            return view('migrations.tables-fields-task', ['id' => $id, 'text' => $task[$id]['text'], 'data' => $task[$id]['data']]);
-        }
+        return view('migrations.tables-fields-task', ['id' => $id, 'text' => $request->text]);
     }
     public function updateFilds(string $id, bool|null $getTask = null)
     {

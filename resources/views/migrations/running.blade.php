@@ -3,9 +3,9 @@
         Миграции в Laravel
     </x-slot:title>
 
-    <h2>
+    <h3>
         Запуск миграций в Laravel
-    </h2>
+    </h3>
     <div>
         Давайте теперь научимся запускать миграции. Пусть для примера у нас есть следующая тестовая миграция, создающая
         таблицу с постами (приведенные команды мы еще будем изучать в следующих уроках):
@@ -36,6 +36,15 @@ return new class extends Migration
         <pre>
 php artisan migrate</pre>
     </div>
-    <a href="/migrations/running-task/1">Задача 1</a>
+    <x-page.content.task.head :data="['migrations-running-task1', 'Задача:']" />
+    <x-page.content.task.body href='migration-running-tasks' :tasks="[
+        1 => [
+            'text' =>
+                'Сделайте миграцию, создающую таблицу с юзерами. Примените ее. Откройте PMA и убедитесь, что ваша миграция применилась.',
+        ],
+    ]" />
+    <br />
+    <br />
+    {{-- <a href="/migrations/running-task/1">Задача 1</a> --}}
 
 </x-layout>

@@ -1,21 +1,15 @@
 <x-layout>
     <x-slot:title>
-        blade - проверка переменных
+        Миграции - задачи
     </x-slot:title>
 
     @if ($id == 1)
-        <div>
-            <p>
-                {{ $text }}
-            </p>
-            сначала создаётся сама миграция при помощи команды:
-            <pre>
-php artisan make:migration create_articles_table
-            </pre>
-            Далее мы идём в папку database/migration находим файл который оканчивается "...create_articles_table.php".
-            Открываем файл и дописываем следующий код в метод up()
-            <pre>
-&lt;?php
+        <x-page.tasks.header :text="$text" />
+        сначала создаётся сама миграция при помощи команды:
+        <pre>php artisan make:migration create_articles_table</pre>
+        Далее мы идём в папку database/migration находим файл который оканчивается "...create_articles_table.php".
+        Открываем файл и дописываем следующий код в метод up()
+        <pre>&lt;?php
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -37,20 +31,13 @@ return new class extends Migration
 			Schema::dropIfExists('posts');
 		}
 	}</pre>
-        </div>
     @elseif ($id == 2)
-        <div>
-            <p>
-                {{ $text }}
-            </p>
-            сначала создаётся сама миграция при помощи команды:
-            <pre>
-php artisan make:migration create_users_table
-            </pre>
-            Далее мы идём в папку database/migration находим файл который оканчивается "...create_users_table.php".
-            Открываем файл и дописываем следующий код в метод up()
-            <pre>
-&lt;?php
+        <x-page.tasks.header :text="$text" />
+        сначала создаётся сама миграция при помощи команды:
+        <pre>php artisan make:migration create_users_table</pre>
+        Далее мы идём в папку database/migration находим файл который оканчивается "...create_users_table.php".
+        Открываем файл и дописываем следующий код в метод up()
+        <pre>&lt;?php
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -74,8 +61,9 @@ return new class extends Migration
 			Schema::dropIfExists('posts');
 		}
 	}</pre>
-        </div>
     @endif
-    <a href="/migrations/tables-fields">Назад</a>
+    <br />
+    <br />
+    <a href="{{ route('migration-tables-fields') }}#migrations_tables-fields">Назад</a>
 
 </x-layout>

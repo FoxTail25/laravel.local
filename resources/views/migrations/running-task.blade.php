@@ -4,12 +4,8 @@
     </x-slot:title>
 
     @if ($id == 1)
-        <div>
-            <p>
-                {{ $text }}
-            </p>
-        </div>
+        <x-page.tasks.header :text="$text" />
     @endif
-    <a href="/migrations/running">Назад</a>
+    <a href="{{ route('migration-running') }}#migrations-running-task1">Назад</a>
 
 </x-layout>

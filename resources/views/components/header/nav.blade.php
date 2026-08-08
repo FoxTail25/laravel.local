@@ -103,22 +103,22 @@
                             <hr class="dropdown-divider">
                         </li>
                         <li>
-                            <a class="dropdown-item" href="/migrations/file-structure">
+                            <a class="dropdown-item" href="{{ route('migration-file-structure') }}">
                                 Структура файлов
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="/migrations/running">
+                            <a class="dropdown-item" href="{{ route('migration-running') }}">
                                 Запуск миграций
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="/migrations/tables-fields">
+                            <a class="dropdown-item" href="{{ route('migration-tables-fields') }}">
                                 Колонки таблиц в миграциях
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="/migrations/migration-fields">
+                            <a class="dropdown-item" href="{{ route('migration-fields') }}">
                                 Изменения полей в миграциях
                             </a>
                         </li>
