@@ -95,7 +95,7 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a class="dropdown-item" href="/migrations/intro">
+                            <a class="dropdown-item" href="{{ route('migration-intro') }}">
                                 Введение
                             </a>
                         </li>

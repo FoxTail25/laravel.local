@@ -4,32 +4,21 @@
     </x-slot:title>
 
     @if ($id == 1)
-        <div>
-            <p>
-                {{ $text }}
-            </p>
-            <div>
-                <b>
-                    После этого необходимо запустить команду
-                </b>
-                <span style="color:red">
-                    php artisan make:session-table
-                </span>
-                Эта команда создаст миграцию на создание таблицы сессий, которая необходима для запуска проекта
-            </div>
-        </div>
+        <x-page.tasks.header :text="$text" />
+        Заходим в папку database/migrations и удаляем оттуда все файлы миграций.
+        <b>
+            После этого, в терминале, необходимо выполнить команду
+        </b>
+        <span style="color:red">
+            php artisan make:session-table
+        </span>
+        Эта команда создаст миграцию на создание таблицы сессий, которая необходима для запуска проекта
     @elseif($id == 2)
-        <div>
-            <p>
-                {{ $text }}
-            </p>
-            <div>
-                <pre>
-                    php artisan make:migration сreate_users_table
-                </pre>
-            </div>
-        </div>
+        <x-page.tasks.header :text="$text" />
+        <pre>php artisan make:migration сreate_users_table</pre>
     @endif
-    <a href="/migrations/file-structure">Назад</a>
+    <br />
+    <br />
+    <a href="{{ route('migration-file-structure') }}#migrations_task1">Назад к задачам</a>
 
 </x-layout>

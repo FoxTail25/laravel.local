@@ -6,28 +6,17 @@ use Illuminate\Http\Request;
 
 class MigrationController extends Controller
 {
-    public function fileStructure(string $id, bool|null $getTask = null)
+    public function fileStructure(Request $request, string $id)
     {
+        // В этом разделе ?? задачи. создаём массив с номерами задач для проверки
+        $tasks = range(1, 2);
 
-        $task = [
-            '1' => [
-                'text' => "В папке с миграциями изначально уже есть некоторые миграции. Нам они пока не нужны. Уберите их из этой папки.",
-                'data' => [],
-            ],
-            '2' => [
-                'text' => "С помощью команды artisan сделайте миграцию, создающую таблицу users. Изучите код сгенерированного файла.",
-                'data' => [],
-            ],
-
-        ];
-
-        if ($getTask) {
-            return array_keys($task);
+        // Проверка безопасности: если передали несуществующий ID задачи
+        if (!isset($tasks[($id - 1)])) {
+            abort(404, 'Задача не найдена');
         }
 
-        if (array_key_exists($id, $task)) {
-            return view('migrations.file-structure-task', ['id' => $id, 'text' => $task[$id]['text'], 'data' => $task[$id]['data']]);
-        }
+        return view('migrations.file-structure-task', ['id' => $id, 'text' => $request->text,]);
     }
     public function running(string $id, bool|null $getTask = null)
     {

@@ -136,12 +136,12 @@ Route::get('/collections/', function () {
 Route::prefix('migrations')->group(function () {
     Route::get('/intro/', function () {
         return view('migrations.intro');
-    });
+    })->name('migration-intro');
 
     Route::get('/file-structure/', function () {
         return view('migrations.file-structure');
-    });
-    Route::get('/file-structure-task/{id}', [MigrationController::class, 'fileStructure'])->whereIn('id', (new MigrationController)->fileStructure(1, 1));
+    })->name('migration-file-structure');
+    Route::get('/file-structure-task/{id}', [MigrationController::class, 'fileStructure'])->name('migration-file-structure-tasks');
 
     Route::get('/running/', function () {
         return view('migrations.running');
