@@ -140,7 +140,7 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a class="dropdown-item" href="/seeders/intro">
+                            <a class="dropdown-item" href="{{ route('seeder-intro') }}">
                                 Введение
                             </a>
                         </li>
@@ -148,7 +148,7 @@
                             <hr class="dropdown-divider">
                         </li>
                         <li>
-                            <a class="dropdown-item" href="/seeders/manual-seeder">
+                            <a class="dropdown-item" href="{{ route('manual-seeder') }}">
                                 Ручное заполнение
                             </a>
                         </li>

@@ -171,12 +171,12 @@ Route::prefix('migrations')->group(function () {
 Route::prefix('seeders')->group(function () {
     Route::get('/intro/', function () {
         return view('seeders.intro');
-    });
+    })->name('seeder-intro');
 
     Route::get('/manual-seeder/', function () {
         return view('seeders.manual-seeder');
-    });
-    Route::get('/manual-seeder-task/{id}', [SeederController::class, 'manualSeeder'])->whereIn('id', (new SeederController)->manualSeeder(1, 1));
+    })->name('manual-seeder');
+    Route::get('/manual-seeder-task/{id}', [SeederController::class, 'manualSeeder'])->name('manual-seeder-task');
 });
 
 Route::prefix('DB')->group(function () {

@@ -3,17 +3,16 @@
         в Laravel
     </x-slot:title>
 
-    <h2>
+    <h3>
         Seeders в Laravel
-    </h2>
+    </h3>
     <h4>
         Ручное заполнение таблиц через сидеры в Laravel
     </h4>
     Давайте теперь пропишем в нашем сидере команды на заполнение какой-нибудь таблицы.
     <br />
     Для начала нам нужно заюзать фасад DB позволяющий осуществлять вставку данных:
-    <pre>
-    &lt;?php
+    <pre>&lt;?php
     use Illuminate\Database\Seeder;
 	use Illuminate\Support\Facades\DB; // подключаем
 
@@ -25,8 +24,8 @@
 		}
 	}</pre>
     Давайте теперь вставим в таблицу с постами новый пост. Это делается следующим образом:
-    <pre>
-    &lt;?php
+    <pre>&lt;?php
+
     use Illuminate\Database\Seeder;
 	use Illuminate\Support\Facades\DB; // подключаем
 
@@ -42,8 +41,8 @@
 		}
 	}</pre>
     Можно вставить не одну запись, а сразу несколько:
-    <pre>
-    &lt;?php
+    <pre>&lt;?php
+
     use Illuminate\Database\Seeder;
 	use Illuminate\Support\Facades\DB; // подключаем
 
@@ -72,7 +71,15 @@
 	}</pre>
     Теперь можно в терминале запустить команду на вставку данных из сидера:
     <pre>php artisan db:seed</pre>
-    <a href="/seeders/manual-seeder-task/1">Задача 1</a>
+
+    <x-page.content.task.head :data="['seeder_task1', 'Задача:']" />
+    <x-page.content.task.body href='manual-seeder-task' :tasks="[
+        1 => [
+            'text' => 'Добавьте данные в таблицу с юзерами.',
+        ],
+    ]" />
+    <br />
+    <br />
 
     <h4>
         Генерация случайных строк в сидерах в Laravel
@@ -118,7 +125,15 @@
 		}
 	}</pre>
     </pre>
-    <a href="/seeders/manual-seeder-task/2">Задача 1</a>
+    <x-page.content.task.head :data="['seeder_task2', 'Задача:']" />
+    <x-page.content.task.body href='manual-seeder-task' :tasks="[
+        2 => [
+            'text' => 'Заполните таблицу с юзерами 10-ю записями со случайными строками.',
+        ],
+    ]" />
+    <br />
+    <br />
+
     <h4>
         Хеширование паролей в сидерах в Laravel
     </h4>
@@ -153,7 +168,14 @@
 		}
 	}
     </pre>
-    <a href="/seeders/manual-seeder-task/3">Задача 1</a>
+    <x-page.content.task.head :data="['seeder_task3', 'Задача:']" />
+    <x-page.content.task.body href='manual-seeder-task' :tasks="[
+        3 => [
+            'text' => 'Выполните вставку 10 юзеров, захешировав их пароли.',
+        ],
+    ]" />
+    <br />
+    <br />
 
     <h4>
         Отдельные классы сидеров в Laravel
@@ -185,11 +207,21 @@
 	}</pre>
     Запустим его отдельно следующей командой:
     <pre>php artisan db:seed --class=PostSeeder</pre>
-    </pre>
-    <a href="/seeders/manual-seeder-task/4">Задача 1</a>
-    <a href="/seeders/manual-seeder-task/5">Задача 2</a>
-    <a href="/seeders/manual-seeder-task/6">Задача 3</a>
 
+    <x-page.content.task.head :data="['seeder_task4', 'Задачи:']" />
+    <x-page.content.task.body href='manual-seeder-task' :tasks="[
+        4 => [
+            'text' => 'Сделайте отдельный сидер для таблицы с юзерами.',
+        ],
+        5 => [
+            'text' => 'Сделайте отдельный сидер для таблицы с городами.',
+        ],
+        6 => [
+            'text' => 'Сделайте отдельный сидер для таблицы со странами',
+        ],
+    ]" />
+    <br />
+    <br />
 
     <h4>
         Общий вызов отдельных сидеров в Laravel
@@ -218,8 +250,14 @@
 	}</pre>
     Теперь можно запустить все прописанные сидеры с помощью уже известной вам команды на запуск основного сидера:
     <pre>php artisan db:seed</pre>
-    </pre>
-    <a href="/seeders/manual-seeder-task/7">Задача 1</a>
+    <x-page.content.task.head :data="['seeder_task5', 'Задача:']" />
+    <x-page.content.task.body href='manual-seeder-task' :tasks="[
+        7 => [
+            'text' => 'Пропишите в основном сидере сидер с для юзеров, сидер для городов и сидер для стран.',
+        ],
+    ]" />
+    <br />
+    <br />
 
     <h4>
         Полное перестроение БД в Laravel
@@ -252,6 +290,13 @@
         <li>created_at(datetime)</li>
         <li>updated_at(datetime)</li>
     </ul>
-    <a href="/seeders/manual-seeder-task/8">Задача 1</a>
+    <x-page.content.task.head :data="['seeder_task6', 'Задача:']" />
+    <x-page.content.task.body href='manual-seeder-task' :tasks="[
+        8 => [
+            'text' => 'Сделайте миграции и сидеры для указанных таблиц.',
+        ],
+    ]" />
+    <br />
+    <br />
 
 </x-layout>
