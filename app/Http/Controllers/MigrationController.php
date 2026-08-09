@@ -20,7 +20,6 @@ class MigrationController extends Controller
     }
     public function running(Request $request, string $id)
     {
-
         // В этом разделе ?? задачи. создаём массив с номерами задач для проверки
         $tasks = range(1, 1);
 
@@ -43,86 +42,28 @@ class MigrationController extends Controller
 
         return view('migrations.tables-fields-task', ['id' => $id, 'text' => $request->text]);
     }
-    public function updateFilds(string $id, bool|null $getTask = null)
+    public function updateFilds(Request $request, string $id)
     {
+        // В этом разделе ?? задачи. создаём массив с номерами задач для проверки
+        $tasks = range(1, 10);
 
-        $task = [
-            '1' => [
-                'text' => "В таблице с юзерами измените размер поля name.",
-                'data' => [],
-            ],
-            '2' => [
-                'text' => "Написать миграцию на удалени из таблицы с юзерами поле age.",
-                'data' => [],
-            ],
-            '3' => [
-                'text' => "Написать миграцию на удалени из таблицы с юзерами поле name и surname.",
-                'data' => [],
-            ],
-            '4' => [
-                'text' => "В таблице с юзерами переименуйте поле name в поле first_name, а поле surname в second_name.",
-                'data' => [],
-            ],
-            '5' => [
-                'text' => "Добавьте в таблице с юзерами комментарий к полю email.",
-                'data' => [],
-            ],
-            '6' => [
-                'text' => "Сделайте так, чтобы в таблице с юзерами поле salary по умолчанию принимало значение 0.",
-                'data' => [],
-            ],
-            '7' => [
-                'text' => "Разрешите в таблице с юзерами полю age принимать значение null.",
-                'data' => [],
-            ],
-            '8' => [
-                'text' => "Сделайте в таблице с юзерами поле age беззнаковым.",
-                'data' => [],
-            ],
-            '9' => [
-                'text' => "В таблице с юзерами переместите поле name на первое место.",
-                'data' => [],
-            ],
-            '10' => [
-                'text' => "Добавьте к таблице с юзерами новое поле sex поле поля id.",
-                'data' => [],
-            ],
-        ];
-
-        if ($getTask) {
-            return array_keys($task);
+        // Проверка безопасности: если передали несуществующий ID задачи
+        if (!isset($tasks[($id - 1)])) {
+            abort(404, 'Задача не найдена');
         }
-        return view('migrations.migration-fields-task', ['id' => $id, 'text' => $task[$id]['text'], 'data' => $task[$id]['data']]);
+
+        return view('migrations.migration-fields-task', ['id' => $id, 'text' => $request->text]);
     }
-    public function migrationRollback(string $id, bool|null $getTask = null)
+    public function migrationRollback(Request $request, string $id)
     {
+        // В этом разделе ?? задачи. создаём массив с номерами задач для проверки
+        $tasks = range(1, 5);
 
-        $task = [
-            '1' => [
-                'text' => "Сделайте миграцию, которая добавляет в таблицу новое поле. Пропишите откат этой миграции.",
-                'data' => [],
-            ],
-            '2' => [
-                'text' => "Сделайте миграцию, которая удаляет поле из таблицы. Пропишите откат этой миграции.",
-                'data' => [],
-            ],
-            '3' => [
-                'text' => "Сделайте миграцию, которая удаляет несколько полей из таблицы. Пропишите откат этой миграции.",
-                'data' => [],
-            ],
-            '4' => [
-                'text' => "Сделайте миграцию, которая поменяет порядок полей в таблице. Пропишите откат этой миграции.",
-                'data' => [],
-            ],
-            '5' => [
-                'text' => "Сделайте миграцию, которая переименовывает таблицу. Пропишите откат этой миграции.",
-                'data' => [],
-            ],
-        ];
-
-        if ($getTask) {
-            return array_keys($task);
+        // Проверка безопасности: если передали несуществующий ID задачи
+        if (!isset($tasks[($id - 1)])) {
+            abort(404, 'Задача не найдена');
         }
-        return view('migrations.migration-rollback-task', ['id' => $id, 'text' => $task[$id]['text'], 'data' => $task[$id]['data']]);
+
+        return view('migrations.migration-rollback-task', ['id' => $id, 'text' => $request->text]);
     }
 }

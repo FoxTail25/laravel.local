@@ -18,7 +18,14 @@
 			$table->string('title', 100)->change();
 		});
 	}</pre>
-    <a href="/migrations/migration-fields-task/1">Задача 1</a>
+    <x-page.content.task.head :data="['migration-field_task1', 'Задача:']" />
+    <x-page.content.task.body href='migration-fields-task' :tasks="[
+        1 => [
+            'text' => 'В таблице с юзерами измените размер поля name.',
+        ],
+    ]" />
+    <br />
+    <br />
 
     <h4>
         Удаление полей в миграциях
@@ -37,17 +44,34 @@
             $table->dropColumn(['name','surname']);
     	});
 	}</pre>
-    <a href="/migrations/migration-fields-task/2">Задача 2</a>
-    <a href="/migrations/migration-fields-task/3">Задача 3</a>
+    <x-page.content.task.head :data="['migration-field_task2', 'Задачи:']" />
+    <x-page.content.task.body href='migration-fields-task' :tasks="[
+        2 => [
+            'text' => 'Написать миграцию на удалени из таблицы с юзерами поле age.',
+        ],
+        3 => [
+            'text' => 'Написать миграцию на удалени из таблицы с юзерами поле name и surname.',
+        ],
+    ]" />
+    <br />
+    <br />
+
     <h4>
         Переименование полей в миграциях Laravel
     </h4>
     Для переименования полей используется метод renameColumn:
-    <pre>
-    Schema::table('posts', function (Blueprint $table) {
-		$table->renameColumn('name', 'title');
-	});</pre>
-    <a href="/migrations/migration-fields-task/4">Задача 4</a>
+    <pre>   Schema::table('posts', function (Blueprint $table) {
+    $table->renameColumn('name', 'title');
+    });</pre>
+    <x-page.content.task.head :data="['migration-field_task3', 'Задача:']" />
+    <x-page.content.task.body href='migration-fields-task' :tasks="[
+        4 => [
+            'text' => 'В таблице с юзерами переименуйте поле name в поле first_name, а поле surname в second_name.',
+        ],
+    ]" />
+    <br />
+    <br />
+
     <h4>
         Модификаторы полей в миграциях Laravel
     </h4>
@@ -56,39 +80,33 @@
         Обнуляемость
     </h5>
     С помощью метода nullable можно сделать столбец обнуляемым (в этом случае поле может принимать значение null):
-    <pre>
-    Schema::create('posts', function (Blueprint $table) {
+    <pre>    Schema::create('posts', function (Blueprint $table) {
 		$table->string('desc')->nullable();
 	});</pre>
     Можно задавать модификатор не только при создании поля, но и при его изменении:
-    <pre>
-	Schema::table('posts', function (Blueprint $table) {
+    <pre>	Schema::table('posts', function (Blueprint $table) {
 		$table->string('desc')->nullable()->change();
 	});</pre>
     <h5>
         Значение по умолчанию
     </h5>
     С помощью метода default можно указать для поля значение по умолчанию:
-    <pre>
-	Schema::create('posts', function (Blueprint $table) {
+    <pre>	Schema::create('posts', function (Blueprint $table) {
 		$table->string('desc')->default('some value');
 	});</pre>
     Можно задавать модификатор не только при создании поля, но и при его изменении:
-    <pre>
-	Schema::table('posts', function (Blueprint $table) {
+    <pre>	Schema::table('posts', function (Blueprint $table) {
 		$table->string('desc')->default('some value')->change();
 	});</pre>
     <h5>
         Комментарии
     </h5>
     С помощью метода default можно указать для поля значение по умолчанию:
-    <pre>
-	Schema::create('posts', function (Blueprint $table) {
+    <pre>	Schema::create('posts', function (Blueprint $table) {
 		$table->string('desc')->comment('my comment');
 	});</pre>
     Можно задавать модификатор не только при создании поля, но и при его изменении:
-    <pre>
-	Schema::table('posts', function (Blueprint $table) {
+    <pre>	Schema::table('posts', function (Blueprint $table) {
 		$table->string('desc')->comment('my comment')->change();
 	});</pre>
 
@@ -97,20 +115,28 @@
     </h5>
     С помощью метода unsigned можно сделать поле типа integer беззнаковыми UNSIGNED (т.е. в такое поле нальзя записать
     отрицательные числа):
-    <pre>
-	Schema::create('posts', function (Blueprint $table) {
+    <pre>	Schema::create('posts', function (Blueprint $table) {
 		$table->integer('vote')->unsigned();
 	});</pre>
     Можно задавать модификатор не только при создании поля, но и при его изменении:
-    <pre>
-	Schema::table('posts', function (Blueprint $table) {
+    <pre>	Schema::table('posts', function (Blueprint $table) {
 		$table->integer('vote')->unsigned()->change();
 	});</pre>
-
-    <a href="/migrations/migration-fields-task/5">Задача 5</a>
-    <a href="/migrations/migration-fields-task/6">Задача 6</a>
-    <a href="/migrations/migration-fields-task/7">Задача 7</a>
-    <a href="/migrations/migration-fields-task/8">Задача 8</a>
+    <x-page.content.task.head :data="['migration-field_task4', 'Задачи:']" />
+    <x-page.content.task.body href='migration-fields-task' :tasks="[
+        5 => [
+            'text' => 'Добавьте в таблице с юзерами комментарий к полю email.',
+        ],
+        6 => [
+            'text' => 'Сделайте так, чтобы в таблице с юзерами поле salary по умолчанию принимало значение 0.',
+        ],
+        7 => [
+            'text' => 'Разрешите в таблице с юзерами полю age принимать значение null.',
+        ],
+        8 => [
+            'text' => 'Сделайте в таблице с юзерами поле age беззнаковым.',
+        ],
+    ]" />
 
     <h4>
         Порядок полей в миграциях Laravel
@@ -132,8 +158,17 @@
     Schema::table('posts', function (Blueprint $table) {
         $table->string('title')->after('id')->change();
 	});</pre>
+    <i>Модификатор ->after() корректно работает в MySQL и MariaDB. Если мы используем PostgreSQL или SQLite, этот
+        модификатор будет просто проигнорирован, и поле добавится в самый конец таблицы.</i>
 
-    <a href="/migrations/migration-fields-task/9">Задача 9</a>
-    <a href="/migrations/migration-fields-task/10">Задача 10</a>
+    <x-page.content.task.head :data="['migration-field_task5', 'Задачи:']" />
+    <x-page.content.task.body href='migration-fields-task' :tasks="[
+        9 => [
+            'text' => 'В таблице с юзерами переместите поле name на первое место.',
+        ],
+        10 => [
+            'text' => 'Добавьте к таблице с юзерами новое поле sex поле поля id.',
+        ],
+    ]" />
 
 </x-layout>

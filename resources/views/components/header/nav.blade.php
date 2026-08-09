@@ -123,12 +123,12 @@
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="/migrations/del-change-table">
+                            <a class="dropdown-item" href="{{ route('del-change-table') }}">
                                 Удаление и переименование таблиц
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="/migrations/migration-rollback">
+                            <a class="dropdown-item" href="{{ route('migration-rollback') }}">
                                 Отмена миграций
                             </a>
                         </li>

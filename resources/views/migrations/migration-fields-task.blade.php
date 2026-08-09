@@ -4,272 +4,273 @@
     </x-slot:title>
 
     @if ($id == 1)
-        <div>
-            <p>
-                {{ $text }}
-            </p>
-            <pre>
-&lt;?php
+        <x-page.tasks.header :text="$text" />
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
+        <pre>&lt;?php
 
-return new class extends Migration
-{
-    /**
-     * Run the migrations.
-     */
-    public function up(): void
+    use Illuminate\Database\Migrations\Migration;
+    use Illuminate\Database\Schema\Blueprint;
+    use Illuminate\Support\Facades\Schema;
+
+    return new class extends Migration
     {
-        Schema::table('users', function (Blueprint $table) {
-            // изменяем длинну поля name
-            $table->string('name', 100)->change();
-        });
+        /**
+        * Run the migrations.
+        */
+        public function up(): void
+        {
+            Schema::table('users', function (Blueprint $table) {
+                // изменяем длинну поля name
+                $table->string('name', 100)->change();
+            });
+        }
     }</pre>
-        </div>
+        <br />
+        <br />
+        <a href="{{ route('migration-fields') }}#migration-field_task1">Назад к задачам</a>
     @elseif($id == 2)
-        <div>
-            <p>
-                {{ $text }}
-            </p>
-            <pre>
-&lt;?php
+        <x-page.tasks.header :text="$text" />
+        <pre>&lt;?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
+    use Illuminate\Database\Migrations\Migration;
+    use Illuminate\Database\Schema\Blueprint;
+    use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
-    /**
-     * Run the migrations.
-     */
-    public function up(): void
+    return new class extends Migration
     {
-        Schema::table('users', function (Blueprint $table) {
-            // удаляем колонку age
-            $table->dropColumn('age');
-        });
+        /**
+        * Run the migrations.
+        */
+        public function up(): void
+        {
+            Schema::table('users', function (Blueprint $table) {
+                // удаляем колонку age
+                $table->dropColumn('age');
+            });
+        }
     } </pre>
-        </div>
+        <br />
+        <br />
+        <a href="{{ route('migration-fields') }}#migration-field_task2">Назад к задачам</a>
     @elseif($id == 3)
-        <div>
-            <p>
-                {{ $text }}
-            </p>
-        </div>
-        <pre>
-&lt;?php
+        <x-page.tasks.header :text="$text" />
+        <pre>&lt;?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
+    use Illuminate\Database\Migrations\Migration;
+    use Illuminate\Database\Schema\Blueprint;
+    use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
-    /**
-     * Run the migrations.
-     */
-    public function up(): void
+    return new class extends Migration
     {
-        Schema::table('users', function (Blueprint $table) {
-            // переименовываем поле
-            $table->dropColumn(['name','surname']);
-        });
-    } </pre>
+        /**
+        * Run the migrations.
+        */
+        public function up(): void
+        {
+            Schema::table('users', function (Blueprint $table) {
+                // переименовываем поле
+                $table->dropColumn(['name','surname']);
+            });
+        }
+    }</pre>
+        <br />
+        <br />
+        <a href="{{ route('migration-fields') }}#migration-field_task2">Назад к задачам</a>
     @elseif($id == 4)
-        <div>
-            <p>
-                {{ $text }}
-            </p>
-        </div>
-        <pre>
-&lt;?php
+        <x-page.tasks.header :text="$text" />
+        <pre>&lt;?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
+    use Illuminate\Database\Migrations\Migration;
+    use Illuminate\Database\Schema\Blueprint;
+    use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
-    /**
-     * Run the migrations.
-     */
-    public function up(): void
+    return new class extends Migration
     {
-        Schema::table('users', function (Blueprint $table) {
-            // переименовываем поля
-            $table->renameColumn('name','first-name');
-            $table->renameColumn('surname','second-name');
-        });
-    } </pre>
+        /**
+        * Run the migrations.
+        */
+        public function up(): void
+        {
+            Schema::table('users', function (Blueprint $table) {
+                // переименовываем поля
+                $table->renameColumn('name','first-name');
+                $table->renameColumn('surname','second-name');
+            });
+        }
+    }</pre>
+        <br />
+        <br />
+        <a href="{{ route('migration-fields') }}#migration-field_task3">Назад к задачам</a>
     @elseif($id == 5)
-        <div>
-            <p>
-                {{ $text }}
-            </p>
-        </div>
-        <pre>
-&lt;?php
+        <x-page.tasks.header :text="$text" />
+        <pre>&lt;?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
+    use Illuminate\Database\Migrations\Migration;
+    use Illuminate\Database\Schema\Blueprint;
+    use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
-    /**
-     * Run the migrations.
-     */
-    public function up(): void
+    return new class extends Migration
     {
-        Schema::table('users', function (Blueprint $table) {
-            // добавляем коммент к полю
-            $table->string('email')->comment('поле для почты');
-        });
-    } </pre>
+        /**
+        * Run the migrations.
+        */
+        public function up(): void
+        {
+            Schema::table('users', function (Blueprint $table) {
+                // добавляем коммент к полю
+                $table->string('email')->comment('поле для почты');
+            });
+        }
+    }</pre>
+        <br />
+        <br />
+        <a href="{{ route('migration-fields') }}#migration-field_task4">Назад к задачам</a>
     @elseif($id == 6)
-        <div>
-            <p>
-                {{ $text }}
-            </p>
-        </div>
-        <pre>
-&lt;?php
+        <x-page.tasks.header :text="$text" />
+        <pre>&lt;?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
+    use Illuminate\Database\Migrations\Migration;
+    use Illuminate\Database\Schema\Blueprint;
+    use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
-    /**
-     * Run the migrations.
-     */
-    public function up(): void
+    return new class extends Migration
     {
-        Schema::table('users', function (Blueprint $table) {
-            // дефолтное значение для поля salary
-            $table->integer('salary')->default(0);
-        });
-    } </pre>
+        /**
+        * Run the migrations.
+        */
+        public function up(): void
+        {
+            Schema::table('users', function (Blueprint $table) {
+                // дефолтное значение для поля salary
+                $table->integer('salary')->default(0);
+            });
+        }
+    }</pre>
         ...в принципе, можно написать и default('0') - это тоже сработает, laravel автатом приведёт к цифре.
+        <br />
+        <br />
+        <a href="{{ route('migration-fields') }}#migration-field_task4">Назад к задачам</a>
     @elseif($id == 7)
-        <div>
-            <p>
-                {{ $text }}
-            </p>
-        </div>
-        <pre>
-&lt;?php
+        <x-page.tasks.header :text="$text" />
+        <pre>&lt;?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
+    use Illuminate\Database\Migrations\Migration;
+    use Illuminate\Database\Schema\Blueprint;
+    use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
-    /**
-     * Run the migrations.
-     */
-    public function up(): void
+    return new class extends Migration
     {
-        Schema::table('users', function (Blueprint $table) {
-            // возможна запись null
-            $table->integer('age')->nullable();
-        });
-    } </pre>
-        ...в принципе, можно написать и default('0') - это тоже сработает, laravel автатом приведёт к цифре.
+        /**
+        * Run the migrations.
+        */
+        public function up(): void
+        {
+            Schema::table('users', function (Blueprint $table) {
+                // возможна запись null
+                $table->integer('age')->nullable();
+            });
+        }
+    }</pre>
+        <br />
+        <br />
+        <a href="{{ route('migration-fields') }}#migration-field_task4">Назад к задачам</a>
     @elseif($id == 8)
-        <div>
-            <p>
-                {{ $text }}
-            </p>
-        </div>
-        <pre>
-&lt;?php
+        <x-page.tasks.header :text="$text" />
+        <pre>&lt;?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
+    use Illuminate\Database\Migrations\Migration;
+    use Illuminate\Database\Schema\Blueprint;
+    use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
-    /**
-     * Run the migrations.
-     */
-    public function up(): void
+    return new class extends Migration
     {
-        Schema::table('users', function (Blueprint $table) {
-            // только положительные значения
-            $table->integer('age')->unsigned();
-        });
-    } </pre>
+        /**
+        * Run the migrations.
+        */
+        public function up(): void
+        {
+            Schema::table('users', function (Blueprint $table) {
+                // только положительные значения
+                $table->integer('age')->unsigned();
+            });
+        }
+    }</pre>
+        <br />
+        <br />
+        <a href="{{ route('migration-fields') }}#migration-field_task4">Назад к задачам</a>
     @elseif($id == 9)
-        <div>
-            <p>
-                {{ $text }}
-            </p>
-        </div>
-        <pre>
-&lt;?php
+        <x-page.tasks.header :text="$text" />
+        <pre>&lt;?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
+    use Illuminate\Database\Migrations\Migration;
+    use Illuminate\Database\Schema\Blueprint;
+    use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
-    /**
-     * Run the migrations.
-     */
-    public function up(): void
+    return new class extends Migration
     {
-        Schema::table('users', function (Blueprint $table) {
-            // только положительные значения
-            $table->string('name')->first()->change();
-        });
-    } </pre>
+        /**
+        * Run the migrations.
+        */
+        public function up(): void
+        {
+            Schema::table('users', function (Blueprint $table) {
+                // только положительные значения
+                $table->string('name')->first()->change();
+            });
+        }
+    }</pre>
+        <br />
+        <br />
+        <a href="{{ route('migration-fields') }}#migration-field_task5">Назад к задачам</a>
     @elseif($id == 10)
-        <div>
-            <p>
-                {{ $text }}
-            </p>
-        </div>
-        <pre>
-&lt;?php
+        <x-page.tasks.header :text="$text" />
+        <pre>&lt;?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
+    use Illuminate\Database\Migrations\Migration;
+    use Illuminate\Database\Schema\Blueprint;
+    use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
-    /**
-     * Run the migrations.
-     */
-    public function up(): void
+    return new class extends Migration
     {
-        Schema::table('users', function (Blueprint $table) {
-            // переименовываем поля name и surname
-            $table->string('name', 'first-name');
-            $table->renameColumn('surname', 'second-name');
-        });
-    }
+        /**
+        * Run the migrations.
+        */
+        public function up(): void
+        {
+            Schema::table('users', function (Blueprint $table) {
+                // добавляем новое поле sex после поля id
+                $table->string('sex')->after('id');
+            });
+        }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::table('users', function (Blueprint $table) {
-            // переименовываем поля name и surname
-            $table->renameColumn('first-name', 'name');
-            $table->renameColumn('second-name', 'surname');
-        });
-    }
- } </pre>
+        /**
+        * Reverse the migrations.
+        */
+        public function down(): void
+        {
+            Schema::table('users', function (Blueprint $table) {
+                // при откате миграции удаляем поле
+                $table->dropColumn('sex');
+            });
+        }
+    } </pre>
+        <b>
+            <i>
+                Если в таблице users уже есть данные, эта миграция вызовет ошибку, так как новое поле sex не может быть
+                пустым (NOT NULL).Если в таблице уже есть пользователи, нам нужно либо разрешить NULL, либо задать
+                дефолтное значение:
+                <ol>
+                    <li>
+                        <pre>$table->string('sex')->nullable()->after('id');</pre>
+                    </li>
+                    <li>
+                        <pre>$table->string('sex')->default('unknown')->after('id');</pre>
+                    </li>
+                </ol>
+            </i>
+        </b>
+        <br />
+        <br />
+        <a href="{{ route('migration-fields') }}#migration-field_task5">Назад к задачам</a>
     @endif
-    <a href="/migrations/migration-fields">Назад</a>
 </x-layout>
