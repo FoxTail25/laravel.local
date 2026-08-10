@@ -3,54 +3,44 @@
         where в Laravel
     </x-slot:title>
 
-    <h2>
-        Выборка (where) в QueryBuilder в Laravel
-    </h2>
     <h3>
-        Условия where при выборке через QueryBuilder в Laravel
+        Выборка (where) в QueryBuilder в Laravel
     </h3>
+    <h4>
+        Условия where при выборке через QueryBuilder в Laravel
+    </h4>
     При получении данных можно задавать условие на выборку. Это делается при помощи метода where. Давайте для примера с
     помощью этого метода получим все посты, количество лайков у которых равно 100:
-    <pre>
-        $posts = DB::table('posts')->where('likes', 100)->get();
-    </pre>
+    <pre>$posts = DB::table('posts')->where('likes', 100)->get();</pre>
     А теперь получим посты, у которых количество лайков больше 100:
-    <pre>
-        $posts = DB::table('posts')->where('likes', '>', 100)->
-		get();
-    </pre>
+    <pre>$posts = DB::table('posts')->where('likes', '>', 100)->get();</pre>
     А теперь получим посты, у которых количество лайков не равно 100:
-    <pre>
-        $posts = DB::table('posts')->where('likes', '!=', 100)->
-		get();
-    </pre>
+    <pre>$posts = DB::table('posts')->where('likes', '!=', 100)->get();</pre>
 
-    <h4 id="redordWhereTask1">
-        Задача
-    </h4>
-    <a href="/DB/record-where-task/1">
-        Получите всех юзеров с возрастом, равным 30 лет.
-    </a>
-    <br/>
-    <a href="/DB/record-where-task/2">
-        Получите всех юзеров с возрастом, не равным 30 лет.
-    </a>
-    <br/>
-    <a href="/DB/record-where-task/3">
-        Получите всех юзеров с возрастом, больше 30 лет.
-    </a>
-    <br/>
-    <a href="/DB/record-where-task/4">
-        Получите всех юзеров с возрастом, меньше 30 лет.
-    </a>
-    <br/>
-    <a href="/DB/record-where-task/5">
-        Получите всех юзеров с возрастом, меньшим или равным 30 лет.
-    </a>
+    <x-page.content.task.head :data="['redordWhereTask1', 'Задачи:']" />
+    <x-page.content.task.body href='qb-record-where-task' :tasks="[
+        1 => [
+            'text' => 'Получите всех юзеров с возрастом, равным 30 лет.',
+        ],
+        2 => [
+            'text' => 'Получите всех юзеров с возрастом, не равным 30 лет.',
+        ],
+        3 => [
+            'text' => 'Получите всех юзеров с возрастом, больше 30 лет.',
+        ],
+        4 => [
+            'text' => 'Получите всех юзеров с возрастом, больше 30 лет.',
+        ],
+        5 => [
+            'text' => 'Получите всех юзеров с возрастом, меньшим или равным 30 лет.',
+        ],
+    ]" />
+    <br />
+    <br />
 
-    <h3>
+    <h4>
         Несколько условий where при выборке через QueryBuilder в Laravel
-    </h3>
+    </h4>
     В запросе можно написать несколько условий where. В этом случае они объединятся через логическое И. Давайте
     посмотрим на примере. Напишем следующий запрос:
     <pre>
@@ -63,15 +53,18 @@
     <pre>
         SELECT * FROM posts WHERE likes > 10 AND likes < 20
     </pre>
-    <h4 id="redordWhereTask2">
-        Задача
-    </h4>
-    <a href="/DB/record-where-task/6">
-        Получите всех юзеров с возрастом от 20 до 30 лет.
-    </a>
-    <h3>
+    <x-page.content.task.head :data="['redordWhereTask2', 'Задача:']" />
+    <x-page.content.task.body href='qb-record-where-task' :tasks="[
+        6 => [
+            'text' => 'Получите всех юзеров с возрастом от 20 до 30 лет.',
+        ],
+    ]" />
+    <br />
+    <br />
+
+    <h4>
         Условия orWhere при выборке через QueryBuilder в Laravel
-    </h3>
+    </h4>
     С помощью метода orWhere можно объединять условия через логическое ИЛИ. Давайте посмотрим на примере:
     <pre>
  	$posts = DB::table('posts')
@@ -83,19 +76,20 @@
     <pre>
         SELECT * FROM posts WHERE id = 10 OR likes > 10
     </pre>
-    <h4 id="redordWhereTask3">
-        Задача
-    </h4>
-    <a href="/DB/record-where-task/7">
-        Получите всех юзеров с возрастом 30 или id, большем 4.
-    </a>
+    <x-page.content.task.head :data="['redordWhereTask3', 'Задачи:']" />
+    <x-page.content.task.body href='qb-record-where-task' :tasks="[
+        7 => [
+            'text' => 'Получите всех юзеров с возрастом 30 или id, большем 4.',
+        ],
+        8 => [
+            'text' => 'Получите всех юзеров с возрастом 30, или зарплатой 500, или id, большем 9',
+        ],
+    ]" />
     <br />
-    <a href="/DB/record-where-task/8">
-        Получите всех юзеров с возрастом 30, или зарплатой 500, или id, большем 9
-    </a>
-    <h3>
+    <br />
+    <h4>
         Сложные условия при выборке через QueryBuilder в Laravel
-    </h3>
+    </h4>
     При выборке можно конструировать условия любой сложности. Для этого в метод orWhere нужно параметром передать
     анонимную функцию, в которой будут писаться сгрупированные команды:
     <pre>
@@ -119,14 +113,18 @@
     </pre>
     В результате к базе выполнится следующий запрос:
     <pre>SELECT * FROM posts WHERE id = 3 OR (likes > 10 AND likes > 50)</pre>
-    <h4 id="redordWhereTask4">
-        Задача
-    </h4>
-    <a href="/DB/record-where-task/9">
-        Получите юзеров, у которых зарплата равна 500 либо возраст от 20 до 30.
-    </a>
+    <x-page.content.task.head :data="['redordWhereTask4', 'Задача:']" />
+    <x-page.content.task.body href='qb-record-where-task' :tasks="[
+        9 => [
+            'text' => 'Получите юзеров, у которых зарплата равна 500 либо возраст от 20 до 30.',
+        ],
+    ]" />
+    <br />
+    <br />
 
-    <h3>Условие whereBetween при выборке через QueryBuilder в Laravel</h3>
+    <h4>
+        Условие whereBetween при выборке через QueryBuilder в Laravel
+    </h4>
     Метод whereBetween проверяет, что значения столбца находится в указанном интервале:
     <pre>
     $posts = DB::table('posts')
@@ -143,15 +141,24 @@
 
     dump($posts);
     </pre>
-    <h4 id="redordWhereTask6">
+    {{-- <h4 id="redordWhereTask6">
         Задача
     </h4>
     <a href="/DB/record-where-task/10">
         Получите юзеров, возраст которых находится НЕ в промежутке от 20 до 30.
-    </a>
-    <h3>
+    </a> --}}
+    <x-page.content.task.head :data="['redordWhereTask5', 'Задача:']" />
+    <x-page.content.task.body href='qb-record-where-task' :tasks="[
+        10 => [
+            'text' => 'Получите юзеров, возраст которых находится НЕ в промежутке от 20 до 30.',
+        ],
+    ]" />
+    <br />
+    <br />
+
+    <h4>
         Условие whereIn при выборке через QueryBuilder в Laravel
-    </h3>
+    </h4>
     Метод whereIn проверяет, что значения столбца содержатся в указанном массиве:
     <pre>
     $posts = DB::table('posts')
@@ -168,16 +175,18 @@
 
     dump($posts);
     </pre>
-    <h4 id="redordWhereTask7">
-        Задача:
-    </h4>
-    <a href="/DB/record-where-task/11">
-        Получите юзеров с id, равными 1, 2, 3 и 5.
-    </a>
+    <x-page.content.task.head :data="['redordWhereTask6', 'Задача:']" />
+    <x-page.content.task.body href='qb-record-where-task' :tasks="[
+        11 => [
+            'text' => 'Получите юзеров с id, равными 1, 2, 3 и 5.',
+        ],
+    ]" />
+    <br />
+    <br />
 
-    <h3>
+    <h4>
         Динамические условия при выборке QueryBuilder в Laravel
-    </h3>
+    </h4>
     Можно использовать динамические условия, в которых после слова where будет написано имя поля таблицы. Для примера
     давайте сделаем условие по полю id:
     <pre>
@@ -195,18 +204,21 @@
 
 	dump($post);
     </pre>
-    <h4 id="redordWhereTask8">
-        Задача:
-    </h4>
-    <a href="/DB/record-where-task/12">
-        Получите юзера с полем id, равным 3.
-    </a>
-    <a href="/DB/record-where-task/13">
-        Получите юзера с полем name, равным 'userName5'.
-    </a>
-    <h3>
+    <x-page.content.task.head :data="['redordWhereTask7', 'Задача:']" />
+    <x-page.content.task.body href='qb-record-where-task' :tasks="[
+        12 => [
+            'text' => 'Получите юзера с полем id, равным 3.',
+        ],
+        13 => [
+            'text' => 'Получите юзера с полем name, равным userName5.',
+        ],
+    ]" />
+    <br />
+    <br />
+
+    <h4>
         Комбинации динамических условий QueryBuilder в Laravel
-    </h3>
+    </h4>
     Можно комбинировать условия в одном методе:
     <pre>
 	$post = DB::table('posts')
@@ -223,10 +235,11 @@
 
 	dump($post);
     </pre>
-    <h4 id="redordWhereTask9">
-        Задача
-    </h4>
-    <a href="/DB/record-where-task/14">
-        Получите юзера с полем id, равным 3, ИЛИ полем age, равным 20.
-    </a>
+    <x-page.content.task.head :data="['redordWhereTask8', 'Задача:']" />
+    <x-page.content.task.body href='qb-record-where-task' :tasks="[
+        14 => [
+            'text' => 'Получите юзера с полем id, равным 3, ИЛИ полем age, равным 20.',
+        ],
+    ]" />
+
 </x-layout>

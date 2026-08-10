@@ -180,30 +180,21 @@ Route::prefix('seeders')->group(function () {
 });
 
 Route::prefix('DB')->group(function () {
-    Route::get('/intro/', function () {
-        return view('DB.intro');
-    })->name('qb-intro');
+    Route::get('/intro/', fn()=> view('DB.intro'))->name('qb-intro');
     Route::get('/intro-task/{id}', [DbController::class, 'intro'])->name('qb-intro-task');
 
-    Route::get('/records/', function () {
-        return view('DB.records');
-    })->name('qb-record');
-    Route::get('/records-task/{id}', [DbController::class, 'record'])->name('qb-records-task');
+    Route::get('/records/', fn()=> view('DB.records'))->name('qb-record');
+    Route::get('/records-task/{id}', [DbController::class, 'record'])
+    ->name('qb-records-task');
 
-    Route::get('/record-where/', function () {
-        return view('DB.record-where');
-    });
-    Route::get('/record-where-task/{id}', [DbController::class, 'recordWhere']);
+    Route::get('/record-where/', fn()=> view('DB.record-where'))->name('qb-record-where');
+    Route::get('/record-where-task/{id}', [DbController::class, 'recordWhere'])->name('qb-record-where-task');
 
-    Route::get('/record-sort/', function () {
-        return view('DB.record-sort');
-    });
-    Route::get('/record-sort-task/{id}', [DbController::class, 'recordSort']);
+    Route::get('/record-sort/', fn()=> view('DB.record-sort'))->name('qb-record-sort');
+    Route::get('/record-sort-task/{id}', [DbController::class, 'recordSort'])->name('qb-record-sort-task');
 
-    Route::get('/insert-update-del/', function () {
-        return view('DB.insert-update-del');
-    });
-    Route::get('/insert-update-del-task/{id}', [DbController::class, 'InsertUpdateDel'])->whereNumber('id');
+    Route::get('/insert-update-del/', fn()=> view('DB.insert-update-del'))->name('qb-insert-update-del');
+    Route::get('/insert-update-del-task/{id}', [DbController::class, 'InsertUpdateDel'])->name('qb-insert-update-del-task');
 });
 
 Route::prefix('eloquent')->group(function () {

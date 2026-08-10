@@ -3,12 +3,12 @@
         INSERT, UPDATE, DELETE в QueryBuilderв Laravel
     </x-slot:title>
 
-    <h2>
-        INSERT, UPDATE, DELETE в QueryBuilderв Laravel
-    </h2>
     <h3>
-        Вставка данных через QueryBuilder в Laravel
+        INSERT, UPDATE, DELETE в QueryBuilderв Laravel
     </h3>
+    <h4>
+        Вставка данных через QueryBuilder в Laravel
+    </h4>
     Для вставки данных используется метод insert. Он принимает параметром массив имен столбцов и значений:
     <pre>
     DB::table('posts')->insert([
@@ -16,9 +16,9 @@
 		'slug'  => 'slug',
 	]);
     </pre>
-    <h3>
+    <h4>
         Получение id
-    </h3>
+    </h4>
     Можно получить id вставленной записи, использовов для вставки метод insertGetId:
     <pre>
 	$id = DB::table('posts')->insertGetId([
@@ -28,9 +28,9 @@
 
 	echo $id;
     </pre>
-    <h3>
+    <h4>
         Массовая вставка
-    </h3>
+    </h4>
     Можно вставить в таблицу сразу несколько записей одним вызовом insert. Давайте для примера вставим несколько постов.
     Для этого нужно передать параметром двухмерный массив:
     <pre>
@@ -45,20 +45,23 @@
 		]
 	]);
     </pre>
-    <h4 id="task1">Задачи:</h4>
-    <a href="/DB/insert-update-del-task/1">
-        Вставьте нового юзера в таблицу с юзерами.
-    </a>
+    <x-page.content.task.head :data="['task1', 'Задачи:']" />
+    <x-page.content.task.body href='qb-insert-update-del-task' :tasks="[
+        1 => [
+            'text' => 'Вставьте нового юзера в таблицу с юзерами.',
+        ],
+        2 => [
+            'text' => 'Вставьте нового юзера в таблицу с юзерами. Выведите на экран id вставленного юзера.',
+        ],
+        3 => [
+            'text' => 'Вставьте трех новых юзеров в таблицу с юзерами.',
+        ],
+    ]" />
     <br />
-    <a href="/DB/insert-update-del-task/2">
-        Вставьте нового юзера в таблицу с юзерами. Выведите на экран id вставленного юзера.
-    </a>
     <br />
-    <a href="/DB/insert-update-del-task/3">
-        Вставьте трех новых юзеров в таблицу с юзерами.
-    </a>
+    {{-- При review нашел ошибку базы данных. В талице users по умолчанию не задано поле city --}}
 
-    <h3>Обновление данных через QueryBuilderв Laravel</h3>
+    <h4>Обновление данных через QueryBuilderв Laravel</h4>
     Для изменения данных используется метод update. Он принимает параметром массив имен столбцов и значений.
     <br />
     Давайте обновим запись с указанным id:
@@ -83,18 +86,21 @@
 	]);
     </pre>
     <p style="color:red;">!!Оказалось, что в ответ возвращается количество изменённых записей!!</p>
-    <h4 id="task2">Задачи:</h4>
-    <a href="/DB/insert-update-del-task/4">
-        Измените юзера с id, равным 5.
-    </a>
+    <x-page.content.task.head :data="['task2', 'Задачи:']" />
+    <x-page.content.task.body href='qb-insert-update-del-task' :tasks="[
+        4 => [
+            'text' => 'Измените юзера с id, равным 5.',
+        ],
+        5 => [
+            'text' => 'Всем юзерам с возрастом более 30 установите зарплату 500.',
+        ],
+    ]" />
     <br />
-    <a href="/DB/insert-update-del-task/5">
-        Всем юзерам с возрастом более 30 установите зарплату 500.
-    </a>
     <br />
-    <h3>
+
+    <h4>
         Инкремент и декремент данных через QueryBuilder в Laravel
-    </h3>
+    </h4>
     С помощью методов increment и decrement можно увеличивать значения числовых полей. Давайте посмотрим, как это
     делается.
     <br />
@@ -116,22 +122,24 @@
 		->where('id', 1)
 		->decrement('likes',5);
     </pre>
-    <h4 id="task3">Задачи:</h4>
-    <a href="/DB/insert-update-del-task/6">
-        Увеличьте на 1 возраст юзеру с id, равным 1.
-    </a>
+    <x-page.content.task.head :data="['task3', 'Задачи:']" />
+    <x-page.content.task.body href='qb-insert-update-del-task' :tasks="[
+        6 => [
+            'text' => 'Увеличьте на 1 возраст юзеру с id, равным 1.',
+        ],
+        7 => [
+            'text' => 'Уменьшите на 1 возраст юзеру с id, равным 1.',
+        ],
+        8 => [
+            'text' => 'Всем юзерам с возрастом 30 увеличьте зарплату на 100.',
+        ],
+    ]" />
     <br />
-    <a href="/DB/insert-update-del-task/7">
-        Уменьшите на 1 возраст юзеру с id, равным 1.
-    </a>
     <br />
-    <a href="/DB/insert-update-del-task/8">
-        Всем юзерам с возрастом 30 увеличьте зарплату на 100.
-    </a>
 
-    <h3>
+    <h4>
         Удаление данных через QueryBuilder в Laravel
-    </h3>
+    </h4>
     Для изменения данных используется метод delete. Давайте удалим запись с указанным id:
     <pre>
     DB::table('posts')
@@ -149,24 +157,24 @@
 	DB::table('posts')
 		->delete();
     </pre>
-    <h4 id="task4">
-        Задачи:
-    </h4>
-    <a href="/DB/insert-update-del-task/9">
-        Удалите юзера с максимальным id
-    </a>
+    <x-page.content.task.head :data="['task4', 'Задачи:']" />
+    <x-page.content.task.body href='qb-insert-update-del-task' :tasks="[
+        9 => [
+            'text' => 'Удалите юзера с максимальным id',
+        ],
+        10 => [
+            'text' => 'Удалите юзеров с возрастом 30.',
+        ],
+        11 => [
+            'text' => 'Удалите всех юзеров',
+        ],
+    ]" />
     <br />
-    <a href="/DB/insert-update-del-task/10">
-        Удалите юзеров с возрастом 30.
-    </a>
     <br />
-    <a href="/DB/insert-update-del-task/11">
-        Удалите всех юзеров
-    </a>
 
-    <h3>
+    <h4>
         Соединение таблиц в Laravel
-    </h3>
+    </h4>
     С помощью метода leftJoin можно выполнять соединение таблиц. Давайте посмотрим на примерах. Пусть у нас кроме
     таблицы с постами есть еще и таблица с категориями, которым принадлежат посты.
     <br />
@@ -178,13 +186,15 @@
 
 	dump($posts);
     </pre>
-    <h4 id="task5">
-        Задачи:
-    </h4>
-    <a href="/DB/insert-update-del-task/12">
-        Сделайте таблицу users и таблицу cities с городами, в которых живут юзеры.
-        С помощью построителя запросов получите список всех юзеров вместе с их городами.
-    </a>
+    <x-page.content.task.head :data="['task5', 'Задача:']" />
+    <x-page.content.task.body href='qb-insert-update-del-task' :tasks="[
+        12 => [
+            'text' =>
+                'Сделайте таблицу users и таблицу cities с городами, в которых живут юзеры. С помощью построителя запросов получите список всех юзеров вместе с их городами.',
+        ],
+    ]" />
     <br />
+    <br />
+
 
 </x-layout>

@@ -58,46 +58,38 @@ class DbController extends Controller
     }
 
 
-    public function recordWhere(int|string $id, int|null $getTask = null)
+    public function recordWhere(Request $request, string $id )
     {
         $tasks = [
 
             '1' => [
-                'text' => "Получите всех юзеров с возрастом, равным 30 лет.",
                 'data' => fn() => [DB::table('users')->where('age', 30)->get()],
             ],
             '2' => [
-                'text' => "Получите всех юзеров с возрастом, не равным 30 лет.",
                 'data' => fn() => [DB::table('users')->where('age', '!=', 30)->get()],
             ],
             '3' => [
-                'text' => "Получите всех юзеров с возрастом, больше 30 лет.",
                 'data' => fn() => [DB::table('users')->where('age', '>', 30)->get()],
             ],
             '4' => [
-                'text' => "Получите всех юзеров с возрастом, меньше 30 лет.",
                 'data' => fn() => [DB::table('users')->where('age', '<', 30)->get()],
             ],
             '5' => [
-                'text' => "Получите всех юзеров с возрастом, меньшим или равным 30 лет.",
                 'data' => fn() => [DB::table('users')->where('age', '<=', 30)->get()],
             ],
             '6' => [
-                'text' => "Получите всех юзеров с возрастом от 20 до 30 лет.",
                 'data' => fn() => [DB::table('users')
                     ->where('age', '>', '20')
                     ->where('age', '<', '30')
                     ->get()],
             ],
             '7' => [
-                'text' => "Получите всех юзеров с возрастом 30 или id, большем 4.",
                 'data' => fn() => [DB::table('users')
                     ->where('age', '30')
                     ->orWhere('id', '>', '4')
                     ->get()],
             ],
             '8' => [
-                'text' => "Получите всех юзеров с возрастом 30, или зарплатой 500, или id, большем 9",
                 'data' => fn() => [DB::table('users')
                     ->where('age', '30')
                     ->orWhere('salary', '500')
@@ -105,7 +97,6 @@ class DbController extends Controller
                     ->get()],
             ],
             '9' => [
-                'text' => "Получите юзеров, у которых зарплата равна 500 либо возраст от 20 до 30.",
                 'data' => fn() => [DB::table('users')
                     ->where('salary', '500')
                     ->orWhere(function ($query) {
@@ -115,91 +106,76 @@ class DbController extends Controller
                     })
                     ->get()],
             ],
-
             '10' => [
-                'text' => "Получите юзеров, возраст которых находится НЕ в промежутке от 20 до 30.",
                 'data' => fn() => DB::table('users')->whereNotBetween('age', [20, 30])->get(),
             ],
             '11' => [
-                'text' => "Получите юзеров с id, равными 1, 2, 3 и 5.",
                 'data' => fn() => DB::table('users')->whereIn('id', [1, 2, 3, 5])->get(),
             ],
             '12' => [
-                'text' => "Получите юзера с полем id, равным 3.",
                 'data' => fn() => DB::table('users')->whereId(3)->get(),
             ],
             '13' => [
-                'text' => "получите юзера с полем name, равным 'userName5'",
                 'data' => fn() => DB::table('users')->whereName('userName5')->get(),
             ],
             '14' => [
-                'text' => "Получите юзера с полем id, равным 3, ИЛИ полем age, равным 20.",
                 'data' => fn() => DB::table('users')->whereIdOrAge(3, 20)->get(),
             ],
-
         ];
-        if ($getTask) {
-            return count($tasks);
+
+        if (!isset($tasks[$id])) {
+            abort(404, 'Задача не найдена');
         }
 
         $resultData = $tasks[$id]['data']();
 
-        return view('DB.records-task', ['id' => $id, 'text' => $tasks[$id]['text'], 'data' => $resultData]);
+        return view('DB.record-where-task', ['id' => $id, 'text' => $request->text, 'data' => $resultData]);
     }
-    public function recordSort(int|string $id, int|null $getTask = null)
+    public function recordSort(Request $request, int|string $id)
     {
         $tasks = [
             '1' => [
-                'text' => "Получите всех юзеров и отсортируйте их по возрастанию возраста.",
                 'data' => fn() => DB::table('users')->orderBy('age')->get(),
             ],
             '2' => [
-                'text' => "Получите всех юзеров и отсортируйте их по убыванию зарплаты.",
-                'data' => fn() => DB::table('users')->orderBy('salary', 'desk')->get(),
+                'data' => fn() => DB::table('users')->orderBy('salary', 'desc')->get(),
             ],
             '3' => [
-                'text' => "Получите всех юзеров и отсортируйте их по убыванию поля created_at.",
                 'data' => fn() => DB::table('users')->oldest()->get(),
             ],
             '4' => [
-                'text' => "Получите юзеров с возрастом больше 30 и отсортируйте их по возрастанию поля created_at.",
                 'data' => fn() => DB::table('users')->where('age', '>', 20)->latest()->get(),
             ],
             '5' => [
-                'text' => "Получите юзеров с возрастом меньше 20 и отсортируйте их по возрастанию поля updated_at.",
                 'data' => fn() => DB::table('users')->where('age', '<', 20)->latest('updated_at')->get(),
             ],
             '6' => [
-                'text' => "Получите всех юзеров, отсортированных в случайном порядке.",
                 'data' => fn() => DB::table('users')->inRandomOrder()->get(),
             ],
             '7' => [
-                'text' => "Получите одного случайного юзера.",
                 'data' => fn() => DB::table('users')->inRandomOrder()->first(),
             ],
             '8' => [
-                'text' => "Получите всех юзеров с возрастом от 20 до 30, отсортированных в случайном порядке.",
                 'data' => fn() => DB::table('users')->whereBetween('age', [20, 30])->inRandomOrder()->get(),
             ],
             '9' => [
-                'text' => "Получите одного случайного юзера с возрастом от 20 до 30.",
                 'data' => fn() => DB::table('users')->whereBetween('age', [20, 30])->inRandomOrder()->first(),
             ],
         ];
-        if ($getTask) {
-            return count($tasks);
+
+        if (!isset($tasks[$id])) {
+            abort(404, 'Задача не найдена');
         }
 
         $resultData = $tasks[$id]['data']();
 
-        return view('DB.record-sort-task', ['id' => $id, 'text' => $tasks[$id]['text'], 'data' => $resultData]);
+        return view('DB.record-sort-task', ['id' => $id, 'text' => $request->text, 'data' => $resultData]);
     }
-    public function InsertUpdateDel(int|string $id)
+    public function InsertUpdateDel(Request $request, int|string $id)
     {
 
         $tasks = [
             '1' => [
-                'text' => "Вставьте нового юзера в таблицу с юзерами.",
                 'data' => function () {
                     $nextUserNumber = DB::table('users')->count() + 1;
                     $currentTime = Carbon::now();
@@ -215,7 +191,6 @@ class DbController extends Controller
                 },
             ],
             '2' => [
-                'text' => "Вставьте нового юзера в таблицу с юзерами. Выведите на экран id вставленного юзера.",
                 'data' => function () {
                     $nextUserNumber = DB::table('users')->count() + 1;
                     $currentTime = Carbon::now();
@@ -231,7 +206,6 @@ class DbController extends Controller
                 },
             ],
             '3' => [
-                'text' => "Вставьте трех новых юзеров в таблицу с юзерами.",
                 'data' => function () {
                     return DB::table('users')->insert(
                         createNewUser(3)
@@ -239,27 +213,21 @@ class DbController extends Controller
                 },
             ],
             '4' => [
-                'text' => "Измените юзера с id, равным 5.",
                 'data' => fn() => DB::table('users')->where('id', 5)->update(['email' => 'userName5@gmail.com'])
             ],
             '5' => [
-                'text' => "Всем юзерам с возрастом более 30 установите зарплату 500.",
                 'data' => fn() => DB::table('users')->where('age', '>', 30)->update(['salary' => '5000'])
             ],
             '6' => [
-                'text' => "Увеличьте на 1 возраст заданному юзеру. с id, равным 1.",
                 'data' => fn() => DB::table('users')->where('id', 1)->increment('age')
             ],
             '7' => [
-                'text' => "Увеличьте на 1 возраст заданному юзеру. с id, равным 1.",
                 'data' => fn() => DB::table('users')->where('id', 1)->decrement('age')
             ],
             '8' => [
-                'text' => "Удалите юзера с id, равным 5.",
                 'data' => fn() => DB::table('users')->where('id', 5)->increment('salary', 100)
             ],
             '9' => [
-                'text' => "Удалите юзера с максимальным id",
                 'data' => function () {
                     // вернётся количество удалённых строк
                     return DB::table('users')
@@ -268,19 +236,16 @@ class DbController extends Controller
                 }
             ],
             '10' => [
-                'text' => "Удалите юзера с максимальным id",
                 'data' => function () {
                     return 'Я не выполняю этот код что бы никого не удалять))';
                 }
             ],
             '11' => [
-                'text' => "Удалите юзера с максимальным id",
                 'data' => function () {
                     return 'Я не выполняю этот код что бы никого не удалять))';
                 }
             ],
             '12' => [
-                'text' => "Сделайте таблицу users и таблицу cities с городами, в которых живут юзеры. С помощью построителя запросов получите список всех юзеров вместе с их городами.",
                 'data' => fn() => DB::table('users')
                     ->leftJoin('citys', 'citys.id', '=', 'users.city')
                     ->select('users.name as user', 'citys.name as city')
@@ -314,6 +279,6 @@ class DbController extends Controller
 
         $resultData = $tasks[$id]['data']();
 
-        return view('DB.insert-update-del-task', ['id' => $id, 'text' => $tasks[$id]['text'], 'data' => $resultData]);
+        return view('DB.insert-update-del-task', ['id' => $id, 'text' => $request->text, 'data' => $resultData]);
     }
 }

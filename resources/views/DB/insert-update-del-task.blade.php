@@ -4,160 +4,141 @@
     </x-slot:title>
 
     @if ($id == 1)
-        <p>
-            {{ $text }}
-        </p>
-        <pre>
-        // Controller code:
-        'data' => function () {
-            $nextUserNumber = DB::table('users')->count() + 1;
-            $currentTime = Carbon::now();
+        <x-page.tasks.header :text="$text" />
+        <pre>// Controller code:
+    'data' => function () {
+        $nextUserNumber = DB::table('users')->count() + 1;
+        $currentTime = Carbon::now();
 
-            return DB::table('users')->insert([
-                'name' => "userName{$nextUserNumber}",
-                'email' => "userName{$nextUserNumber}@gmail.com",
-                'age' => mt_rand(30, 50),
-                'salary' => fake()->numberBetween(2000, 3000),
-                'created_at' => $currentTime,
-                'updated_at' => $currentTime,
-            ]);
-        },
+        return DB::table('users')->insert([
+            'name' => "userName{$nextUserNumber}",
+            'email' => "userName{$nextUserNumber}@gmail.com",
+            'age' => mt_rand(30, 50),
+            'salary' => fake()->numberBetween(2000, 3000),
+            'created_at' => $currentTime,
+            'updated_at' => $currentTime,
+        ]);
+    },
 
-        //blade code:
-        &lt;h4>Новый пользователь добавлен в базу данных&lt;/h4>
-        &#123;&#123; dump($data) }}
+//blade code:
+    &lt;h4>Новый пользователь добавлен в базу данных&lt;/h4>
+    &#123;&#123; dump($data) }}
         </pre>
-        <h4>Новый пользователь добавлен в базу данных</h4>
+        {{-- При review нашел ошибку базы данных. В талице users по умолчанию не задано поле city --}}
+        <h5>Новый пользователь добавлен в базу данных</h5>
         {{ dump($data) }}
-        <a href="/DB/insert-update-del#task1">Назад</a>
+        <br />
+        <br />
+        <a href="{{ route('qb-insert-update-del') }}#task1">Назад</a>
     @elseif ($id == 2)
-        <p>
-            {{ $text }}
-        </p>
-        <pre>
-        // Controller code:
-        'data' => function () {
-            $nextUserNumber = DB::table('users')->count() + 1;
-            $currentTime = Carbon::now();
+        <x-page.tasks.header :text="$text" />
+        <pre>// Controller code:
+    'data' => function () {
+        $nextUserNumber = DB::table('users')->count() + 1;
+        $currentTime = Carbon::now();
 
-            return DB::table('users')->insertGetId([
-                'name' => "userName{$nextUserNumber}",
-                'email' => "userName{$nextUserNumber}@gmail.com",
-                'age' => mt_rand(30, 50),
-                'salary' => fake()->numberBetween(2000, 3000),
-                'created_at' => $currentTime,
-                'updated_at' => $currentTime,
-            ]);
-        },
+        return DB::table('users')->insertGetId([
+            'name' => "userName{$nextUserNumber}",
+            'email' => "userName{$nextUserNumber}@gmail.com",
+            'age' => mt_rand(30, 50),
+            'salary' => fake()->numberBetween(2000, 3000),
+            'created_at' => $currentTime,
+            'updated_at' => $currentTime,
+        ]);
+    },
 
-        //blade code:
-        &lt;h4>Новый пользователь добавлен в базу данных&lt;/h4>
-        id нового пользователя: &#123;&#123; $data }}
-        &lt;br/>
-        </pre>
+//blade code:
+    &lt;h4>Новый пользователь добавлен в базу данных&lt;/h4>
+    id нового пользователя: &#123;&#123; $data }}
+    &lt;br/></pre>
         <h4>Новый пользователь добавлен в базу данных</h4>
         id нового пользователя: {{ $data }}
         <br />
-        <a href="/DB/insert-update-del#task1">Назад</a>
+        <br />
+        <a href="{{ route('qb-insert-update-del') }}#task1">Назад</a>
     @elseif ($id == 3)
-        <p>
-            {{ $text }}
-        </p>
-        <pre>
-        // Controller code:
+        <x-page.tasks.header :text="$text" />
+        <pre>// Controller code:
         'data' =  DB::table('users')->insert(greateNewUser(3));
 
-        function greateNewUser(int $count)
-        {
-            $result = [];
-            $nextUserNumber = DB::table('users')->count();
-            $currentTime = Carbon::now();
+    function greateNewUser(int $count)
+    {
+        $result = [];
+        $nextUserNumber = DB::table('users')->count();
+        $currentTime = Carbon::now();
 
-            for ($i = 1; $i <= $count; $i++) {
-                $result[] = [
-                    'name' => "userName" . ($nextUserNumber + $i),
-                    'email' => "userName" . ($nextUserNumber + $i) . "@gmail.com",
-                    'age' => mt_rand(30, 50),
-                    'salary' => fake()->numberBetween(2000, 3000),
-                    'created_at' => $currentTime,
-                    'updated_at' => $currentTime,
-                ];
-            }
-            return $result;
+        for ($i = 1; $i <= $count; $i++) {
+            $result[] = [
+                'name' => "userName" . ($nextUserNumber + $i),
+                'email' => "userName" . ($nextUserNumber + $i) . "@gmail.com",
+                'age' => mt_rand(30, 50),
+                'salary' => fake()->numberBetween(2000, 3000),
+                'created_at' => $currentTime,
+                'updated_at' => $currentTime,
+            ];
         }
+        return $result;
+    }
 
-        //blade code:
-        &lt;h4>Новые пользователи добавлены в базу данных&lt;/h4>
-        &#123;&#123;  dump($data) }}
-        &lt;br/>
-        </pre>
+//blade code:
+    &lt;h4>Новые пользователи добавлены в базу данных&lt;/h4>
+    &#123;&#123;  dump($data) }}
+    &lt;br/></pre>
         <h4>Новые пользователи добавлены в базу данных</h4>
         {{ var_dump($data) }}
         <br />
-        <a href="/DB/insert-update-del#task1">Назад</a>
+        <br />
+        <a href="{{ route('qb-insert-update-del') }}#task1">Назад</a>
     @elseif ($id == 4)
-        <p>
-            {{ $text }}
-        </p>
-        <pre>
-        // Controller code:
-        'data' =  DB::table('users')
-            ->where('age','>', 30)
-            ->update([
-                'email' => 'userName5@gmail.com'
-                ])
+        <x-page.tasks.header :text="$text" />
+        <pre>// Controller code:
+    'data' =  DB::table('users')
+        ->where('id', 5)
+        ->update(['email' => 'userName5@gmail.com'])
 
-        //blade code:
-        &lt;h4>Новые пользователи добавлены в базу данных&lt;/h4>
-        &#123;&#123;  dump($data) }}
-        &lt;br/>
-        </pre>
-        <h4>Новые пользователи добавлены в базу данных</h4>
+//blade code:
+    &lt;h5>Количество изменённых записей&lt;/h5>
+    &#123;&#123;  dump($data) }}
+    &lt;br/></pre>
+        <h5>Количество изменённых записей</h5>
         {{ var_dump($data) }}
         <br />
-        <a href="/DB/insert-update-del#task2">Назад</a>
+        <br />
+        <a href="{{ route('qb-insert-update-del') }}#task2">Назад</a>
     @elseif ($id == 5)
-        <p>
-            {{ $text }}
-        </p>
-        <pre>
-        // Controller code:
-        'data' =  DB::table('users')
-            ->where('id', 5)
-            ->update([
-                'email' => 'userName5@gmail.com'
-                ])
+        <x-page.tasks.header :text="$text" />
+        <pre>// Controller code:
+    'data' =  DB::table('users')
+        ->where('age', '>', 30)
+        ->update(['salary' => '5000'])
 
-        //blade code:
-        &lt;h4>Новые пользователи добавлены в базу данных&lt;/h4>
-        &#123;&#123;  dump($data) }}
-        &lt;br/>
-        </pre>
-        <h4>Новые пользователи добавлены в базу данных</h4>
+//blade code:
+    &lt;h5>Количество изменённых записей&lt;/h5>
+    &#123;&#123;  dump($data) }}
+    &lt;br/></pre>
+        <h5>Количество изменённых записей</h5>
         {{ var_dump($data) }}
         <br />
-        <a href="/DB/insert-update-del#task2">Назад</a>
+        <br />
+        <a href="{{ route('qb-insert-update-del') }}#task2">Назад</a>
     @elseif ($id == 6)
-        <p>
-            {{ $text }}
-        </p>
-        <pre>
-        // Controller code:
-        'data' =  DB::table('users')
-            ->where('id', 1)
-            ->increment('age')
+        <x-page.tasks.header :text="$text" />
+        <pre>// Controller code:
+    'data' =  DB::table('users')
+        ->where('id', 1)
+        ->increment('age')
 
-        //blade code:
-        &#123;&#123;  dump($data) }}
-        &lt;br/>
-        </pre>
+//blade code:
+    &lt;h5>Количество изменённых записей&lt;/h5>
+    &#123;&#123;  dump($data) }}
+    &lt;br/></pre>
+        <h5>Количество изменённых записей</h5>
         {{ var_dump($data) }}
         <br />
-        <a href="/DB/insert-update-del#task3">Назад</a>
+        <br />
+        <a href="{{ route('qb-insert-update-del') }}#task3">Назад</a>
     @elseif ($id == 7)
-        <p>
-            {{ $text }}
-        </p>
+        <x-page.tasks.header :text="$text" />
         <pre>
         // Controller code:
         'data' =  DB::table('users')
@@ -165,88 +146,78 @@
             ->decrement('age')
 
         //blade code:
-        &#123;&#123;  dump($data) }}
-        &lt;br/>
+    &lt;h5>Количество изменённых записей&lt;/h5>
+    &#123;&#123;  dump($data) }}
+    &lt;br/></pre>
+        <h5>Количество изменённых записей</h5>
         </pre>
         {{ var_dump($data) }}
         <br />
-        <a href="/DB/insert-update-del#task3">Назад</a>
+        <br />
+        <a href="{{ route('qb-insert-update-del') }}#task3">Назад</a>
     @elseif ($id == 8)
-        <p>
-            {{ $text }}
-        </p>
-        <pre>
-        // Controller code:
-        DB::table('users')
-            ->where('age', 30)
-            ->increment('salary', 100)
+        <x-page.tasks.header :text="$text" />
+        <pre>// Controller code:
+    DB::table('users')
+        ->where('age', 30)
+        ->increment('salary', 100)
 
-        //blade code:
-        &#123;&#123;  dump($data) }}
-        &lt;br/>
-        </pre>
+//blade code:
+    &lt;h5>Количество изменённых записей&lt;/h5>
+    &#123;&#123;  dump($data) }}
+    &lt;br/></pre>
+        <h5>Количество изменённых записей</h5>
         {{ var_dump($data) }}
         <br />
-        <a href="/DB/insert-update-del#task3">Назад</a>
+        <br />
+        <a href="{{ route('qb-insert-update-del') }}#task3">Назад</a>
     @elseif ($id == 9)
-        <p>
-            {{ $text }}
-        </p>
-        <pre>
-        // Controller code:
-        // вернётся количество удалённых строк
-        return DB::table('users')
-            ->where('id', DB::table('users')->max('id'))
-            ->delete();
+        <x-page.tasks.header :text="$text" />
+        <pre>// Controller code:
+// вернётся количество удалённых строк
+    return DB::table('users')
+        ->where('id', DB::table('users')->max('id'))
+        ->delete();
 
 
-        //blade code:
-        Количество удалённых записей:&#123;&#123;  $data }}
-        &lt;br/>
-        </pre>
+//blade code:
+    Количество удалённых записей:&#123;&#123;  $data }}
+    &lt;br/></pre>
         Количество удалённых записей:{{ $data }}
         <br />
-        <a href="/DB/insert-update-del#task3">Назад</a>
+        <br />
+        <a href="{{ route('qb-insert-update-del') }}#task4">Назад</a>
     @elseif ($id == 10)
-        <p>
-            {{ $text }}
-        </p>
-        <pre>
-        // Controller code:
-        // вернётся количество удалённых строк
-        return DB::table('users')
-            ->where('age', 30)
-            ->delete();
+        <x-page.tasks.header :text="$text" />
+        <pre>// Controller code:
+// вернётся количество удалённых строк
+    return DB::table('users')
+        ->where('age', 30)
+        ->delete();
 
 
-        //blade code:
-        &#123;&#123;  $data }}
-        &lt;br/>
-        </pre>
+//blade code:
+    &#123;&#123;  $data }}</pre>
         {{ $data }}
         <br />
-        <a href="/DB/insert-update-del#task3">Назад</a>
+        <br />
+        <a href="{{ route('qb-insert-update-del') }}#task4">Назад</a>
     @elseif ($id == 11)
-        <p>
-            {{ $text }}
-        </p>
-        <pre>
-        // Controller code:
-        // вернётся количество удалённых строк
-        DB::table('users')->delete();
+        <x-page.tasks.header :text="$text" />
+        <pre>// Controller code:
+// вернётся количество удалённых строк
+    DB::table('users')->delete();
 
 
-        //blade code:
-        &#123;&#123;  $data }}
-        &lt;br/>
-        </pre>
+    //blade code:
+    &#123;&#123;  $data }}
+    &lt;br/></pre>
         {{ $data }}
         <br />
-        <a href="/DB/insert-update-del#task3">Назад</a>
+        <br />
+        <a href="{{ route('qb-insert-update-del') }}#task4">Назад</a>
     @elseif ($id == 12)
-        <p>
-            {{ $text }}
-        </p>
+        <x-page.tasks.header :text="$text" />
         <pre>
     1) Создаём миграцию на создание таблицы с городами:
     php artisan make:migration create_citys_table
@@ -329,6 +300,9 @@
             &#64;endforeach
         &lt;/table>
         </pre>
+        <h5>
+            Результат:
+        </h5>
         <table>
             <tr>
                 <th>user</th>
@@ -346,7 +320,8 @@
             @endforeach
         </table>
         <br />
-        <a href="/DB/insert-update-del#task4">Назад</a>
+        <br />
+        <a href="{{ route('qb-insert-update-del') }}#task5">Назад</a>
     @endif
 
 </x-layout>

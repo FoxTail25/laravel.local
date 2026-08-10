@@ -4,32 +4,32 @@
     </x-slot:title>
 
     @if ($id == 1)
-        <p>
-            {{ $text }}
-        </p>
-        <pre>
-// Controller:
-DB::table('users')->orderBy('age')->get()
+        <x-page.tasks.header :text="$text" />
+        <pre>// Controller:
+    DB::table('users')->orderBy('age')->get()
 
 //View:
-&#64;php
-    $fields = collect($data->first())->keys()->toArray();
-&#64;endphp
-&lt;table>
-    &lt;tr>
-        &#64;foreach ($fields as $field)
-        &lt;th>&#123;&#123; $field }}&lt;/th>
-        &#64;endforeach
-    &lt;/tr>
-    &#64;foreach ($data as $user)
+    &#64;php
+        $fields = collect($data->first())->keys()->toArray();
+    &#64;endphp
+    &lt;table>
         &lt;tr>
             &#64;foreach ($fields as $field)
-            &lt;td>&#123;&#123; $user->$field }}&lt;/td>
+            &lt;th>&#123;&#123; $field }}&lt;/th>
             &#64;endforeach
         &lt;/tr>
-    &#64;endforeach
-&lt;/table>
+        &#64;foreach ($data as $user)
+            &lt;tr>
+                &#64;foreach ($fields as $field)
+                &lt;td>&#123;&#123; $user->$field }}&lt;/td>
+                &#64;endforeach
+            &lt;/tr>
+        &#64;endforeach
+    &lt;/table>
         </pre>
+        <h5>
+            Результат:
+        </h5>
         @php
             $fields = collect($data->first())->keys()->toArray();
         @endphp
@@ -47,34 +47,36 @@ DB::table('users')->orderBy('age')->get()
                 </tr>
             @endforeach
         </table>
-        <a href="/DB/record-sort/#recordSort1">Назад</a>
+        <br />
+        <br />
+        <a href="{{ route('qb-record-sort') }}#recordSort1">Назад к задачам</a>
     @elseif ($id == 2)
-        <p>
-            {{ $text }}
-        </p>
-        <pre>
-// Controller:
-DB::table('users')->orderBy('salary', 'desk')->get()
+        <x-page.tasks.header :text="$text" />
+        <pre>// Controller:
+    DB::table('users')->orderBy('salary', 'desc')->get()
 
 //View:
-&#64;php
-    $fields = collect($data->first())->keys()->toArray();
-&#64;endphp
-&lt;table>
-    &lt;tr>
-        &#64;foreach ($fields as $field)
-        &lt;th>&#123;&#123; $field }}&lt;/th>
-        &#64;endforeach
-    &lt;/tr>
-    &#64;foreach ($data as $user)
+    &#64;php
+        $fields = collect($data->first())->keys()->toArray();
+    &#64;endphp
+    &lt;table>
         &lt;tr>
             &#64;foreach ($fields as $field)
-            &lt;td>&#123;&#123; $user->$field }}&lt;/td>
+            &lt;th>&#123;&#123; $field }}&lt;/th>
             &#64;endforeach
         &lt;/tr>
-    &#64;endforeach
-&lt;/table>
+        &#64;foreach ($data as $user)
+            &lt;tr>
+                &#64;foreach ($fields as $field)
+                &lt;td>&#123;&#123; $user->$field }}&lt;/td>
+                &#64;endforeach
+            &lt;/tr>
+        &#64;endforeach
+    &lt;/table>
         </pre>
+        <h5>
+            Результат:
+        </h5>
         @php
             $fields = collect($data->first())->keys()->toArray();
         @endphp
@@ -92,34 +94,36 @@ DB::table('users')->orderBy('salary', 'desk')->get()
                 </tr>
             @endforeach
         </table>
-        <a href="/DB/record-sort/#recordSort1">Назад</a>
+        <br />
+        <br />
+        <a href="{{ route('qb-record-sort') }}#recordSort1">Назад к задачам</a>
     @elseif ($id == 3)
-        <p>
-            {{ $text }}
-        </p>
-        <pre>
-// Controller:
-DB::table('users')->oldest()->get()
+        <x-page.tasks.header :text="$text" />
+        <pre>// Controller:
+    DB::table('users')->oldest()->get()
 
 //View:
-&#64;php
-    $fields = collect($data->first())->keys()->toArray();
-&#64;endphp
-&lt;table>
-    &lt;tr>
-        &#64;foreach ($fields as $field)
-        &lt;th>&#123;&#123; $field }}&lt;/th>
-        &#64;endforeach
-    &lt;/tr>
-    &#64;foreach ($data as $user)
+    &#64;php
+        $fields = collect($data->first())->keys()->toArray();
+    &#64;endphp
+    &lt;table>
         &lt;tr>
             &#64;foreach ($fields as $field)
-            &lt;td>&#123;&#123; $user->$field }}&lt;/th>
+            &lt;th>&#123;&#123; $field }}&lt;/th>
             &#64;endforeach
         &lt;/tr>
-    &#64;endforeach
-&lt;/table>
+        &#64;foreach ($data as $user)
+            &lt;tr>
+                &#64;foreach ($fields as $field)
+                &lt;td>&#123;&#123; $user->$field }}&lt;/th>
+                &#64;endforeach
+            &lt;/tr>
+        &#64;endforeach
+    &lt;/table>
         </pre>
+        <h5>
+            Результат:
+        </h5>
         @php
             $fields = collect($data->first())->keys()->toArray();
         @endphp
@@ -137,34 +141,36 @@ DB::table('users')->oldest()->get()
                 </tr>
             @endforeach
         </table>
-        <a href="/DB/record-sort/#recordSort2">Назад</a>
+        <br />
+        <br />
+        <a href="{{ route('qb-record-sort') }}#recordSort2">Назад к задачам</a>
     @elseif ($id == 4)
-        <p>
-            {{ $text }}
-        </p>
-        <pre>
-// Controller:
-DB::table('users')->where('age', '>', 20)->latest()->get()
+        <x-page.tasks.header :text="$text" />
+        <pre>// Controller:
+    DB::table('users')->where('age', '>', 20)->latest()->get()
 
 //View:
-&#64;php
-    $fields = collect($data->first())->keys()->toArray();
-&#64;endphp
-&lt;table>
-    &lt;tr>
-        &#64;foreach ($fields as $field)
-        &lt;th>&#123;&#123; $field }}&lt;/th>
-        &#64;endforeach
-    &lt;/tr>
-    &#64;foreach ($data as $user)
+    &#64;php
+        $fields = collect($data->first())->keys()->toArray();
+    &#64;endphp
+    &lt;table>
         &lt;tr>
             &#64;foreach ($fields as $field)
-            &lt;td>&#123;&#123; $user->$field }}&lt;/td>
+            &lt;th>&#123;&#123; $field }}&lt;/th>
             &#64;endforeach
         &lt;/tr>
-    &#64;endforeach
-&lt;/table>
+        &#64;foreach ($data as $user)
+            &lt;tr>
+                &#64;foreach ($fields as $field)
+                &lt;td>&#123;&#123; $user->$field }}&lt;/td>
+                &#64;endforeach
+            &lt;/tr>
+        &#64;endforeach
+    &lt;/table>
         </pre>
+        <h5>
+            Результат:
+        </h5>
         @php
             $fields = collect($data->first())->keys()->toArray();
         @endphp
@@ -182,34 +188,36 @@ DB::table('users')->where('age', '>', 20)->latest()->get()
                 </tr>
             @endforeach
         </table>
-        <a href="/DB/record-sort/#recordSort2">Назад</a>
+        <br />
+        <br />
+        <a href="{{ route('qb-record-sort') }}#recordSort2">Назад к задачам</a>
     @elseif ($id == 5)
-        <p>
-            {{ $text }}
-        </p>
-        <pre>
-// Controller:
-DB::table('users')->where('age', '<', 20)->latest('updated_at')->get()
+        <x-page.tasks.header :text="$text" />
+        <pre>// Controller:
+    DB::table('users')->where('age', '<', 20)->latest('updated_at')->get()
 
 //View:
-&#64;php
-    $fields = collect($data->first())->keys()->toArray();
-&#64;endphp
-&lt;table>
-    &lt;tr>
-        &#64;foreach ($fields as $field)
-        &lt;th>&#123;&#123; $field }}&lt;/th>
-        &#64;endforeach
-    &lt;/tr>
-    &#64;foreach ($data as $user)
+    &#64;php
+        $fields = collect($data->first())->keys()->toArray();
+    &#64;endphp
+    &lt;table>
         &lt;tr>
             &#64;foreach ($fields as $field)
-            &lt;td>&#123;&#123; $user->$field }}&lt;/td>
+            &lt;th>&#123;&#123; $field }}&lt;/th>
             &#64;endforeach
         &lt;/tr>
-    &#64;endforeach
-&lt;/table>
+        &#64;foreach ($data as $user)
+            &lt;tr>
+                &#64;foreach ($fields as $field)
+                &lt;td>&#123;&#123; $user->$field }}&lt;/td>
+                &#64;endforeach
+            &lt;/tr>
+        &#64;endforeach
+    &lt;/table>
         </pre>
+        <h5>
+            Результат:
+        </h5>
         @php
             $fields = collect($data->first())->keys()->toArray();
         @endphp
@@ -227,34 +235,36 @@ DB::table('users')->where('age', '<', 20)->latest('updated_at')->get()
                 </tr>
             @endforeach
         </table>
-        <a href="/DB/record-sort/#recordSort3">Назад</a>
+        <br />
+        <br />
+        <a href="{{ route('qb-record-sort') }}#recordSort3">Назад к задачам</a>
     @elseif ($id == 6)
-        <p>
-            {{ $text }}
-        </p>
-        <pre>
-// Controller:
-DB::table('users')->inRandomOrder()->get()
+        <x-page.tasks.header :text="$text" />
+        <pre>// Controller:
+    DB::table('users')->inRandomOrder()->get()
 
 //View:
-&#64;php
-    $fields = collect($data->first())->keys()->toArray();
-&#64;endphp
-&lt;table>
-    &lt;tr>
-        &#64;foreach ($fields as $field)
-        &lt;th>&#123;&#123; $field }}&lt;/th>
-        &#64;endforeach
-    &lt;/tr>
-    &#64;foreach ($data as $user)
+    &#64;php
+        $fields = collect($data->first())->keys()->toArray();
+    &#64;endphp
+    &lt;table>
         &lt;tr>
             &#64;foreach ($fields as $field)
-            &lt;td>&#123;&#123; $user->$field }}&lt;/td>
+            &lt;th>&#123;&#123; $field }}&lt;/th>
             &#64;endforeach
         &lt;/tr>
-    &#64;endforeach
-&lt;/table>
+        &#64;foreach ($data as $user)
+            &lt;tr>
+                &#64;foreach ($fields as $field)
+                &lt;td>&#123;&#123; $user->$field }}&lt;/td>
+                &#64;endforeach
+            &lt;/tr>
+        &#64;endforeach
+    &lt;/table>
         </pre>
+        <h5>
+            Результат:
+        </h5>
         @php
             $fields = collect($data->first())->keys()->toArray();
         @endphp
@@ -272,32 +282,34 @@ DB::table('users')->inRandomOrder()->get()
                 </tr>
             @endforeach
         </table>
-        <a href="/DB/record-sort/#recordSort4">Назад</a>
+        <br />
+        <br />
+        <a href="{{ route('qb-record-sort') }}#recordSort4">Назад к задачам</a>
     @elseif ($id == 7)
-        <p>
-            {{ $text }}
-        </p>
-        <pre>
-// Controller:
-DB::table('users')->inRandomOrder()->first()
+        <x-page.tasks.header :text="$text" />
+        <pre>// Controller:
+    DB::table('users')->inRandomOrder()->first()
 
 //View:
-&#64;php
-    $fields = collect($data)->keys()->toArray();
-&#64;endphp
-&lt;table>
-    &lt;tr>
-        &#64;foreach ($fields as $field)
-        &lt;th>&#123;&#123; $field }}&lt;/th>
-        &#64;endforeach
-    &lt;/tr>
-    &lt;tr>
-        &#64;foreach ($fields as $field)
-        &lt;td>&#123;&#123; $data->$field }}&lt;/td>
-        &#64;endforeach
-    &lt;/tr>
-&lt;/table>
+    &#64;php
+        $fields = collect($data)->keys()->toArray();
+    &#64;endphp
+    &lt;table>
+        &lt;tr>
+            &#64;foreach ($fields as $field)
+            &lt;th>&#123;&#123; $field }}&lt;/th>
+            &#64;endforeach
+        &lt;/tr>
+        &lt;tr>
+            &#64;foreach ($fields as $field)
+            &lt;td>&#123;&#123; $data->$field }}&lt;/td>
+            &#64;endforeach
+        &lt;/tr>
+    &lt;/table>
         </pre>
+        <h5>
+            Результат:
+        </h5>
         @php
             $fields = collect($data)->keys()->toArray();
         @endphp
@@ -313,34 +325,36 @@ DB::table('users')->inRandomOrder()->first()
                 @endforeach
             </tr>
         </table>
-        <a href="/DB/record-sort/#recordSort4">Назад</a>
+        <br />
+        <br />
+        <a href="{{ route('qb-record-sort') }}#recordSort4">Назад к задачам</a>
     @elseif ($id == 8)
-        <p>
-            {{ $text }}
-        </p>
-        <pre>
-// Controller:
-DB::table('users')->whereBetween('age', [20, 30])->inRandomOrder()->get()
+        <x-page.tasks.header :text="$text" />
+        <pre>// Controller:
+    DB::table('users')->whereBetween('age', [20, 30])->inRandomOrder()->get()
 
 //View:
-&#64;php
-    $fields = collect($data->first())->keys()->toArray();
-&#64;endphp
-&lt;table>
-    &lt;tr>
-        &#64;foreach ($fields as $field)
-        &lt;th>&#123;&#123; $field }}&lt;/th>
-        &#64;endforeach
-    &lt;/tr>
-    &#64;foreach ($data as $user)
+    &#64;php
+        $fields = collect($data->first())->keys()->toArray();
+    &#64;endphp
+    &lt;table>
         &lt;tr>
             &#64;foreach ($fields as $field)
-            &lt;td>&#123;&#123; $user->$field }}&lt;/td>
+            &lt;th>&#123;&#123; $field }}&lt;/th>
             &#64;endforeach
         &lt;/tr>
-    &#64;endforeach
-&lt;/table>
+        &#64;foreach ($data as $user)
+            &lt;tr>
+                &#64;foreach ($fields as $field)
+                &lt;td>&#123;&#123; $user->$field }}&lt;/td>
+                &#64;endforeach
+            &lt;/tr>
+        &#64;endforeach
+    &lt;/table>
         </pre>
+        <h5>
+            Результат:
+        </h5>
         @php
             $fields = collect($data->first())->keys()->toArray();
         @endphp
@@ -358,32 +372,34 @@ DB::table('users')->whereBetween('age', [20, 30])->inRandomOrder()->get()
                 </tr>
             @endforeach
         </table>
-        <a href="/DB/record-sort/#recordSort4">Назад</a>
+        <br />
+        <br />
+        <a href="{{ route('qb-record-sort') }}#recordSort4">Назад к задачам</a>
     @elseif ($id == 9)
-        <p>
-            {{ $text }}
-        </p>
-        <pre>
-// Controller:
-DB::table('users')->whereBetween('age', [20, 30])->inRandomOrder()->first()
+        <x-page.tasks.header :text="$text" />
+        <pre>// Controller:
+    DB::table('users')->whereBetween('age', [20, 30])->inRandomOrder()->first()
 
 //View:
-&#64;php
-    $fields = collect($data)->keys()->toArray();
-&#64;endphp
-&lt;table>
-    &lt;tr>
-        &#64;foreach ($fields as $field)
-        &lt;th>&#123;&#123; $field }}&lt;/th>
-        &#64;endforeach
-    &lt;/tr>
-    &lt;tr>
-        &#64;foreach ($fields as $field)
-        &lt;td>&#123;&#123; $data->$field }}&lt;/td>
-        &#64;endforeach
-    &lt;/tr>
-&lt;/table>
+    &#64;php
+        $fields = collect($data)->keys()->toArray();
+    &#64;endphp
+    &lt;table>
+        &lt;tr>
+            &#64;foreach ($fields as $field)
+            &lt;th>&#123;&#123; $field }}&lt;/th>
+            &#64;endforeach
+        &lt;/tr>
+        &lt;tr>
+            &#64;foreach ($fields as $field)
+            &lt;td>&#123;&#123; $data->$field }}&lt;/td>
+            &#64;endforeach
+        &lt;/tr>
+    &lt;/table>
         </pre>
+        <h5>
+            Результат:
+        </h5>
         @php
             $fields = collect($data)->keys()->toArray();
         @endphp
@@ -399,7 +415,9 @@ DB::table('users')->whereBetween('age', [20, 30])->inRandomOrder()->first()
                 @endforeach
             </tr>
         </table>
-        <a href="/DB/record-sort/#recordSort4">Назад</a>
+        <br />
+        <br />
+        <a href="{{ route('qb-record-sort') }}#recordSort4">Назад к задачам</a>
     @endif
 
 </x-layout>

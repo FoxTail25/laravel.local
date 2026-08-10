@@ -1,43 +1,41 @@
 <x-layout>
     <x-slot:title>
-        в Laravel
+        QueryBuilder в Laravel
     </x-slot:title>
 
-    <h2>
+    <h3>
         QueryBuilder в Laravel
-    </h2>
-    <h3>
+    </h3>
+    <h4>
         Сортировка данных при выборке через QueryBuilder в Laravel
-    </h3>
-    Метод orderBy позволяет отсортировать результат запроса по заданному столбцу:
-    <pre>
-	$posts = DB::table('posts')
-		->orderBy('likes')
-		->get();
-
-	dump($posts);
-    </pre>
-    Второй параметр метода задаёт направление сортировки. Он может быть либо 'asc', либо 'desc':
-    <pre>
-	$posts = DB::table('posts')
-		->orderBy('likes', 'desc')
-		->get();
-
-	dump($posts);
-    </pre>
-    <h4 id="recordSort1">
-        Задача
     </h4>
-    <a href="/DB/record-sort-task/1">
-        Получите всех юзеров и отсортируйте их по возрастанию
-        возраста.
-    </a>
-    <br />
-    <a href="/DB/record-sort-task/1">Получите всех юзеров и отсортируйте их по убыванию зарплаты.</a>
+    Метод orderBy позволяет отсортировать результат запроса по заданному столбцу:
+    <pre>$posts = DB::table('posts')
+    ->orderBy('likes')
+    ->get();
 
-    <h3>
+dump($posts);</pre>
+    Второй параметр метода задаёт направление сортировки. Он может быть либо 'asc', либо 'desc':
+    <pre>$posts = DB::table('posts')
+    ->orderBy('likes', 'desc')
+    ->get();
+
+dump($posts);</pre>
+    <x-page.content.task.head :data="['recordSort1', 'Задачи:']" />
+    <x-page.content.task.body href='qb-record-sort-task' :tasks="[
+        1 => [
+            'text' => 'Получите всех юзеров и отсортируйте их по возрастанию возраста.',
+        ],
+        2 => [
+            'text' => 'Получите всех юзеров и отсортируйте их по убыванию зарплаты.',
+        ],
+    ]" />
+    <br />
+    <br />
+
+    <h4>
         Сортировка по дате при выборке через QueryBuilder в Laravel
-    </h3>
+    </h4>
     Методы latest и oldest позволяют легко отсортировать результаты по дате. По умолчанию выполняется сортировка по
     столбцу created_at.
     <br />
@@ -57,20 +55,21 @@
 
 	dump($posts);
     </pre>
-    <h4 id="recordSort2">
-        Задача
-    </h4>
-    <a href="/DB/record-sort-task/3">
-        Получите всех юзеров и отсортируйте их по убыванию поля created_at.
-    </a>
+    <x-page.content.task.head :data="['recordSort2', 'Задачи:']" />
+    <x-page.content.task.body href='qb-record-sort-task' :tasks="[
+        3 => [
+            'text' => 'Получите всех юзеров и отсортируйте их по убыванию поля created_at.',
+        ],
+        4 => [
+            'text' => 'Получите юзеров с возрастом больше 20 и отсортируйте их по возрастанию поля created_at.',
+        ],
+    ]" />
     <br />
-    <a href="/DB/record-sort-task/4">
-        Получите юзеров с возрастом больше 20 и отсортируйте их по возрастанию поля created_at.
-    </a>
+    <br />
 
-    <h3>
+    <h4>
         Указание поля сортировки
-    </h3>
+    </h4>
     Можно передать имя столбца для сортировки по нему. Для примера давайте отсортируем по возрастанию даты, хранящейся в
     поле date:
     <pre>
@@ -80,17 +79,18 @@
 
         dump($posts);
     </pre>
+    <x-page.content.task.head :data="['recordSort3', 'Задача:']" />
+    <x-page.content.task.body href='qb-record-sort-task' :tasks="[
+        5 => [
+            'text' => 'Получите юзеров с возрастом меньше 20 и отсортируйте их по возрастанию поля updated_at',
+        ],
+    ]" />
+    <br />
+    <br />
 
-    <h4 id="recordSort3">
-        Задача
-    </h4>
-    <a href="/DB/record-sort-task/5">
-        Получите юзеров с возрастом меньше 20 и отсортируйте их по возрастанию поля updated_at.
-    </a>
-
-    <h3>
+    <h4>
         Случайная сортировка при выборке через QueryBuilder в Laravel
-    </h3>
+    </h4>
     Для сортировки результатов запроса в случайном порядке можно использовать метод inRandomOrder. Давайте для примера
     получим все посты и отсортируем их в случайном порядке:
     <pre>
@@ -108,23 +108,22 @@
 
 	dump($post);
     </pre>
+    <x-page.content.task.head :data="['recordSort4', 'Задача:']" />
+    <x-page.content.task.body href='qb-record-sort-task' :tasks="[
+        6 => [
+            'text' => 'Получите всех юзеров, отсортированных в случайном порядке.',
+        ],
+        7 => [
+            'text' => 'Получите одного случайного юзера.',
+        ],
+        8 => [
+            'text' => 'Получите всех юзеров с возрастом от 20 до 30, отсортированных в случайном порядке.',
+        ],
+        9 => [
+            'text' => 'Получите одного случайного юзера с возрастом от 20 до 30.',
+        ],
+    ]" />
+    <br />
+    <br />
 
-    <h4 id="recordSort4">
-        Задача
-    </h4>
-    <a href="/DB/record-sort-task/6">
-        Получите всех юзеров, отсортированных в случайном порядке.
-    </a>
-    <br />
-    <a href="/DB/record-sort-task/7">
-        Получите одного случайного юзера.
-    </a>
-    <br />
-    <a href="/DB/record-sort-task/8">
-        Получите всех юзеров с возрастом от 20 до 30, отсортированных в случайном порядке.
-    </a>
-    <br />
-    <a href="/DB/record-sort-task/9">
-        Получите одного случайного юзера с возрастом от 20 до 30.
-    </a>
 </x-layout>

@@ -157,7 +157,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                         aria-expanded="false">
-                        Построитель запросов
+                        Построитель запросов (QueryBuilder)
                     </a>
                     <ul class="dropdown-menu">
                         <li>
@@ -169,17 +169,17 @@
                             <hr class="dropdown-divider">
                         </li>
                         <li>
-                            <a class="dropdown-item" href="/DB/records">
+                            <a class="dropdown-item" href="{{ route('qb-record') }}">
                                 Работа с записями
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="/DB/record-where">
+                            <a class="dropdown-item" href="{{ route('qb-record-where') }}">
                                 Выборка записей (where)
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="/DB/record-sort">
+                            <a class="dropdown-item" href="{{ route('qb-record-sort') }}">
                                 Сортировка записей
                             </a>
                         </li>
