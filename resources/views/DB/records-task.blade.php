@@ -1,41 +1,62 @@
 <x-layout>
     <x-slot:title>
-        в Laravel
+        Query Builder task
     </x-slot:title>
 
     @if ($id == 1)
+        <x-page.tasks.header :text="$text" />
+        <ol>
+            <li>Получаем в контроллере данные из БД:
+                <pre>&lt;?php
 
-        <p>
-            {{ $text }}
-        </p>
-        <pre>
-&lt;?php
+    namespace App\Http\Controllers;
 
-namespace App\Http\Controllers;
+    use Illuminate\Support\Facades\DB; // подключаем фасад DB
 
-use Illuminate\Support\Facades\DB; // подключаем фасад DB
-
-class UserController extends Controller
-{
-    public function getAllRecord()
+    class UserController extends Controller
     {
-        /* Запрос выполнится только тогда, когда таблица РЕАЛЬНО существует
-        Иначе придётся комментировать роут, который ссылается на этот код
-        */
-        if (Schema::hasTable('users')) {
+        public function getAllRecord()
+        {
+            /* Запрос выполнится только тогда, когда таблица РЕАЛЬНО существует
+            Иначе придётся комментировать роут, который ссылается на этот код
+            */
+            if (Schema::hasTable('users')) {
 
-            $allUsers = DB::table('users')->get();
-            return $allUsers;
+                $allUsers = DB::table('users')->get();
+                return $allUsers;
+            }
         }
-    }
-}</pre>
+    }</pre>
+
+            </li>
+            <li>
+                Отображаем данные в представлении:
+                <pre>        &lt;table>
+            &lt;tr>
+                &lt;th>id&lt;/th>
+                &lt;th>name&lt;/th>
+                &lt;th>email&lt;/th>
+            &lt;/tr>
+            &#64;foreach ($allUsers as $user)
+                &lt;tr>
+                    &lt;th>&#123;&#123; $user->id }}&lt;/th>
+                    &lt;th>&#123;&#123; $user->name }}&lt;/th>
+                    &lt;th>&#123;&#123; $user->email }}&lt;/th>
+                &lt;/tr>
+            &#64;endforeach
+        &lt;/table></pre>
+            </li>
+        </ol>
+        <h5>
+            Результат:
+        </h5>
         <table>
             <tr>
                 <th>id</th>
                 <th>name</th>
                 <th>email</th>
             </tr>
-            @foreach ($data[0] as $user)
+            @foreach ($data as $user)
                 <tr>
                     <th>{{ $user->id }}</th>
                     <th>{{ $user->name }}</th>
@@ -43,14 +64,36 @@ class UserController extends Controller
                 </tr>
             @endforeach
         </table>
-        <a href="/DB/records#recordTask1">Назад</a>
+        <br />
+        <br />
+        <a href="{{ route('qb-record') }}#recordTask1">Назад к задачам</a>
     @elseif ($id == 2)
-        <p>
-            {{ $text }}
-        </p>
-        <pre>
-                DB::table('users')->select('name', 'email')->get();
-            </pre>
+        <x-page.tasks.header :text="$text" />
+        <ol>
+            <li>
+                В контроллере получаем данные из БД
+                <pre>DB::table('users')->select('name', 'email')->get();</pre>
+            </li>
+            <li>
+                Отображаем данные в представении:
+                <pre>&lt;table>
+    &lt;tr>
+        &#64;foreach (array_keys((array) $data[0][0]) as $fieldName)
+            &lt;th>&#123;&#123; $fieldName }}&lt;/th>
+        &#64;endforeach
+    &lt;/tr>
+    &#64;foreach ($data[0] as $user)
+        &lt;tr>
+            &lt;th>&#123;&#123; $user->name }}&lt;/th>
+            &lt;th>&#123;&#123; $user->email }}&lt;/th>
+        &lt;/tr>
+    &#64;endforeach
+&lt;/table></pre>
+            </li>
+        </ol>
+        <h5>
+            Результат:
+        </h5>
         <table>
             <tr>
                 @foreach (array_keys((array) $data[0][0]) as $fieldName)
@@ -64,13 +107,32 @@ class UserController extends Controller
                 </tr>
             @endforeach
         </table>
-        <a href="/DB/records#recordTask1">Назад</a>
+        <br />
+        <br />
+        <a href="{{ route('qb-record') }}#recordTask1">Назад к задачам</a>
     @elseif ($id == 3)
-        <p>
-            {{ $text }}
-        </p>
-        <pre>
-            DB::table('users')->select('name', 'email as user_email')->get()            </pre>
+        <x-page.tasks.header :text="$text" />
+        <pre>// Получение данныех в контроллере
+$data = DB::table('users')->select('name', 'email as user_email')->get()
+
+// Отображени данных в предствлении:
+&lt;table>
+    &lt;tr>
+        &#64;foreach (array_keys((array) $data[0][0]) as $fieldName)
+            &lt;th>&#123;&#123; $fieldName }}&lt;/th>
+        &#64;endforeach
+    &lt;/tr>
+    &#64;foreach ($data[0] as $user)
+        &lt;tr>
+            &lt;th>&#123;&#123; $user->name }}&lt;/th>
+            &lt;th>&#123;&#123; $user->user_email }}&lt;/th>
+        &lt;/tr>
+    &#64;endforeach
+&lt;/table>
+</pre>
+        <h5>
+            Результат:
+        </h5>
         <table>
             <tr>
                 @foreach (array_keys((array) $data[0][0]) as $fieldName)
@@ -84,17 +146,16 @@ class UserController extends Controller
                 </tr>
             @endforeach
         </table>
-        <a href="/DB/records#recordTask2">Назад</a>
+        <br />
+        <br />
+        <a href="{{ route('qb-record') }}#recordTask2">Назад к задачам</a>
     @elseif ($id == 4)
-        <p>
-            {{ $text }}
-        </p>
+        <x-page.tasks.header :text="$text" />
         <pre>
 // Controller:
 DB::table('users')->pluck('name')
 
 // view:
-&lt;h3>user names:&lt;/h3>
 &lt;ul>
     &#64;foreach ($data as $user)
         &lt;li>
@@ -103,7 +164,9 @@ DB::table('users')->pluck('name')
     &#64;endforeach
 &lt;/ul>
             </pre>
-        <h3>user names:</h3>
+        <h5>
+            Результат:
+        </h5>
         <ul>
             @foreach ($data as $user)
                 <li>
@@ -111,17 +174,15 @@ DB::table('users')->pluck('name')
                 </li>
             @endforeach
         </ul>
-        <a href="/DB/records#recordTask3">Назад</a>
+        <br />
+        <br />
+        <a href="{{ route('qb-record') }}#recordTask3">Назад к задачам</a>
     @elseif ($id == 5)
-        <p>
-            {{ $text }}
-        </p>
-        <pre>
-
-    // Получение данных в Controllere:
+        <x-page.tasks.header :text="$text" />
+        <pre>// Получение данных в Controllere:
     'data' => Schema::hasTable('users') ?? DB::table('users')->first();
 
-    // Blade Code:
+// Blade Code:
     &#64;php
     $dataArr = (array) $data;
     &#64;endphp
@@ -142,6 +203,9 @@ DB::table('users')->pluck('name')
         @php
             $dataArr = (array) $data;
         @endphp
+        <h5>
+            Результат:
+        </h5>
         <table>
             <tr>
                 @foreach ($dataArr as $fieldName => $value)
@@ -155,16 +219,15 @@ DB::table('users')->pluck('name')
             </tr>
         </table>
 
-        <a href="/DB/records#recordsTask5">Назад</a>
+        <br />
+        <br />
+        <a href="{{ route('qb-record') }}#recordsTask5">Назад к задачам</a>
     @elseif ($id == 6)
-        <p>
-            {{ $text }}
-        </p>
-        <pre>
-    // Получение данных в Controllere:
+        <x-page.tasks.header :text="$text" />
+        <pre>// Получение данных в Controllere:
     'data' => Schema::hasTable('users') ?? DB::table('users')->take(3)->get;
 
-    // Blade Code:
+// Blade Code:
     &#123;&#123;-- Проерка на наличие данных --}}
     &#64;if ($data->isNotEmpty())
     &#64;php
@@ -190,6 +253,9 @@ DB::table('users')->pluck('name')
         &lt;p>Нет данных для отображения.&lt;/p>
     &#64;endif
             </pre>
+        <h5>
+            Результат:
+        </h5>
         {{-- Проерка на наличие данных --}}
         @if ($data->isNotEmpty())
             @php
@@ -214,11 +280,11 @@ DB::table('users')->pluck('name')
         @else
             <p>Нет данных для отображения.</p>
         @endif
-        <a href="/DB/records#recordsTask6">Назад</a>
+        <br />
+        <br />
+        <a href="{{ route('qb-record') }}#recordTask6">Назад к задачам</a>
     @elseif ($id == 7)
-        <p>
-            {{ $text }}
-        </p>
+        <x-page.tasks.header :text="$text" />
         <pre>
     // Получение данных в Controllere:
     'data' => Schema::hasTable('users') ?? DB::table('users')->skip(2)->take(3)->get;
@@ -249,6 +315,9 @@ DB::table('users')->pluck('name')
         &lt;p>Нет данных для отображения.&lt;/p>
     &#64;endif
             </pre>
+        <h5>
+            Результат:
+        </h5>
         {{-- Проерка на наличие данных --}}
         @if ($data->isNotEmpty())
             @php
@@ -273,6 +342,8 @@ DB::table('users')->pluck('name')
         @else
             <p>Нет данных для отображения.</p>
         @endif
-        <a href="/DB/records#recordsTask6">Назад</a>
+        <br />
+        <br />
+        <a href="{{ route('qb-record') }}#recordTask6">Назад к задачам</a>
     @endif
 </x-layout>

@@ -10,64 +10,51 @@ use Illuminate\Support\Facades\Schema;
 
 class DbController extends Controller
 {
-    public function intro(int|string $id, int|null $getTask = null)
+    public function intro(Request $request, int|string $id)
     {
-        $task = [
-            '1' => [
-                'text' => "Подключите фасад DB к контроллеру юзеров.",
-                'data' => [],
-            ],
-        ];
-        if ($getTask) {
-            return array_keys($task);
+        // В этом разделе ?? задачи. создаём массив с номерами задач для проверки
+        $tasks = range(1, 1);
+
+        // Проверка безопасности: если передали несуществующий ID задачи
+        if (!isset($tasks[($id - 1)])) {
+            abort(404, 'Задача не найдена');
         }
-        return view('DB.intro-task', ['id' => $id, 'text' => $task[$id]['text'], 'data' => $task[$id]['data']]);
+
+        return view('DB.intro-task', ['id' => $id, 'text' => $request->text]);
     }
 
-    public function record(int|string $id, int|null $getTask = null)
+    public function record(Request $request, int|string $id)
     {
         $tasks = [
             '1' => [
-                'text' => "Получите все записи из таблицы users. Переберите полученные записи циклом и выведите их в представлении в виде HTML таблицы.",
-                'data' => fn() => [DB::table('users')->get()],
+                'data' => fn() => [DB::table('users')->get()][0],
             ],
             '2' => [
-                'text' => "При получении данных из таблицы с юзерами оставьте в выборке только поля name и email.",
                 'data' => fn() => [DB::table('users')->select('name', 'email')->get()],
             ],
             '3' => [
-                'text' => "При получении данных из таблицы с юзерами переименуйте поле email на user_email.",
                 'data' => fn() => [DB::table('users')->select('name', 'email as user_email')->get()],
             ],
-
-
             '4' => [
-                'text' => "Получите коллекцию имен всех юзеров. Передайте в представление коллекцию юзеров, полученную в предыдущей задаче. Выведите эти данные в виде списка ul.",
                 'data' => fn() => DB::table('users')->pluck('name'),
             ],
             '5' => [
-                'text' => "Получите одного юзера",
                 'data' => fn() => DB::table('users')->first(),
             ],
             '6' => [
-                'text' => "Получите первых 3 юзера.",
                 'data' => fn() => DB::table('users')->take(3)->get(),
             ],
             '7' => [
-                'text' => "Получите первых 3 юзера, начиная с 4го",
                 'data' => fn() => DB::table('users')->skip(2)->take(3)->get(),
             ],
-
-
-
         ];
-        if ($getTask) {
-            return count($tasks);
+        if (!isset($tasks[$id])) {
+            abort(404, 'Задача не найдена');
         }
 
         $resultData = $tasks[$id]['data']();
 
-        return view('DB.records-task', ['id' => $id, 'text' => $tasks[$id]['text'], 'data' => $resultData]);
+        return view('DB.records-task', ['id' => $id, 'text' => $request->text, 'data' => $resultData]);
     }
 
 

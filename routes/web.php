@@ -182,23 +182,23 @@ Route::prefix('seeders')->group(function () {
 Route::prefix('DB')->group(function () {
     Route::get('/intro/', function () {
         return view('DB.intro');
-    });
-    Route::get('/intro-task/{id}', [DbController::class, 'intro'])->whereIn('id', (new DbController)->intro(1, 1));
+    })->name('qb-intro');
+    Route::get('/intro-task/{id}', [DbController::class, 'intro'])->name('qb-intro-task');
 
     Route::get('/records/', function () {
         return view('DB.records');
-    });
-    Route::get('/records-task/{id}', [DbController::class, 'record'])->whereIn('id', range(1, (new DbController)->record(1, 1)));
+    })->name('qb-record');
+    Route::get('/records-task/{id}', [DbController::class, 'record'])->name('qb-records-task');
 
     Route::get('/record-where/', function () {
         return view('DB.record-where');
     });
-    Route::get('/record-where-task/{id}', [DbController::class, 'recordWhere'])->whereIn('id', range(1, (new DbController)->recordWhere(1, 1)));
+    Route::get('/record-where-task/{id}', [DbController::class, 'recordWhere']);
 
     Route::get('/record-sort/', function () {
         return view('DB.record-sort');
     });
-    Route::get('/record-sort-task/{id}', [DbController::class, 'recordSort'])->whereIn('id', range(1, (new DbController)->record(1, 1)));
+    Route::get('/record-sort-task/{id}', [DbController::class, 'recordSort']);
 
     Route::get('/insert-update-del/', function () {
         return view('DB.insert-update-del');

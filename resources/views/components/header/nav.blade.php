@@ -161,7 +161,7 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a class="dropdown-item" href="/DB/intro">
+                            <a class="dropdown-item" href="{{ route('qb-intro') }}">
                                 Введение
                             </a>
                         </li>

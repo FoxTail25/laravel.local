@@ -1,14 +1,11 @@
 <x-layout>
     <x-slot:title>
-        в Laravel
+        Query builder в Laravel
     </x-slot:title>
 
     @if ($id == 1)
-        <div>
-            <p>
-                {{ $text }}
-            </p>
-            <pre>
+        <x-page.tasks.header :text="$text" />
+        <pre>
 &lt;?php
 
 namespace App\Http\Controllers;
@@ -20,8 +17,9 @@ class UserController extends Controller
     //
 }
             </pre>
-        </div>
     @elseif ($id == 2)
     @endif
-    <a href="/DB/intro">Назад</a>
+    <br />
+    <br />
+    <a href="{{ route('qb-intro') }}#qb-intro_task">Назад к задачам</a>
 </x-layout>
