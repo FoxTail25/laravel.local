@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Http\Request;
 
 use App\Models\City;
 use App\Models\Country;
@@ -12,16 +13,19 @@ use App\Models\User_r;
 
 class EloqumentController extends Controller
 {
-    public function createAndUse(int|string $id)
+    public function createAndUse(Request $request, int|string $id)
     {
 
         $tasks = [
             '1' => [
-                'text' => 'С помощью artisan сгенерируйте модель для таблицы cities.',
                 'data' => fn () => [],
             ],
             '2' => [
-                'text' => 'Подключите модель Users к вашему контроллеру.',
+
+                'data' => fn () => [],
+            ],
+            '3' => [
+
                 'data' => fn () => [],
             ],
 
@@ -34,93 +38,21 @@ class EloqumentController extends Controller
 
         $resultData = $tasks[$id]['data']();
 
-        return view('eloquent.create-and-use-task', ['id' => $id, 'text' => $tasks[$id]['text'], 'data' => $resultData]);
+        return view('eloquent.create-and-use-task', ['id' => $id, 'text' => $request->text, 'data' => $resultData]);
     }
 
-    public function getData(int|string $id)
+    public function getData(Request $request, int|string $id)
     {
 
         $tasks = [
             '1' => [
-                'text' => 'Получите всех юзеров.',
                 'data' => fn () => [
                     'users' => $users = User::all(),
                     'fields' => $users->isNotEmpty() ? array_keys($users->first()->getAttributes()) : [],
                 ],
+
             ],
             '2' => [
-                'text' => 'Получите всех юзеров с возрастом 30. Передайте юзеров в представление и выведите их в виде HTML таблицы.',
-                'data' => function () {
-                    $users = User::where('age', 30)->get();
-                    $fields = $users->isNotEmpty()
-                        ? array_keys($users->first()->getAttributes())
-                        : [];
-
-                    return [
-                        'users' => $users,
-                        'fields' => $fields,
-                    ];
-                },
-            ],
-            '3' => [
-                'text' => 'Получите всех юзеров с зарплатой от 1000 до 3000.',
-                'data' => function () {
-                    $users = User::whereBetween('salary', [1000, 3000])->orderBy('salary')->get();
-                    $fields = $users->isNotEmpty()
-                        ? array_keys($users->first()->getAttributes())
-                        : [];
-
-                    return [
-                        'users' => $users,
-                        'fields' => $fields,
-                    ];
-                },
-            ],
-            '4' => [
-                'text' => 'Получите всех юзеров, начиная с четвертого.',
-                'data' => function () {
-                    $users = User::orderBy('id')->skip(3)->take(PHP_INT_MAX)->get();
-                    $fields = $users->isNotEmpty()
-                        ? array_keys($users->first()->getAttributes())
-                        : [];
-
-                    return [
-                        'users' => $users,
-                        'fields' => $fields,
-                    ];
-                },
-            ],
-            '5' => [
-                'text' => 'Получите всех юзеров, начиная с четвертого.',
-                'data' => function () {
-                    $users = User::orderBy('id')->skip(3)->take(5)->get();
-                    $fields = $users->isNotEmpty()
-                        ? array_keys($users->first()->getAttributes())
-                        : [];
-
-                    return [
-                        'users' => $users,
-                        'fields' => $fields,
-                    ];
-                },
-            ],
-            '6' => [
-                'text' => 'Получите всех юзеров с id, равным 1, 3, 4 или 5.',
-                'data' => function () {
-                    // $users = User::whereIn('id', [1, 3, 4, 5])->get();
-                    $users = User::find([1, 3, 4, 5]);
-                    $fields = $users->isNotEmpty()
-                        ? array_keys($users->first()->getAttributes())
-                        : [];
-
-                    return [
-                        'users' => $users,
-                        'fields' => $fields,
-                    ];
-                },
-            ],
-            '7' => [
-                'text' => 'Получите юзера с возрастом 30. Передайте его в представление. Выведите данные этого юзера в отдельных тегах.',
                 'data' => function () {
 
                     $users = collect([User::where('age', 30)->first()])->filter();
@@ -134,23 +66,22 @@ class EloqumentController extends Controller
                     ];
                 },
             ],
-            '8' => [
-                'text' => 'Получите всех юзеров с возрастом 30. Передайте юзеров в представление и выведите их в виде HTML таблицы.',
+            '3' => [
                 'data' => function () {
 
-                    $users = $users = User::find(3);
-                    $fields = $users->isNotEmpty()
-                        ? array_keys($users->first()->getAttributes())
-                        : [];
+                    // Получаем коллекцию, даже если там всего один ID
+                    $users = User::where('id', 3)->get();
+
+                    // Теперь метод isNotEmpty() сработает отлично!
+                    $fields = $users->isNotEmpty() ? array_keys($users->first()->getAttributes()) : [];
 
                     return [
-                        'users' => $users,
+                        'users' => $users, // Здесь будет коллекция
                         'fields' => $fields,
                     ];
                 },
             ],
-            '9' => [
-                'text' => 'Получите юзеров с id, равными 3, 4 и 5.',
+            '4' => [
                 'data' => function () {
 
                     $users = $users = User::find([3, 4, 5]);
@@ -164,6 +95,73 @@ class EloqumentController extends Controller
                     ];
                 },
             ],
+            '5' => [
+                'data' => function () {
+                    $users = User::where('age', 30)->get();
+                    $fields = $users->isNotEmpty()
+                        ? array_keys($users->first()->getAttributes())
+                        : [];
+
+                    return [
+                        'users' => $users,
+                        'fields' => $fields,
+                    ];
+                },
+            ],
+            '6' => [
+                'data' => function () {
+                    $users = User::whereBetween('salary', [1000, 3000])->orderBy('salary')->get();
+                    $fields = $users->isNotEmpty()
+                        ? array_keys($users->first()->getAttributes())
+                        : [];
+
+                    return [
+                        'users' => $users,
+                        'fields' => $fields,
+                    ];
+                },
+            ],
+            '7' => [
+                'data' => function () {
+                    $users = User::orderBy('id')->skip(3)->take(PHP_INT_MAX)->get();
+                    $fields = $users->isNotEmpty()
+                        ? array_keys($users->first()->getAttributes())
+                        : [];
+
+                    return [
+                        'users' => $users,
+                        'fields' => $fields,
+                    ];
+                },
+            ],
+            '8' => [
+                'data' => function () {
+                    $users = User::orderBy('id')->skip(3)->take(5)->get();
+                    $fields = $users->isNotEmpty()
+                        ? array_keys($users->first()->getAttributes())
+                        : [];
+
+                    return [
+                        'users' => $users,
+                        'fields' => $fields,
+                    ];
+                },
+            ],
+            '9' => [
+                'data' => function () {
+                    // $users = User::whereIn('id', [1, 3, 4, 5])->get();
+                    $users = User::find([1, 3, 4, 5]);
+                    $fields = $users->isNotEmpty()
+                        ? array_keys($users->first()->getAttributes())
+                        : [];
+
+                    return [
+                        'users' => $users,
+                        'fields' => $fields,
+                    ];
+                },
+            ],
+
         ];
 
         // Проверка безопасности: если передали несуществующий ID задачи
@@ -173,7 +171,7 @@ class EloqumentController extends Controller
 
         $resultData = $tasks[$id]['data']();
 
-        return view('eloquent.get-data-task', ['id' => $id, 'text' => $tasks[$id]['text'], 'data' => $resultData]);
+        return view('eloquent.get-data-task', ['id' => $id, 'text' => $request->text, 'data' => $resultData]);
     }
 
     public function createUpdateDel(int|string $id)

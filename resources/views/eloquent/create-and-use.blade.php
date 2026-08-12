@@ -23,7 +23,19 @@
     <p class="text-danger">В Laravel принято что модели именуются в единственном числе(Post). А таблицы во множественном
         числе (posts)
     </p>
-    <h4 id="task1">Задачи:</h4>
+    <x-page.content.task.head :data="['task1', 'Задачи:']" />
+    <x-page.content.task.body href='create-and-use-task' :tasks="[
+        1 => [
+            'text' => 'С помощью artisan сгенерируйте модель для таблицы cities.',
+        ],
+        2 => [
+            'text' =>
+                'В папке app/Models скореее всего уже есть модель User. Удалите или переместите её в другое место. C помощью artisan заново сгенерируйте модель для таблицы users.',
+        ],
+    ]" />
+    <br />
+    <br />
+    {{-- <h4 id="task1">Задачи:</h4>
     <a href="/eloquent/create-and-use-task/1">
         С помощью artisan сгенерируйте модель для таблицы cities.
     </a>
@@ -32,7 +44,7 @@
         В папке app/Models скореее всего уже есть модель User. Удалите или переместите её в другое место. C помощью
         artisan заново
         сгенерируйте модель для таблицы users.
-    </a>
+    </a> --}}
     <h3>
         Подключение модели Eloquent к контроллеру в Laravel
     </h3>
@@ -57,9 +69,12 @@
 		}
 	}
     </pre>
-    <h4 id="task2">Задачи:</h4>
-    <a href="/eloquent/create-and-use-task/3">
-        Подключите модель Users к вашему контроллеру.
-    </a>
+    <x-page.content.task.head :data="['task2', 'Задача:']" />
+    <x-page.content.task.body href='create-and-use-task' :tasks="[
+        3 => [
+            'text' => 'Подключите модель Users к вашему контроллеру.',
+        ],
+    ]" />
+    <br />
     <br />
 </x-layout>

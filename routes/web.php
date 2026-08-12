@@ -16,59 +16,45 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
-Route::get('/', function () {
-    return view('home', ['title' => 'home']);
-});
+Route::get('/', fn()=> view('home', ['title' => 'home']));
+
 Route::prefix('routes')->group(function () {
+
     Route::get('/', fn() => view('routes.intro'))->name('routes-intro');
+
     Route::get('/routes-task/{id}', [RoutesController::class, 'routes'])->whereNumber('id')->name('routes-task');
+
     Route::get('/advanced', fn() => view('routes.advanced'))->name('routes-advanced');
 });
 
 // маршруты по задачам раздела route
-Route::get('/test', function () {
-    return 'вы перешли по адресу: /test';
-});
-Route::get('/dir/test', function () {
-    return 'вы перешли по адресу: /dir/test';
-});
-Route::get('/user/{name}', function ($name) {
-    return 'вы перешли по адресу: /user/' . $name;
-});
-Route::get('/user/{surname}/{name}', function ($surname, $name) {
-    return "вы перешли по адресу: $surname $name";
-});
-Route::get('/city/{city?}', function ($city = 'Minsk') {
-    return "Город: $city";
-});
-Route::get('/usernum/{id}', function ($id) {
-    return "id = $id";
-})->where('id', '[0-9]+');
+Route::get('/test', fn()=> 'вы перешли по адресу: /test');
 
-Route::get('/userwhere/{id}/{name}', function ($id, $name) {
-    return "id = $id name = $name";
-})->where('id', '[0-9]+')->where('name', '[a-z]{2,}');
+Route::get('/dir/test', fn()=> 'вы перешли по адресу: /dir/test');
 
-Route::get('/posts/{date}', function ($date) {
-    return "дата: $date";
-})->where('date', '\d{2}-\d{2}-\d{4}');
+Route::get('/user/{name}', fn($name)=> 'вы перешли по адресу: /user/' . $name);
 
-Route::get('/{year}/{month}/{day}', function ($year, $month, $day) {
-    return "дата: $year-$month-$day";
-})->where('year', '\d{4}')->where('month', '\d{2}')->where('day', '\d{2}');
+Route::get('/user/{surname}/{name}', fn($surname, $name)=> "вы перешли по адресу: $surname $name");
 
-Route::get('/users/{order}', function ($order) {
-    return "В order было записано значение: $order";
-})->where('order', '\b(name|surname|age)\b');
+Route::get('/city/{city?}', fn($city = 'Minsk')=>"Город: $city");
 
-Route::get('/test_slug/{testslug}', function ($testslug) {
-    return "Вы перешли по маршруту: /test_slug/$testslug";
-});
+Route::get('/usernum/{id}', fn($id)=> "id = $id")->where('id', '[0-9]+');
+
+Route::get('/userwhere/{id}/{name}', fn($id, $name)=> "id = $id name = $name")->where('id', '[0-9]+')->where('name', '[a-z]{2,}');
+
+Route::get('/posts/{date}', fn($date)=> "дата: $date")->where('date', '\d{2}-\d{2}-\d{4}');
+
+Route::get('/{year}/{month}/{day}', fn($year, $month, $day)=>"дата: $year-$month-$day")->where('year', '\d{4}')->where('month', '\d{2}')->where('day', '\d{2}');
+
+Route::get('/users/{order}', fn($order)=> "В order было записано значение: $order")->where('order', '\b(name|surname|age)\b');
+
+Route::get('/test_slug/{testslug}', fn($testslug)=> "Вы перешли по маршруту: /test_slug/$testslug");
 // окончание маршрутов по задачам раздела route
 
 
 
 Route::prefix('controllers')->group(function () {
+
     Route::get('/', fn() => view('controllers.fundamentals'))->name('controllers-fundamentals');
     Route::get('/controllers-task/{id}', [ControllersController::class, 'base'])->whereNumber('id')->name('controllers-task');
     // Route::get('/advanced', fn() => view('routes.advanced'))->name('routes-advanced');
@@ -98,84 +84,53 @@ Route::get('/view/viewThree', [UserController::class, 'viewThree']);
 
 Route::prefix('blade')->group(function () {
 
-    Route::get('/fundamentals/', function () {
-        return view('blade.fundamentals');
-    })->name('fundamentals');
+    Route::get('/fundamentals/', fn()=> view('blade.fundamentals'))->name('fundamentals');
     Route::get('/fundamentals-task/{id}', [BladeController::class, 'fundamentals'])->whereNumber('id')->name('fundamentals-task');
 
-    Route::get('/conditions/', function () {
-        return view('blade.conditions');
-    });
+    Route::get('/conditions/', fn()=> view('blade.conditions'));
     Route::get('/conditions-task/{id}', [BladeController::class, 'conditions'])->whereIn('id', (new BladeController)->conditions(1, 1));
 
-    Route::get('/foreach-directive/', function () {
-        return view('blade.foreach-directive');
-    });
+    Route::get('/foreach-directive/', fn()=> view('blade.foreach-directive'));
     Route::get('/foreach-directive-task/{id}', [BladeController::class, 'foreachDirective'])->whereIn('id', (new BladeController)->foreachDirective(1, 1));
 
-    Route::get('/php-code-block/', function () {
-        return view('blade.php-code-block');
-    });
+    Route::get('/php-code-block/', fn()=> view('blade.php-code-block'));
     Route::get('/php-code-block-task/{id}', [BladeController::class, 'phpCodeBlock'])->whereIn('id', (new BladeController)->phpCodeBlock(1, 1));
 
-    Route::get('/blade-practicum/', function () {
-        return view('blade.blade-practicum');
-    });
+    Route::get('/blade-practicum/', fn()=> view('blade.blade-practicum'));
     Route::get('/blade-practicum-task/{id}', [BladeController::class, 'bladePracticum'])->whereIn('id', (new BladeController)->bladePracticum(1, 1));
 
-    Route::get('/components/', function () {
-        return view('blade.components');
-    })->name('components');
+    Route::get('/components/', fn()=> view('blade.components'))->name('components');
     Route::get('/components-task/{id}', [BladeController::class, 'components'])->whereNumber('id')->name('components-task');
 });
 
-Route::get('/collections/', function () {
-    return view('collections');
-});
+Route::get('/collections/', fn()=> view('collections'));
 
 Route::prefix('migrations')->group(function () {
-    Route::get('/intro/', function () {
-        return view('migrations.intro');
-    })->name('migration-intro');
+    Route::get('/intro/', fn()=> view('migrations.intro'))->name('migration-intro');
 
-    Route::get('/file-structure/', function () {
-        return view('migrations.file-structure');
-    })->name('migration-file-structure');
+    Route::get('/file-structure/', fn()=> view('migrations.file-structure'))->name('migration-file-structure');
     Route::get('/file-structure-task/{id}', [MigrationController::class, 'fileStructure'])->name('migration-file-structure-tasks');
 
-    Route::get('/running/', function () {
-        return view('migrations.running');
-    })->name('migration-running');
+    Route::get('/running/', fn()=> view('migrations.running'))->name('migration-running');
     Route::get('/running-task/{id}', [MigrationController::class, 'running'])->name('migration-running-tasks');
 
-    Route::get('/tables-fields/', function () {
-        return view('migrations.tables-fields');
-    })->name('migration-tables-fields');
+    Route::get('/tables-fields/', fn()=> view('migrations.tables-fields'))->name('migration-tables-fields');
     Route::get('/tables-fields-task/{id}', [MigrationController::class, 'tablesFields'])->name('migration-tables-fields-tasks');
 
-    Route::get('/migration-fields/', function () {
-        return view('migrations.migration-fields');
-    })->name('migration-fields');
+    Route::get('/migration-fields/', fn()=> view('migrations.migration-fields'))->name('migration-fields');
     Route::get('/migration-fields-task/{id}', [MigrationController::class, 'updateFilds'])->name('migration-fields-task');
 
-    Route::get('/del-change-table/', function () {
-        return view('migrations.del-change-table');
-    })->name('del-change-table');
+    Route::get('/del-change-table/', fn()=> view('migrations.del-change-table'))->name('del-change-table');
 
-    Route::get('/migration-rollback/', function () {
-        return view('migrations.migration-rollback');
-    })->name('migration-rollback');
+    Route::get('/migration-rollback/', fn()=> view('migrations.migration-rollback'))->name('migration-rollback');
     Route::get('/migration-rollback-task/{id}', [MigrationController::class, 'migrationRollback'])->name('migration-rollback-task');
 });
 
 Route::prefix('seeders')->group(function () {
-    Route::get('/intro/', function () {
-        return view('seeders.intro');
-    })->name('seeder-intro');
 
-    Route::get('/manual-seeder/', function () {
-        return view('seeders.manual-seeder');
-    })->name('manual-seeder');
+    Route::get('/intro/', fn()=> view('seeders.intro'))->name('seeder-intro');
+
+    Route::get('/manual-seeder/', fn()=> view('seeders.manual-seeder'))->name('manual-seeder');
     Route::get('/manual-seeder-task/{id}', [SeederController::class, 'manualSeeder'])->name('manual-seeder-task');
 });
 
@@ -198,49 +153,31 @@ Route::prefix('DB')->group(function () {
 });
 
 Route::prefix('eloquent')->group(function () {
-    Route::get('/intro/', function () {
-        return view('eloquent.intro');
-    });
+    Route::get('/intro/', fn()=> view('eloquent.intro'))->name('eloquent-intro');
 
-    Route::get('/create-and-use/', function () {
-        return view('eloquent.create-and-use');
-    });
-    Route::get('/create-and-use-task/{id}', [EloqumentController::class, 'createAndUse'])->whereNumber('id');
+    Route::get('/create-and-use/', fn()=> view('eloquent.create-and-use'))->name('create-and-use');
+    Route::get('/create-and-use-task/{id}', [EloqumentController::class, 'createAndUse'])->whereNumber('id')->name('create-and-use-task');
 
-    Route::get('/get-data/', function () {
-        return view('eloquent.get-data');
-    });
-    Route::get('/get-data-task/{id}', [EloqumentController::class, 'getData'])->whereNumber('id');
+    Route::get('/get-data/', fn()=> view('eloquent.get-data'))->name('eloquent-get-data');
+    Route::get('/get-data-task/{id}', [EloqumentController::class, 'getData'])->whereNumber('id')->name('eloquent-get-data-task');
 
-    Route::get('/create-update-del/', function () {
-        return view('eloquent.create-update-del');
-    });
+    Route::get('/create-update-del/', fn()=> view('eloquent.create-update-del'));
     Route::get('/create-update-del-task/{id}', [EloqumentController::class, 'createUpdateDel'])->whereNumber('id');
 });
 
 Route::prefix('relationship')->group(function () {
-    Route::get('/intro/', function () {
-        return view('relationship.intro');
-    });
+    Route::get('/intro/', fn()=> view('relationship.intro'));
 
-    Route::get('/one-to-one/', function () {
-        return view('relationship.one-to-one');
-    });
+    Route::get('/one-to-one/', fn()=> view('relationship.one-to-one'));
     Route::get('/one-to-one-task/{id}', [EloqumentController::class, 'oneToOne'])->whereNumber('id');
 
-    Route::get('/one-to-many/', function () {
-        return view('relationship.one-to-many');
-    });
+    Route::get('/one-to-many/', fn()=> view('relationship.one-to-many'));
     Route::get('/one-to-many-task/{id}', [EloqumentController::class, 'oneToMany'])->whereNumber('id');
 
-    Route::get('/many-to-many/', function () {
-        return view('relationship.many-to-many');
-    });
+    Route::get('/many-to-many/', fn()=> view('relationship.many-to-many'));
     Route::get('/many-to-many-task/{id}', [EloqumentController::class, 'manyToMany'])->whereNumber('id');
 
-    Route::get('/load/', function () {
-        return view('relationship.load');
-    });
+    Route::get('/load/', fn()=> view('relationship.load'));
     Route::get('/load-task/{id}', [EloqumentController::class, 'load'])->whereNumber('id');
 });
 

@@ -184,7 +184,7 @@
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="/DB/insert-update-del">
+                            <a class="dropdown-item" href="{{ route('qb-insert-update-del') }}">
                                 insert, update, delete, leftJoin
                             </a>
                         </li>
@@ -197,7 +197,7 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a class="dropdown-item" href="/eloquent/intro">
+                            <a class="dropdown-item" href="{{ route('eloquent-intro') }}">
                                 Введение
                             </a>
                         </li>
@@ -205,7 +205,7 @@
                             <hr class="dropdown-divider">
                         </li>
                         <li>
-                            <a class="dropdown-item" href="/eloquent/create-and-use">
+                            <a class="dropdown-item" href="{{ route('create-and-use') }}">
                                 Создание и использование
                             </a>
                         </li>
