@@ -4,11 +4,9 @@
     </x-slot:title>
 
     @if ($id == 1)
-        <p>
-            {{ $text }}
-        </p>
+        <x-page.tasks.header :text="$text" />
         <pre>
-    //Controller code:
+//Controller code:
 
     // узнаём сколько записей в базе данных
     $totalUsers = User::count();
@@ -26,19 +24,19 @@
 
     // сохраняем нового пользователя в базу
     $user->save();
-
-    //Blade code:
-    теперь в базе &#123;&#123; $data }} записей
-
     return $totalUsers;
-        </pre>
+
+//Blade code:
+    теперь в базе &#123;&#123; $data }} записей</pre>
+        <h5>
+            Результат:
+        </h5>
         теперь в базе {{ $data }} записей
         <br />
-        <a href="/eloquent/create-update-del/">Назад</a>
+        <br />
+        <a href="{{ route('eloquent-create-update-del') }}#task1">Назад</a>
     @elseif ($id == 2)
-        <p>
-            {{ $text }}
-        </p>
+        <x-page.tasks.header :text="$text" />
         <pre>
     //Controller code:
 
@@ -62,13 +60,15 @@
 
     return $totalUsers;
         </pre>
+        <h5>
+            Результат:
+        </h5>
         Теперь имя пользователя с id = 1 {{ $data }}
         <br />
-        <a href="/eloquent/create-update-del#task2/">Назад</a>
+        <br />
+        <a href="{{ route('eloquent-create-update-del') }}#task2">Назад</a>
     @elseif ($id == 3)
-        <p>
-            {{ $text }}
-        </p>
+        <x-page.tasks.header :text="$text" />
         <pre>
     //Controller code:
 
@@ -87,13 +87,15 @@
 
     return $totalUsers;
         </pre>
+        <h5>
+            Результат:
+        </h5>
         {{ is_int($data) ? "пользователь с id = $data удалён" : $data }}
         <br />
-        <a href="/eloquent/create-update-del#task3/">Назад</a>
+        <br />
+        <a href="{{ route('eloquent-create-update-del') }}#task3">Назад</a>
     @elseif ($id == 4)
-        <p>
-            {{ $text }}
-        </p>
+        <x-page.tasks.header :text="$text" />
         <pre>
     //Controller code:
 
@@ -114,13 +116,15 @@
 
     return $totalUsers;
         </pre>
+        <h5>
+            Результат:
+        </h5>
         {{ is_int($data) ? "пользователь с id = $data удалён" : $data }}
         <br />
-        <a href="/eloquent/create-update-del#task4/">Назад</a>
+        <br />
+        <a href="{{ route('eloquent-create-update-del') }}#task4">Назад</a>
     @elseif ($id == 5)
-        <p>
-            {{ $text }}
-        </p>
+        <x-page.tasks.header :text="$text" />
         <pre>
     //Controller code:
 
@@ -145,8 +149,12 @@
 
     return $totalUsers;
         </pre>
+        <h5>
+            Результат:
+        </h5>
         {{ is_string($data) ? $data : 'Пользователи с ID = ' . $data->implode(', ') . ' удалены' }}
         <br />
-        <a href="/eloquent/create-update-del#task4/">Назад</a>
+        <br />
+        <a href="{{ route('eloquent-create-update-del') }}#task4">Назад</a>
     @endif
 </x-layout>

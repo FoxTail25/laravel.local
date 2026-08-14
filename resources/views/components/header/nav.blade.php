@@ -210,12 +210,12 @@
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="/eloquent/get-data">
+                            <a class="dropdown-item" href="{{ route('eloquent-get-data') }}">
                                 Получение данных
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="/eloquent/create-update-del">
+                            <a class="dropdown-item" href="{{ route('eloquent-create-update-del') }}">
                                 Create, update, del
                             </a>
                         </li>

@@ -161,8 +161,8 @@ Route::prefix('eloquent')->group(function () {
     Route::get('/get-data/', fn()=> view('eloquent.get-data'))->name('eloquent-get-data');
     Route::get('/get-data-task/{id}', [EloqumentController::class, 'getData'])->whereNumber('id')->name('eloquent-get-data-task');
 
-    Route::get('/create-update-del/', fn()=> view('eloquent.create-update-del'));
-    Route::get('/create-update-del-task/{id}', [EloqumentController::class, 'createUpdateDel'])->whereNumber('id');
+    Route::get('/create-update-del/', fn()=> view('eloquent.create-update-del'))->name('eloquent-create-update-del');
+    Route::get('/create-update-del-task/{id}', [EloqumentController::class, 'createUpdateDel'])->whereNumber('id')->name('eloquent-create-update-del-task');
 });
 
 Route::prefix('relationship')->group(function () {

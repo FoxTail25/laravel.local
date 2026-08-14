@@ -174,12 +174,11 @@ class EloqumentController extends Controller
         return view('eloquent.get-data-task', ['id' => $id, 'text' => $request->text, 'data' => $resultData]);
     }
 
-    public function createUpdateDel(int|string $id)
+    public function createUpdateDel(Request $request, int|string $id)
     {
 
         $tasks = [
             '1' => [
-                'text' => 'Добавьте нового юзера в вашу базу данных.',
                 'data' => function () {
                     // узнаём сколько записей в базе данных
                     $totalUsers = User::count();
@@ -200,7 +199,6 @@ class EloqumentController extends Controller
                 },
             ],
             '2' => [
-                'text' => 'Измените какого-нибудь юзера в вашей базе данных.',
                 'data' => function () {
                     // получаем пользователя с id = 1
                     $user = User::find(1);
@@ -220,7 +218,6 @@ class EloqumentController extends Controller
                 },
             ],
             '3' => [
-                'text' => 'Удалите из базы пользователя с максимальным id',
                 'data' => function () {
                     // получаем пользователя с максимальным id
                     $user = User::latest('id')->first();
@@ -236,7 +233,6 @@ class EloqumentController extends Controller
                 },
             ],
             '4' => [
-                'text' => 'Удалите юзера с максимальным id.',
                 'data' => function () {
                     // Получаем ID последнего пользователя.
                     // Если пользователей нет, запишется null
@@ -253,7 +249,6 @@ class EloqumentController extends Controller
                 },
             ],
             '5' => [
-                'text' => 'Удалите юзера с максимальным id.',
                 'data' => function () {
                     // Получаем ID 3 последних пользователей в виде коллекции [5, 4, 3]
                     $ids = User::latest('id')->take(3)->pluck('id');
@@ -278,7 +273,7 @@ class EloqumentController extends Controller
 
         $resultData = $tasks[$id]['data']();
 
-        return view('eloquent.create-update-del-task', ['id' => $id, 'text' => $tasks[$id]['text'], 'data' => $resultData]);
+        return view('eloquent.create-update-del-task', ['id' => $id, 'text' => $request->text, 'data' => $resultData]);
     }
 
     public function oneToOne(int|string $id)

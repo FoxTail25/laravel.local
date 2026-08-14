@@ -3,62 +3,72 @@
         Запись Eloquent в Laravel
     </x-slot:title>
 
-    <h2>
-        Запись, изменение и удаление данных в Eloquent в Laravel
-    </h2>
-    <hr>
     <h3>
-        Ручное создание новой записи в моделях Eloquent в Laravel
+        Запись, изменение и удаление данных в Eloquent в Laravel
     </h3>
+    <hr>
+    <h4>
+        Ручное создание новой записи в моделях Eloquent в Laravel
+    </h4>
     С помощью моделей можно не только получать записи из базы, но и создавать новые. Это делается в красивом ООП стиле.
     <br />
     <ol>
         <li>
             Для начала нужно создать новый экземпляр объекта модели:
-            <pre>
-        $post = new Post;</pre>
+            <pre>$post = new Post;</pre>
         </li>
         <li>
             Затем нужно записать в его свойства нужные данные:
-            <pre>
-        $post->title = 'title';
-        $post->text  = 'text text text';</pre>
+            <pre>$post->title = 'title';
+            $post->text  = 'text text text';</pre>
         </li>
         <li>
             После этого можно вызвать метод save для сохранения данных в базу:
-            <pre>
-        $post->save();</pre>
+            <pre>$post->save();</pre>
         </li>
     </ol>
     Собрав всё вместе получаем:
-    <pre>
-        use App\Models\Post;
-        // 1. Создаем пустой объект в оперативной памяти
+    <pre>use App\Models\Post;
+    // 1. Создаем пустой объект в оперативной памяти
         $post = new Post;
 
-        // 2. Заполняем свойства
+    // 2. Заполняем свойства
         $post->title = 'title';
         $post->text  = 'text text text';
 
-        // 3. Сохраняем в базу данных (только теперь выполнится SQL-запрос INSERT)
+    // 3. Сохраняем в базу данных (только теперь выполнится SQL-запрос INSERT)
         $post->save();</pre>
     <div class="text-success">
         При описанном сохранении поля created_at и updated_at будут установлены автоматически.
     </div>
     <ul>
-        <li><b>Плюсы: </b>Абсолютная безопасность. Защита $fillable здесь не действует, вы можете принудительно
-            переписать любое поле.</li>
-        <li><b>Минусы: </b>Много однотипного кода, если полей в таблице действительно много.</li>
+        <li>
+            <b>
+                Плюсы:
+            </b>
+            Абсолютная безопасность. Защита $fillable здесь не действует, вы можете принудительно
+            переписать любое поле.
+        </li>
+        <li>
+            <b>
+                Минусы:
+            </b>
+            Много однотипного кода, если полей в таблице действительно много.
+        </li>
     </ul>
-    <h4 id="task1">
-        Задачи:
-    </h4>
-    <a href="/eloquent/create-update-del-task/1">
-        Добавьте нового юзера в вашу базу данных.
-    </a>
-    <h3>
+
+    <x-page.content.task.head :data="['task1', 'Задача:']" />
+    <x-page.content.task.body href='eloquent-create-update-del-task' :tasks="[
+        1 => [
+            'text' => 'Добавьте нового юзера в вашу базу данных.',
+        ],
+    ]" />
+    <br />
+    <br />
+
+    <h4>
         Изменение записи в моделях Eloquent в Laravel
-    </h3>
+    </h4>
     Метод save можно использовать и для изменения существующей модели в БД. Для изменения модели вам нужно получить ее,
     изменить необходимые атрибуты и вызвать метод save:
     <pre>
@@ -69,15 +79,18 @@
     <p class="text-success">
         Отметка времени updated_at будет установлена автоматически.
     </p>
-    <h4 id="task2">
-        Задачи:
-    </h4>
-    <a href="/eloquent/create-update-del-task/2">
-        Измените имя пользователя с id = 1
-    </a>
-    <h3>
+    <x-page.content.task.head :data="['task2', 'Задача:']" />
+    <x-page.content.task.body href='eloquent-create-update-del-task' :tasks="[
+        2 => [
+            'text' => 'Измените имя пользователя с id = 1',
+        ],
+    ]" />
+    <br />
+    <br />
+
+    <h4>
         Удаление записей в моделях Eloquent в Laravel
-    </h3>
+    </h4>
     Метод delete можно использовать для удаления записей:
     <pre>
 	$post = Post::find(1);
@@ -91,15 +104,18 @@
     <pre>
     $deletedRows = Post::where('id', '>', 3)->delete();
     </pre>
-    <h4 id="task3">
-        Задачи:
-    </h4>
-    <a href="/eloquent/create-update-del-task/3">
-        Удалите из базы пользователя с максимальным id
-    </a>
-    <h3>
+    <x-page.content.task.head :data="['task3', 'Задача:']" />
+    <x-page.content.task.body href='eloquent-create-update-del-task' :tasks="[
+        3 => [
+            'text' => 'Удалите из базы пользователя с максимальным id',
+        ],
+    ]" />
+    <br />
+    <br />
+
+    <h4>
         Удаление записей по id в моделях Eloquent в Laravel
-    </h3>
+    </h4>
     Удалять записи можно не получая их, а вызвав статический метод destroy, передав ему id удаляемой записи:
     <pre>Post::destroy(1);</pre>
     Можно удалить сразу несколько записей, передав параметром массив их id:
@@ -125,7 +141,8 @@
             то код отработает отлично.
         </li>
     </ul>
-    <h4 id="task4">
+
+    {{-- <h4 id="task4">
         Задачи:
     </h4>
     <a href="/eloquent/create-update-del-task/4">
@@ -134,10 +151,22 @@
     <br />
     <a href="/eloquent/create-update-del-task/5">
         Удалите юзеров с тремя последними id.
-    </a>
-    <h3>
+    </a> --}}
+    <x-page.content.task.head :data="['task4', 'Задача:']" />
+    <x-page.content.task.body href='eloquent-create-update-del-task' :tasks="[
+        4 => [
+            'text' => 'Удалите из базы пользователя с максимальным id.',
+        ],
+        5 => [
+            'text' => 'Удалите юзеров с тремя последними id.',
+        ],
+    ]" />
+    <br />
+    <br />
+
+    <h4>
         Мягкое удаление в моделях Eloquent в Laravel
-    </h3>
+    </h4>
     Кроме обычного удаления Eloquent также может мягко удалять записи. Мягкое удаление означает, что запись на самом
     деле остаётся в базе данных, но в таблице для записи устанавливается поле deleted_at.
     <br />
@@ -227,7 +256,6 @@ public function up(): void
     $user->restore();
 
     // Удалить НАВСЕГДА (физически стереть строку из базы данных)
-    $user->forceDelete();
-        </pre>
+    $user->forceDelete();</pre>
 
 </x-layout>
