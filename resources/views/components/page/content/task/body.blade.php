@@ -5,9 +5,9 @@
             <a
                 href="{{ route($href, [
                     'id' => $id,
-                    'text' => $dataArr['text'],
+                    'text' => strip_tags($dataArr['text']),
                 ]) }}">
-                {{ $dataArr['text'] }}
+                {!! $dataArr['text'] !!}
             </a>
         </li>
     @endforeach

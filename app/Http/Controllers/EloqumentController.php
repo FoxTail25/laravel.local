@@ -276,24 +276,20 @@ class EloqumentController extends Controller
         return view('eloquent.create-update-del-task', ['id' => $id, 'text' => $request->text, 'data' => $resultData]);
     }
 
-    public function oneToOne(int|string $id)
+    public function oneToOne(Request $request, int|string $id)
     {
 
         $tasks = [
             '1' => [
-                'text' => 'Сделайте следующие таблицы:',
                 'data' => fn () => [],
             ],
             '2' => [
-                'text' => 'Свяжите эти таблицы отношением hasOne.',
                 'data' => fn () => [],
             ],
             '3' => [
-                'text' => 'Напишите сидер для заполнения данных в таблицах user_r и profile. И заполните их.',
                 'data' => fn () => [],
             ],
             '4' => [
-                'text' => 'Получите какого-нибудь юзера вместе с его профилем.',
                 'data' => function () {
                     $user = User_r::find(1, ['id', 'login']);
                     if ($user) {
@@ -309,7 +305,6 @@ class EloqumentController extends Controller
                 },
             ],
             '5' => [
-                'text' => 'Получите всех пользователей вместе с их профилями, передайте их в представление и выведите на экран в виде HTML таблицы.',
                 'data' => function () {
                     // 1. Загружаем пользователей и нужные поля профиля
                     $users = User_r::with('profile:user_id,name,surname,email')->get(['id', 'login']);
@@ -337,13 +332,11 @@ class EloqumentController extends Controller
                 },
             ],
             '6' => [
-                'text' => 'Свяжите таблицы с юзерами и профилями отношением belongsTo.',
                 'data' => function () {
                     return [];
                 },
             ],
             '7' => [
-                'text' => 'Получите профиль вместе с его юзером.',
                 'data' => function () {
                     $profile = Profile::find(1);
                     $user = $profile->user_r;
@@ -356,7 +349,6 @@ class EloqumentController extends Controller
                 },
             ],
             '8' => [
-                'text' => 'Получите все профили вместе с их юзерами. Выведите их в представлении в виде HTML таблицы.',
                 'data' => function () {
                     // 1. Загружаем пользователей и нужные поля профиля
                     $profilesCollection = Profile::with('user_r:id,login')->get(['user_id', 'name', 'surname', 'email']);
@@ -388,23 +380,20 @@ class EloqumentController extends Controller
 
         $resultData = $tasks[$id]['data']();
 
-        return view('relationship.one-to-one-task', ['id' => $id, 'text' => $tasks[$id]['text'], 'data' => $resultData]);
+        return view('relationship.one-to-one-task', ['id' => $id, 'text' => $request->text, 'data' => $resultData]);
     }
 
-    public function oneToMany(int|string $id)
+    public function oneToMany(Request $request, int|string $id)
     {
 
         $tasks = [
             '1' => [
-                'text' => 'Сделайте следующие таблицы:',
                 'data' => fn () => [],
             ],
             '2' => [
-                'text' => 'Свяжите таблицу countries с таблицей cities отношением hasMany.',
                 'data' => fn () => [],
             ],
             '3' => [
-                'text' => 'Для таблиц, созданных в предыдущем уроке получите все страны вместе с их городами.',
                 'data' => function () {
                     $countries = Country::all();
 
@@ -412,7 +401,6 @@ class EloqumentController extends Controller
                 },
             ],
             '4' => [
-                'text' => 'Добавьте поле population в таблицу cities и заполните рандомным числом от 80 000 до 120 000',
                 'data' => function () {
                     $countries = Country::all();
 
@@ -420,7 +408,6 @@ class EloqumentController extends Controller
                 },
             ],
             '5' => [
-                'text' => 'Получите все страны вместе с их городами, население в которых больше 100 тысяч.',
                 'data' => function () {
                     // 1. Получаем все страны
                     $countries = Country::all();
@@ -443,7 +430,6 @@ class EloqumentController extends Controller
                 },
             ],
             '6' => [
-                'text' => 'Получите все страны вместе с их городами, население в которых больше 100 тысяч.',
                 'data' => function () {
                     // 1. Получаем все страны
                     $countries = Country::all();
@@ -463,7 +449,6 @@ class EloqumentController extends Controller
                 },
             ],
             '7' => [
-                'text' => 'Свяжите таблицу cities с таблицей countries отношением belongsTo.',
                 'data' => function () {
                     // 1. Получаем все страны
                     $countries = Country::all();
@@ -478,53 +463,39 @@ class EloqumentController extends Controller
                             ->orderBy('population')
                             ->get();
                     }
-
                     return $result;
                 },
             ],
             '8' => [
-                'text' => 'Получите город вместе с его страной.',
                 'data' => function () {
                     // 1. Узнаём количество записей в таблице cities
                     $count = City::count();
                     // 2. Получаем один рандомный город
                     $city = $count > 0 ? City::skip(rand(0, $count - 1))->first() : null;
-
                     return $city;
                 },
             ],
             '9' => [
-                'text' => 'Получите все города вместе с их странами.',
                 'data' => function () {
                     // 1. Получаем все города
                     $cities = City::All();
-
                     return $cities;
                 },
             ],
             '10' => [
-                'text' => 'Получите все города вместе с их странами.',
                 'data' => function () {
                     // 1. Получаем все города
                     $cities = City::where('population', '>', 100000)->get();
-
                     return $cities;
                 },
             ],
             '11' => [
-                'text' => 'сделайте (и заполните) следующие таблицы:',
-                'data' => function () {
-                    return [];
-                },
+                'data' => fn()=> [],
             ],
             '12' => [
-                'text' => 'Свяжите "сотрудника" (employee) с его городом и с его должностью отношением belongsTo.',
-                'data' => function () {
-                    return [];
-                },
+                'data' => fn()=> [],
             ],
             '13' => [
-                'text' => 'Получите сотрудника вместе с его городом и должностью.',
                 'data' => function () {
                     // узнаём количество записей в таблице employees:
                     $count = Employee::count();
@@ -542,32 +513,28 @@ class EloqumentController extends Controller
 
         $resultData = $tasks[$id]['data']();
 
-        return view('relationship.one-to-many-task', ['id' => $id, 'text' => $tasks[$id]['text'], 'data' => $resultData]);
+        return view('relationship.one-to-many-task', ['id' => $id, 'text' => $request->text, 'data' => $resultData]);
     }
 
-    public function manyToMany(int|string $id)
+    public function manyToMany(Request $request, int|string $id)
     {
 
         $tasks = [
             '1' => [
-                'text' => 'Таблица employee у нас уже есть. Теперь нам нужно создать таблицу professions и таблицу связи. А так же заполнить их данными.',
                 'data' => fn () => [],
             ],
             '2' => [
-                'text' => 'Получите всех сотрудников вместе с их профессиями.',
                 'data' => function() {
                     $employees = Employee::all();
                     return $employees;
                 },
             ],
             '3' => [
-                'text' => 'Получите всех профессии вместе с сотрудниками, которые ими владеют',
                 'data' => function() {
                     $professions = Profession::all();
                     return $professions;
                 },
             ],
-
         ];
 
         // Проверка безопасности: если передали несуществующий ID задачи
@@ -577,10 +544,10 @@ class EloqumentController extends Controller
 
         $resultData = $tasks[$id]['data']();
 
-        return view('relationship.many-to-many-task', ['id' => $id, 'text' => $tasks[$id]['text'], 'data' => $resultData]);
+        return view('relationship.many-to-many-task', ['id' => $id, 'text' => $request->text, 'data' => $resultData]);
     }
 
-    public function load(int|string $id)
+    public function load(Request $request, int|string $id)
     {
 
         $tasks = [
@@ -607,6 +574,6 @@ class EloqumentController extends Controller
 
         $resultData = $tasks[$id]['data']();
 
-        return view('relationship.load-task', ['id' => $id, 'text' => $tasks[$id]['text'], 'data' => $resultData]);
+        return view('relationship.load-task', ['id' => $id, 'text' => $request->text, 'data' => $resultData]);
     }
 }

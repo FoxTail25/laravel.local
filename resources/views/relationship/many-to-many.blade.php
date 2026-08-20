@@ -171,20 +171,21 @@
         <li>id</li>
         <li>name</li>
     </ul>
-    <h4 id="task1">
-        Задачи:
-    </h4>
-    <a href="/relationship/many-to-many-task/1">
-        Таблица employee у нас уже есть. Теперь нам нужно создать таблицу professions и таблицу связи. А так же
-        заполнить их данными.
-    </a>
+    <x-page.content.task.head :data="['task1', 'Задачи:']" />
+    <x-page.content.task.body href='relationship-many-to-many-task' :tasks="[
+        1 => [
+            'text' =>
+                'Таблица employee у нас уже есть. Теперь нам нужно создать таблицу professions и таблицу связи. А так же заполнить их данными.',
+        ],
+        2 => [
+            'text' => 'Получите всех сотрудников вместе с их профессиями.',
+        ],
+        3 => [
+            'text' => 'Получите всех профессии вместе с сотрудниками, которые ими владеют.',
+        ],
+    ]" />
     <br />
-    <a href="/relationship/many-to-many-task/2">
-        Получите всех сотрудников вместе с их профессиями.
-    </a>
     <br />
-    <a href="/relationship/many-to-many-task/3">
-        Получите всех профессии вместе с сотрудниками, которые ими владеют.
-    </a>
+
 
 </x-layout>

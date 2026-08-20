@@ -4,9 +4,7 @@
     </x-slot:title>
 
     @if ($id == 1)
-        <p>
-            {{ $text }}
-        </p>
+        <x-page.tasks.header :text="$text" />
         <pre>
         // Controller code:
         $professions = Profession::with(['employees'])->get();
@@ -37,11 +35,11 @@
                 @endforeach
             </ul>
         @endforeach
-        <a href="/relationship/load#task1">назад</a>
+        <br />
+        <br />
+        <a href="{{ route('relationship-load') }}#task1">назад</a>
     @elseif($id == 2)
-        <p>
-            {{ $text }}
-        </p>
+        <x-page.tasks.header :text="$text" />
         У нас сформировался очень похожий пример! Таблица employees, котороя соединена связью "многие к одному" с
         таблицами cities и positions. А так же
         связью "многие ко многим" с professions. Попробуем на этом примере решить предложенную задачу:
@@ -72,6 +70,8 @@
                 @endforeach
             </ul>
         @endforeach
-        <a href="/relationship/load#task2">назад</a>
+        <br />
+        <br />
+        <a href="{{ route('relationship-load') }}#task2">назад</a>
     @endif
 </x-layout>

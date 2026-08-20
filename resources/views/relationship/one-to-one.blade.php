@@ -2,10 +2,6 @@
     <x-slot:title>
         Связи в моделях Eloquent
     </x-slot:title>
-
-    <h2>
-        Связи в моделях Eloquent в Laravel
-    </h2>
     <h3>
         Связь один к одному в Laravel
     </h3>
@@ -88,38 +84,34 @@
         Все связи в Laravel работают через соглашение: имена таблиц всегда даются во множественном числе, а поля связи -
         в единственном.
     </div>
-    <h4 id="task1">
-        Задачи:
-    </h4>
-    <a href="/relationship/one-to-one-task/1">
-        Сделайте следующие таблицы:
-        <h5>
-            users_r
-        </h5>
-        <ul>
-            <li>id</li>
-            <li>login</li>
-            <li>password</li>
-        </ul>
-        <h5>
-            profile
-        </h5>
-        <ul>
-            <li>id</li>
-            <li>name</li>
-            <li>surname</li>
-            <li>email</li>
-            <li>user_id</li>
-        </ul>
-    </a>
+    <x-page.content.task.head :data="['task1', 'Задачи:']" />
+    <x-page.content.task.body href='relationship-one-to-one-task' :tasks="[
+        1 => [
+            'text' => 'Сделайте следующие таблицы:<br/> <h5>users_r</h5>
+                                                                                                <ul>
+                                                                                                    <li>id</li>
+                                                                                                    <li>login</li>
+                                                                                                    <li>password</li>
+                                                                                                </ul>
+                                                                                                <h5>profile</h5>
+                                                                                                <ul>
+                                                                                                    <li>id</li>
+                                                                                                    <li>name</li>
+                                                                                                    <li>surname</li>
+                                                                                                    <li>email</li>
+                                                                                                    <li>user_id</li>
+                                                                                                </ul>',
+        ],
+        2 => [
+            'text' => 'Свяжите эти таблицы отношением hasOne.',
+        ],
+        3 => [
+            'text' => 'Напишите сидер для заполнения данных в таблицах user_r и profile. И заполните их.',
+        ],
+    ]" />
     <br />
-    <a href="/relationship/one-to-one-task/2">
-        Свяжите эти таблицы отношением hasOne.
-    </a>
     <br />
-    <a href="/relationship/one-to-one-task/3">
-        Напишите сидер для заполнения данных в таблицах user_r и profile. И заполните их.
-    </a>
+
     <h3>
         Получение данных связь один к одному в Laravel
     </h3>
@@ -166,13 +158,15 @@
 			dump($post->thumbnail->path);
 		}
 	}</pre>
-    <h4 id="task2">
-        Задачи:
-    </h4>
-    <a href="/relationship/one-to-one-task/4">
-        Получите какого-нибудь юзера вместе с его профилем. Отправьте полученного юзера в представление и выведите его
-        данные в таблице.
-    </a>
+    <x-page.content.task.head :data="['task2', 'Задача:']" />
+    <x-page.content.task.body href='relationship-one-to-one-task' :tasks="[
+        4 => [
+            'text' =>
+                'Получите какого-нибудь юзера вместе с его профилем. Отправьте полученного юзера в представление и выведите его данные в таблице.',
+        ],
+    ]" />
+    <br />
+    <br />
     <h3>
         Перебор записей со связью один к одному в Laravel
     </h3>
@@ -216,13 +210,16 @@
 			}
 		}
 	}</pre>
-    <h4 id="task3">
-        Задачи:
-    </h4>
-    <a href="/relationship/one-to-one-task/5">
-        Получите всех пользователей вместе с их профилями, передайте их в представление и выведите на экран в виде HTML
-        таблицы.
-    </a>
+    <x-page.content.task.head :data="['task3', 'Задача:']" />
+    <x-page.content.task.body href='relationship-one-to-one-task' :tasks="[
+        5 => [
+            'text' =>
+                'Получите всех пользователей вместе с их профилями, передайте их в представление и выведите на экран в виде HTML таблицы.',
+        ],
+    ]" />
+    <br />
+    <br />
+
     <h3>
         Обратная связь один к одному в Laravel
     </h3>
@@ -264,7 +261,21 @@
 			dump($thumbnail->post->title);
 		}
 	}</pre>
-    <h4 id="task4">
+    <x-page.content.task.head :data="['task4', 'Задачи:']" />
+    <x-page.content.task.body href='relationship-one-to-one-task' :tasks="[
+        6 => [
+            'text' => 'Свяжите таблицы с юзерами и профилями отношением belongsTo.',
+        ],
+        7 => [
+            'text' => 'Получите профиль вместе с его юзером.',
+        ],
+        8 => [
+            'text' => 'Получите все профили вместе с их юзерами. Выведите их в представлении в виде HTML таблицы.',
+        ],
+    ]" />
+    <br />
+    <br />
+    {{-- <h4 id="task4">
         Задачи:
     </h4>
     <a href="/relationship/one-to-one-task/6">
@@ -277,6 +288,6 @@
     <br />
     <a href="/relationship/one-to-one-task/8">
         Получите все профили вместе с их юзерами. Выведите их в представлении в виде HTML таблицы.
-    </a>
+    </a> --}}
 
 </x-layout>

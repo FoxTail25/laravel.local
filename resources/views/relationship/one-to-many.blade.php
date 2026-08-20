@@ -3,9 +3,10 @@
         Связи в моделях Eloquent
     </x-slot:title>
 
-    <h2>
-        Связи в моделях Eloquent в Laravel
-    </h2>
+    <h3>
+        Связь один ко многим в Laravel
+    </h3>
+
     Давайте теперь изучим связь один ко многим. Такая связь образуется, когда запись одной таблицы соответствует многим
     записям из другой таблицы.
     <br />
@@ -30,8 +31,7 @@
     <div class="text-success">
         В Laravel12 это делать необязательно.
     </div>
-    <pre>
-	use App\Models\Post;
+    <pre>use App\Models\Post;
 
 	class Category extends Model
 	{
@@ -39,8 +39,7 @@
 	}</pre>
     Каждая категория имеет много постов, которые ссылаются на нее. Давайте в модели с категориями сделаем метод для
     получения постов:
-    <pre>
-        	use App\Models\Post;
+    <pre>use App\Models\Post;
 
 	class Category extends Model
 	{
@@ -50,46 +49,32 @@
 		}
 	}</pre>
     Пропишем в этом методе связь через отношение hasMany:
-    <pre>
-	class Category extends Model
+    <pre>class Category extends Model
 	{
 		public function posts()
 		{
 			return $this->hasMany(Post::class);
 		}
 	}</pre>
-    <h4 id="task1">
-        Задачи:
-    </h4>
-    <a href="/relationship/one-to-many-task/1">
-        Сделайте следующие таблицы:
-        <h5>
-            cities
-        </h5>
-        <ul>
-            <li>id</li>
-            <li>name</li>
-            <li>country_id</li>
-        </ul>
-        <h5>
-            countries
-        </h5>
-        <ul>
-            <li>id</li>
-            <li>name</li>
-        </ul>
-    </a>
+    <x-page.content.task.head :data="['task1', 'Задачи:']" />
+    <x-page.content.task.body href='relationship-one-to-many-task' :tasks="[
+        1 => [
+            'text' =>
+                'Сделайте следующие таблицы:<br/><h5>cities</h5><ul><li>id</li>         <li>name</li><li>country_id</li></ul><h5>countries</h5><ul><li>id</li><li>name</li></ul>',
+        ],
+        2 => [
+            'text' => 'Свяжите таблицу countries с таблицей cities отношением hasMany.',
+        ],
+    ]" />
     <br />
-    <a href="/relationship/one-to-many-task/2">
-        Свяжите таблицу countries с таблицей cities отношением hasMany.
-    </a>
-    <h3>
+    <br />
+
+    <h4>
         Получение данных связь один ко многим в Laravel
-    </h3>
+    </h4>
     В предыдущем уроке мы связали категории и их посты отношением hasMany. Давайте теперь в контроллере получим
     какую-нибудь категорию:
-    <pre>
-	class CategoryController extends Controller
+    <pre>class CategoryController extends Controller
 	{
 		public function show()
 		{
@@ -98,8 +83,7 @@
 		}
 	}</pre>
     Вместе с категорией мы автоматически получим коллекцию постов:
-    <pre>
-	class CategoryController extends Controller
+    <pre>class CategoryController extends Controller
 	{
 		public function show()
 		{
@@ -108,8 +92,7 @@
 		}
 	}</pre>
     Давайте переберем коллекцию с постами через цикл:
-    <pre>
-	class CategoryController extends Controller
+    <pre>class CategoryController extends Controller
 	{
 		public function show()
 		{
@@ -122,8 +105,7 @@
 	}</pre>
     Давайте теперь получим коллекцию категорий. Переберем ее циклом, для каждой категории получим коллекцию постов и
     также переберем ее циклом:
-    <pre>
-	class CategoryController extends Controller
+    <pre>class CategoryController extends Controller
 	{
 		public function show()
 		{
@@ -137,22 +119,24 @@
 				}
 			}
 		}
-	}
-    </pre>
-    <h4 id="task2">
-        Задачи:
-    </h4>
-    <a href="/relationship/one-to-many-task/3">
-        Для таблиц, созданных в предыдущем уроке получите все страны вместе с их городами.
-    </a>
-    <h3>
+	}</pre>
+    <x-page.content.task.head :data="['task2', 'Задача:']" />
+    <x-page.content.task.body href='relationship-one-to-many-task' :tasks="[
+        3 => [
+            'text' => 'Для таблиц, созданных в предыдущем уроке получите все страны вместе с их городами.',
+        ],
+    ]" />
+    <br />
+    <br />
+
+    <h4>
         Условия в связи один ко многим в Laravel
-    </h3>
+    </h4>
     Можно добавлять дополнительные условия при получении связанных данных. Давайте посмотрим, как это делается. Пусть у
     нашей таблицы с постами будет также и поле likes, содержащее количество лайков:
-    <h4>
+    <h5>
         posts
-    </h4>
+    </h5>
     <ul>
         <li>id</li>
         <li>title</li>
@@ -195,30 +179,31 @@
 			dump($posts);
 		}
 	}</pre>
-    <h4 id="task3">
-        Задачи:
-    </h4>
-    <a href="/relationship/one-to-many-task/4">
-        Добавьте поле population в таблицу cities и заполните рандомным числом от 80 000 до 120 000
-    </a>
+    <x-page.content.task.head :data="['task3', 'Задача:']" />
+    <x-page.content.task.body href='relationship-one-to-many-task' :tasks="[
+        4 => [
+            'text' => 'Добавьте поле population в таблицу cities и заполните рандомным числом от 80 000 до 120 000',
+        ],
+        5 => [
+            'text' => 'Получите все страны вместе с их городами, население в которых больше 100 тысяч.',
+        ],
+        6 => [
+            'text' =>
+                'Получите все страны вместе с их городами. Города каждой страны отсортируйте по возрастанию населения.',
+        ],
+    ]" />
     <br />
-    <a href="/relationship/one-to-many-task/5">
-        Получите все страны вместе с их городами, население в которых больше 100 тысяч.
-    </a>
     <br />
-    <a href="/relationship/one-to-many-task/6">
-        Получите все страны вместе с их городами. Города каждой страны отсортируйте по возрастанию населения.
-    </a>
-    <h3>
+
+    <h4>
         Обратная связь один ко многим в Laravel
-    </h3>
+    </h4>
     Пусть у нас опять есть таблица с категориями и таблица с постами. В предыдущих уроках мы говорили, что каждая
     категория имеет много постов. Но это зависит от точки зрения.
     <br />
     Если посмотреть со стороны поста, то каждый пост принадлежит одной категории. Это значит, что пост можно связать с
     категорией отношением belongsTo. Давайте сделаем это:
-    <pre>
-	class Post extends Model
+    <pre>class Post extends Model
 	{
 		public function category()
 		{
@@ -226,8 +211,7 @@
 		}
 	}</pre>
     Получим теперь пост вместе с его категорией:
-    <pre>
-	class PostController extends Controller
+    <pre>class PostController extends Controller
 	{
 		public function show()
 		{
@@ -235,11 +219,9 @@
 			dump($post);
 			dump($post->category);
 		}
-	}
-    </pre>
+	}</pre>
     Получим все посты, переберем их циклом и выведем их вместе с их категориями:
-    <pre>
-	class PostController extends Controller
+    <pre>class PostController extends Controller
 	{
 		public function show()
 		{
@@ -250,45 +232,44 @@
 				dump($post->category);
 			}
 		}
-	}
-    </pre>
-    <h4 id="task4">
-        Задачи:
-    </h4>
-    <a href="/relationship/one-to-many-task/7">
-        Свяжите таблицу cities с таблицей countries отношением belongsTo.
-    </a>
+	}</pre>
+    <x-page.content.task.head :data="['task4', 'Задача:']" />
+    <x-page.content.task.body href='relationship-one-to-many-task' :tasks="[
+        7 => [
+            'text' => 'Свяжите таблицу cities с таблицей countries отношением belongsTo.',
+        ],
+        8 => [
+            'text' => 'Получите город вместе с его страной.',
+        ],
+        9 => [
+            'text' => 'Получите все города вместе с их странами.',
+        ],
+        10 => [
+            'text' => 'Получите все города с населением больше 100 тысяч вместе с их странами.',
+        ],
+    ]" />
     <br />
-    <a href="/relationship/one-to-many-task/8">
-        Получите город вместе с его страной.
-    </a>
     <br />
-    <a href="/relationship/one-to-many-task/9">
-        Получите все города вместе с их странами.
-    </a>
-    <br />
-    <a href="/relationship/one-to-many-task/10">
-        Получите все города с населением больше 100 тысяч вместе с их странами.
-    </a>
-    <h3>
+
+    <h4>
         Несколько обратных связей один ко многим в Laravel
-    </h3>
+    </h4>
     Может такое быть, что одна таблица имеет несколько связей. Давайте посмотрим, как действовать в таком случае.
     <br />
     Пусть у нас есть таблица с постами:
-    <h4>posts</h4>
+    <h5>posts</h5>
     <ul>
         <li>id</li>
         <li>title</li>
     </ul>
     Таблица с юзерами:
-    <h4>users</h4>
+    <h5>users</h5>
     <ul>
         <li>id</li>
         <li>name</li>
     </ul>
     И пусть у нас есть таблица с комментами, в который каждый коммент связан со своим постом и со своим юзером:
-    <h4>comments</h4>
+    <h5>comments</h5>
     <ul>
         <li>id</li>
         <li>text</li>
@@ -296,8 +277,7 @@
         <li>user_id</li>
     </ul>
     Давайте пропишем эту связь в модели для комментов:
-    <pre>
-	class Comment extends Model
+    <pre>class Comment extends Model
 	{
 		public function post()
 		{
@@ -309,8 +289,7 @@
 		}
 	}</pre>
     Теперь при получении коммента мы можем получить его пост и его юзера:
-    <pre>
-	class CommentController extends Controller
+    <pre>class CommentController extends Controller
 	{
 		public function show()
 		{
@@ -320,34 +299,20 @@
 			dump($comment->user);
 		}
 	}</pre>
-    <h4 id="task5">
-        Задачи:
-    </h4>
-    <a href="/relationship/one-to-many-task/11">
-        сделайте (и заполните) следующие таблицы:
-        <h4>
-            employees
-        </h4>
-        <ul>
-            <li>id</li>
-            <li>name</li>
-            <li>city_id</li>
-            <li>position_id</li>
-        </ul>
-        <h4>
-            positions
-        </h4>
-        <ul>
-            <li>id</li>
-            <li>name</li>
-        </ul>
-    </a>
+    <x-page.content.task.head :data="['task5', 'Задача:']" />
+    <x-page.content.task.body href='relationship-one-to-many-task' :tasks="[
+        11 => [
+            'text' =>
+                'сделайте (и заполните) следующие таблицы:<br/><h4>employees</h4><ul>  <li>id</li><li>name</li><li>city_id</li><li>position_id</li></ul><h4>positions</h4><ul><li>id</li><li>name</li></ul>',
+        ],
+        12 => [
+            'text' => 'Свяжите сотрудника (employee) с его городом и с его должностью отношением belongsTo.',
+        ],
+        13 => [
+            'text' => 'Получите сотрудника вместе с его городом и должностью.',
+        ],
+    ]" />
     <br />
-    <a href="/relationship/one-to-many-task/12">
-        Свяжите "сотрудника" (employee) с его городом и с его должностью отношением belongsTo.
-    </a>
     <br />
-    <a href="/relationship/one-to-many-task/13">
-        Получите сотрудника вместе с его городом и должностью.
-    </a>
+
 </x-layout>

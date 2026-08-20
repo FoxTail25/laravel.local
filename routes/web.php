@@ -166,19 +166,19 @@ Route::prefix('eloquent')->group(function () {
 });
 
 Route::prefix('relationship')->group(function () {
-    Route::get('/intro/', fn()=> view('relationship.intro'));
+    Route::get('/intro/', fn()=> view('relationship.intro'))->name('relationship-intro');
 
-    Route::get('/one-to-one/', fn()=> view('relationship.one-to-one'));
-    Route::get('/one-to-one-task/{id}', [EloqumentController::class, 'oneToOne'])->whereNumber('id');
+    Route::get('/one-to-one/', fn()=> view('relationship.one-to-one'))->name('relationship-one-to-one');
+    Route::get('/one-to-one-task/{id}', [EloqumentController::class, 'oneToOne'])->whereNumber('id')->name('relationship-one-to-one-task');
 
-    Route::get('/one-to-many/', fn()=> view('relationship.one-to-many'));
-    Route::get('/one-to-many-task/{id}', [EloqumentController::class, 'oneToMany'])->whereNumber('id');
+    Route::get('/one-to-many/', fn()=> view('relationship.one-to-many'))->name('relationship-one-to-many');
+    Route::get('/one-to-many-task/{id}', [EloqumentController::class, 'oneToMany'])->whereNumber('id')->name('relationship-one-to-many-task');
 
-    Route::get('/many-to-many/', fn()=> view('relationship.many-to-many'));
-    Route::get('/many-to-many-task/{id}', [EloqumentController::class, 'manyToMany'])->whereNumber('id');
+    Route::get('/many-to-many/', fn()=> view('relationship.many-to-many'))->name('relationship-many-to-many');
+    Route::get('/many-to-many-task/{id}', [EloqumentController::class, 'manyToMany'])->whereNumber('id')->name('relationship-many-to-many-task');
 
-    Route::get('/load/', fn()=> view('relationship.load'));
-    Route::get('/load-task/{id}', [EloqumentController::class, 'load'])->whereNumber('id');
+    Route::get('/load/', fn()=> view('relationship.load'))->name('relationship-load');
+    Route::get('/load-task/{id}', [EloqumentController::class, 'load'])->whereNumber('id')->name('relationship-load-task');
 });
 
 Route::prefix('form')->group(function () {

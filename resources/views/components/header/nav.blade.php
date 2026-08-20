@@ -223,7 +223,7 @@
                             <hr class="dropdown-divider">
                         </li>
                         <li>
-                            <a class="dropdown-item" href="/relationship/intro">
+                            <a class="dropdown-item" href="{{ route('relationship-intro') }}">
                                 Связи введение
                             </a>
                         </li>
@@ -231,17 +231,17 @@
                             <hr class="dropdown-divider">
                         </li>
                         <li>
-                            <a class="dropdown-item" href="/relationship/one-to-one">
+                            <a class="dropdown-item" href="{{ route('relationship-one-to-one') }}">
                                 Связь один к одному
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="/relationship/one-to-many">
+                            <a class="dropdown-item" href="{{ route('relationship-one-to-many') }}">
                                 Связь один ко многим
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="/relationship/many-to-many">
+                            <a class="dropdown-item" href="{{ route('relationship-many-to-many') }}">
                                 Связь многие ко многим
                             </a>
                         </li>
@@ -249,7 +249,7 @@
                             <hr class="dropdown-divider">
                         </li>
                         <li>
-                            <a class="dropdown-item" href="/relationship/load">
+                            <a class="dropdown-item" href="{{ route('relationship-load') }}">
                                 Ленивая и жадная загрузки
                             </a>
                         </li>

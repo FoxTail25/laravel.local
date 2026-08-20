@@ -4,14 +4,11 @@
     </x-slot:title>
 
     @if ($id == 1)
-        <p>
-            {{ $text }}
-        </p>
-        <pre>
-    1) создаём таблицу professions:
+        <x-page.tasks.header :text="$text" />
+        <pre>1) создаём таблицу professions:
     php artisan make:migration create_professions
 
-    2) заполняем методы up и down
+2) заполняем методы up и down
     public function up(): void
     {
         Schema::create('professions', function (Blueprint $table) {
@@ -25,10 +22,10 @@
         Schema::dropIfExists('professions');
     }
 
-    3) создаём pivot таблицу employee_profession
+3) создаём pivot таблицу employee_profession
     php artisan make:migration create_employee_profession_table
 
-    4) Прописываем методы up и down
+4) Прописываем методы up и down
     public function up(): void
     {
         Schema::create('employee_profession', function (Blueprint $table) {
@@ -46,18 +43,18 @@
         Schema::dropIfExists('employee_profession');
     }
 
-    5) запускаем миграцию на создание таблиц
+5) запускаем миграцию на создание таблиц
     php artisan migrate
 
-    !!Теперь нужно заполнить таблицы данным!!
+!!Теперь нужно заполнить таблицы данным!!
 
-    6) создаём модель для таблицы professions
+6) создаём модель для таблицы professions
     php artisan make:model Profession
 
-    7) создаём сеятель для зполнения таблицы profession
+7) создаём сеятель для зполнения таблицы profession
     php artisan make:seeder ProfessionSeeder
 
-    8) прописываем метод run()
+8) прописываем метод run()
     public function run(): void
     {
         $professionNameArr = ['программист', 'devOps', 'sysAdmin'];
@@ -68,23 +65,23 @@
 
     }
 
-    9) запускаем наш сеятель:
+9) запускаем наш сеятель:
     php artisan db:seed --class=ProfessionSeeder
 
-    10) Добавляем метод belongToMany в модель Employee:
+10) Добавляем метод belongToMany в модель Employee:
     public function professions(){
         return $this->belongsToMany(Profession::class);
     }
 
-    11) Добавляем метод belongToMany в модель Profession:
+11) Добавляем метод belongToMany в модель Profession:
     public function employees(){
         return $this->belongsToMany(Employee::class);
     }
 
-    12) Создаём сеятель для заполнения pivot таблицы:
+12) Создаём сеятель для заполнения pivot таблицы:
     php artisan make:seeder EmployeeProfessionSeeder
 
-    13) Заполняем метод run:
+13) Заполняем метод run:
     namespace Database\Seeders;
 
     use App\Models\Employee;
@@ -113,15 +110,13 @@
             }
         }
     }
-
-    14) Запускаем сеятель для pivot таблицы:
-    php artisan db:seed --class=EmployeeProfessionSeeder
-        </pre>
-        <a href="/relationship/many-to-many#task1">назад</a>
+14) Запускаем сеятель для pivot таблицы:
+    php artisan db:seed --class=EmployeeProfessionSeeder</pre>
+        <br />
+        <br />
+        <a href="{{ route('relationship-many-to-many') }}#task1">Назад</a>
     @elseif ($id == 2)
-        <p>
-            {{ $text }}
-        </p>
+        <x-page.tasks.header :text="$text" />
         <pre>
         // Controller code:
         $employees = Employee::all();
@@ -152,11 +147,11 @@
                 @endforeach
             </ul>
         @endforeach
-        <a href="/relationship/many-to-many#task1">назад</a>
+        <br />
+        <br />
+        <a href="{{ route('relationship-many-to-many') }}#task1">Назад</a>
     @elseif ($id == 3)
-        <p>
-            {{ $text }}
-        </p>
+        <x-page.tasks.header :text="$text" />
         <pre>
         // Controller code:
         $professions = Profession::all();
@@ -187,6 +182,8 @@
                 @endforeach
             </ul>
         @endforeach
-        <a href="/relationship/many-to-many#task1">назад</a>
+        <br />
+        <br />
+        <a href="{{ route('relationship-many-to-many') }}#task1">Назад</a>
     @endif
 </x-layout>

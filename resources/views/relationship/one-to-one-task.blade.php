@@ -4,20 +4,20 @@
     </x-slot:title>
 
     @if ($id == 1)
-        <p>
-            {{ $text }}
-        </p>
-        <h5>
+        <h5>Задача</h5>
+        Сделайте следующие таблицы:
+        {{-- <x-page.tasks.header :text="$text" /> --}}
+        <h6>
             users_r
-        </h5>
+        </h6>
         <ul>
             <li>id</li>
             <li>login</li>
             <li>password</li>
         </ul>
-        <h5>
+        <h6>
             profile
-        </h5>
+        </h6>
         <ul>
             <li>id</li>
             <li>name</li>
@@ -25,6 +25,7 @@
             <li>email</li>
             <li>user_id</li>
         </ul>
+        <h5>Решение</h5>
         <pre>
             1) Миграция для создания таблицы users_r
             php artisan make:migration create_users_r
@@ -51,11 +52,11 @@
             3) Заускаем миграции на выполнение:
             php artisan migrate
         </pre>
-        <a href="/relationship/one-to-one#task1">Назад</a>
+        <br />
+        <br />
+        <a href="{{ route('relationship-one-to-one') }}#task1">Назад</a>
     @elseif($id == 2)
-        <p>
-            {{ $text }}
-        </p>
+        <x-page.tasks.header :text="$text" />
         <pre>
             1) Создаём модель для таблицы users_r
             php artisan make:model User_r
@@ -76,11 +77,11 @@
                 return $this->hasOne(Profile::class, 'user_id');
             }
         </pre>
-        <a href="/relationship/one-to-one#task1">Назад</a>
+        <br />
+        <br />
+        <a href="{{ route('relationship-one-to-one') }}#task1">Назад</a>
     @elseif($id == 3)
-        <p>
-            {{ $text }}
-        </p>
+        <x-page.tasks.header :text="$text" />
         <pre>
         1) Создаём сидер php artisan make:seeder UserWithProfileSeeder
         2) В самом сидере прописываем следующий код:
@@ -121,13 +122,12 @@ class UserWithProfileSeeder extends Seeder
         3) Запускаем сиидер командой
         php artisan db:seed --class=UserWithProfileSeeder
         </pre>
-        <a href="/relationship/one-to-one#task1">Назад</a>
+        <br />
+        <br />
+        <a href="{{ route('relationship-one-to-one') }}#task1">Назад</a>
     @elseif($id == 4)
-        <p>
-            {{ $text }}
-        </p>
-        <pre>
-        //Controller code:
+        <x-page.tasks.header :text="$text" />
+        <pre>//Controller code:
         $user = User_r::find(1, ['id', 'login']);
         if ($user) {
 
@@ -140,7 +140,7 @@ class UserWithProfileSeeder extends Seeder
             return 'По такому запросу пользователей нет';
         }
 
-        //Blade code:
+//Blade code:
         &#64;if (is_string($data))
             &#123;&#123; $data }}
         &#64;else
@@ -162,10 +162,7 @@ class UserWithProfileSeeder extends Seeder
                     &lt;/tr>
                 &#64;endforeach
             &lt;/table>
-        &#64;endif
-
-        &lt;a href="/relationship/one-to-one#task2">Назад&lt;/a>
-        </pre>
+        &#64;endif</pre>
         <div class="text-danger">
             Сразу хочется заметить что представленный выше код,
             далёк от оптимального. т.к. в нём отсутствуюет
@@ -197,13 +194,12 @@ class UserWithProfileSeeder extends Seeder
             </table>
         @endif
 
-        <a href="/relationship/one-to-one#task2">Назад</a>
+        <br />
+        <br />
+        <a href="{{ route('relationship-one-to-one') }}#task2">Назад</a>
     @elseif($id == 5)
-        <p>
-            {{ $text }}
-        </p>
-        <pre>
-        //Controller code:
+        <x-page.tasks.header :text="$text" />
+        <pre>//Controller code:
         // 1. Загружаем пользователей и нужные поля профиля
         $users = User_r::with('profile:user_id,name,surname,email')->get(['id', 'login']);
         // Если пользователей вообще нет в базе — возвращаем пустую структуру
@@ -228,7 +224,7 @@ class UserWithProfileSeeder extends Seeder
             'fields' => $fields,
         ];
 
-        //Blade code:
+//Blade code:
         &#64;if (empty($data['users']))
             По такому запросу пользователей нет
         &#64;else
@@ -250,10 +246,8 @@ class UserWithProfileSeeder extends Seeder
                     &lt;/tr>
                 &#64;endforeach
             &lt;/table>
-        &#64;endif
-
-        &lt;a href="/relationship/one-to-one#task2">Назад&lt;/a>
-        </pre>
+        &#64;endif</pre>
+        <br />
         @if (empty($data['users']))
             По такому запросу пользователей нет
         @else
@@ -272,14 +266,12 @@ class UserWithProfileSeeder extends Seeder
                 @endforeach
             </table>
         @endif
-
-        <a href="/relationship/one-to-one#task3">Назад</a>
+        <br />
+        <br />
+        <a href="{{ route('relationship-one-to-one') }}#task3">Назад</a>
     @elseif($id == 6)
-        <p>
-            {{ $text }}
-        </p>
-        <pre>
-        //model code:
+        <x-page.tasks.header :text="$text" />
+        <pre>//model code:
         namespace App\Models;
 
         use Illuminate\Database\Eloquent\Model;
@@ -288,16 +280,48 @@ class UserWithProfileSeeder extends Seeder
         {
             public function user_r()
             {
-                return $this->belongsTo(User_r::class);
+                return $this->belongsTo(
+                    User_r::class// 1. Класс связанной модели
+                    'user_id',   // 2. Внешний ключ в текущей таблице (profiles.user_id)
+                    'id'         // 3. Первичный ключ в связанной таблице (users_r.id)
+                );
             }
         }</pre>
-        <a href="/relationship/one-to-one#task4">Назад</a>
+        <br />
+        <br />
+        <a href="{{ route('relationship-one-to-one') }}#task4">Назад</a>
     @elseif($id == 7)
-        <p>
-            {{ $text }}
-        </p>
-        <pre>
-        </pre>
+        <x-page.tasks.header :text="$text" />
+        <pre>//Controller code:
+    $profile = Profile::find(1);
+    $user = $profile->user_r;
+
+    $profile = $profile->only(['name', 'surname', 'email']);
+    $user = $user->only(['login']);
+    $mergedUser = array_merge($profile, $user);
+
+    return ['users' => [$mergedUser], 'fields' => array_keys($mergedUser)];
+
+//Blade code:
+    &#64;if (empty($data['users']))
+        По такому запросу пользователей нет
+    &#64;else
+        &lt;table>
+            &lt;tr>
+                &#64;foreach ($data['fields'] as $field)
+                    &lt;th>&#123;&#123; $field }}&lt;/th>
+                &#64;endforeach
+            &lt;/tr>
+            &#64;foreach ($data['users'] as $user)
+                &lt;tr>
+                    &#64;foreach ($data['fields'] as $field)
+                        &lt;td>&#123;&#123; $user[$field] ?? '' }}&lt;/td>
+                    &#64;endforeach
+                &lt;/tr>
+            &#64;endforeach
+        &lt;/table>
+    &#64;endif</pre>
+        <br />
         @if (empty($data['users']))
             По такому запросу пользователей нет
         @else
@@ -316,13 +340,12 @@ class UserWithProfileSeeder extends Seeder
                 @endforeach
             </table>
         @endif
-        <a href="/relationship/one-to-one#task4">Назад</a>
+        <br />
+        <br />
+        <a href="{{ route('relationship-one-to-one') }}#task4">Назад</a>
     @elseif($id == 8)
-        <p>
-            {{ $text }}
-        </p>
-        <pre>
-        // Controller code:
+        <x-page.tasks.header :text="$text" />
+        <pre>// Controller code:
         // 1. Загружаем пользователей и нужные поля профиля
         $profilesCollection = Profile::with('user_r:id,login')->get(['user_id', 'name', 'surname', 'email']);
         // 2. Если пользователей нет, то вернётся пустой массив.
@@ -344,7 +367,7 @@ class UserWithProfileSeeder extends Seeder
         return ['users' => $usersArray, 'fields' => $fields];
 
 
-        //Blade code:
+//Blade code:
         &#64;if (empty($data['users']))
             По такому запросу пользователей нет
         &#64;else
@@ -366,10 +389,8 @@ class UserWithProfileSeeder extends Seeder
                     &lt;/tr>
                 &#64;endforeach
             &lt;/table>
-        &#64;endif
-
-        &lt;a href="/relationship/one-to-one#task2">Назад&lt;/a>
-        </pre>
+        &#64;endif</pre>
+        <br />
         @if (empty($data['users']))
             По такому запросу пользователей нет
         @else
@@ -388,6 +409,8 @@ class UserWithProfileSeeder extends Seeder
                 @endforeach
             </table>
         @endif
-        <a href="/relationship/one-to-one#task4">Назад</a>
+        <br />
+        <br />
+        <a href="{{ route('relationship-one-to-one') }}#task4">Назад</a>
     @endif
 </x-layout>
