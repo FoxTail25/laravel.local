@@ -3,6 +3,7 @@
 use App\Http\Controllers\RoutesController;
 use App\Http\Controllers\BladeController;
 use App\Http\Controllers\ControllersController;
+use App\Http\Controllers\CRUD_practiceController;
 use App\Http\Controllers\DbController;
 use App\Http\Controllers\EloqumentController;
 use App\Http\Controllers\FormController;
@@ -190,12 +191,16 @@ Route::prefix('form')->group(function () {
 });
 
 Route::prefix('pagination')->group(function () {
-    Route::get('/intro/', function () {
-        return view('pagination.intro');
-    });
+    Route::get('/intro/', fn()=> view('pagination.intro'))->name('paginate');
     Route::get('/users', [TestController::class, 'paginateTest']);
 });
 
 Route::prefix('education-task')->group(function () {
     Route::get('/post/{id}', [TestController::class, 'post'])->whereNumber('id');
 });
+
+Route::prefix('CRUD-practice')->group(function () {
+    Route::get('/', fn()=> view('CRUD-practice.practice'))->name('CRUD-practice');
+    Route::get('/post/{id}', [CRUD_practiceController::class, 'practice'])->whereNumber('id')->name('CRUD-practice-task');
+});
+

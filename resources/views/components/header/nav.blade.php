@@ -278,7 +278,11 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/pagination/intro">Пагинация</a>
+                    <a class="nav-link active" aria-current="page" href="{{ route('paginate') }}">Пагинация</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{ route('CRUD-practice') }}">Практика
+                        CRUD</a>
                 </li>
                 {{-- <li class="nav-item">
                             <a class="nav-link disabled" aria-disabled="true">Disabled</a>
