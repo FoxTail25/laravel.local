@@ -7,17 +7,11 @@
         Form в Laravel
     </h2>
     @if ($id == 1)
-        <p>
-            {{ $text }}
-        </p>
-        <pre>
-
-namespace App\Http\Controllers;
-
+        <x-page.tasks.header :text="$text" />
+        <pre>namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 class FormController extends Controller {
-
 
     public function objectRequest(Request $request, int|string $id){
           $tasks = [
@@ -37,16 +31,13 @@ class FormController extends Controller {
 
         return view('form.object-request-task', ['id' => $id, 'text' => $tasks[$id]['text'], 'data' => $resultData]);
     }
-}
-        </pre>
-
-        <a href="/form/object-request#task1">назад</a>
+}</pre>
+        <br />
+        <br />
+        <a href="{{ route('form-object-request') }}#task1">назад</a>
     @elseif($id == 2)
-        <p>
-            {{ $text }}
-        </p>
-        <pre>
-// Controller code:
+        <x-page.tasks.header :text="$text" />
+        <pre>// Controller code:
     'data' => function() use ($request){
     // Проверяем, что форма была отправлена (хотя бы один инпут заполнен)
     if ($request->hasAny(['inp1', 'inp2', 'inp3'])) {
@@ -115,15 +106,13 @@ class FormController extends Controller {
             <a href="{{ url()->current() }}">Ввести числа заново</a>
         @endif
         <br />
-        <a href="/form/object-request#task2">назад</a>
+        <br />
+        <a href="{{ route('form-object-request') }}#task2">назад</a>
     @elseif($id == 3)
-        <p>
-            {{ $text }}
-        </p>
-        <pre>
-    // Controller code:
+        <x-page.tasks.header :text="$text" />
+        <pre>// Controller code:
     'data' => function() use ($request){
-    // $request->filled('name') — возвращает true, если поле присутствует и не является пустым.
+// $request->filled('name') — возвращает true, если поле присутствует и не является пустым.
     if ($request->filled(['name', 'age', 'salary'])) {
         $name = (string)$request->input('name');
         $age = (string)$request->input('age');
@@ -134,7 +123,7 @@ class FormController extends Controller {
         return null; // Форма еще не отправлялась
     },
 
-    // Blade code:
+// Blade code:
     &#64;if (is_null($data))
 &lt;form action="&#123;&#123; url()->current() }}" method="POST">
         &lt;div>Введите&lt;/div>
@@ -157,8 +146,8 @@ class FormController extends Controller {
 &lt;p>&lt;strong>&#123;&#123; $data }}&lt;/strong>&lt;/p>
 &lt;br />
 &lt;a href="&#123;&#123; url()->current() }}">Ввести данные заново&lt;/a>
-&#64;endif
-</pre>
+&#64;endif</pre>
+        <br />
 
         @if (is_null($data))
             <form action="{{ url()->current() }}" method="POST">
@@ -184,16 +173,14 @@ class FormController extends Controller {
             <a href="{{ url()->current() }}">Ввести данные заново</a>
         @endif
         <br />
-        <a href="/form/object-request#task3">назад</a>
+        <br />
+        <a href="{{ route('form-object-request') }}#task3">назад</a>
     @elseif($id == 4)
-        <p>
-            {{ $text }}
-        </p>
-        <pre>
-    // Router code: (web.php)
+        <x-page.tasks.header :text="$text" />
+        <pre>// Router code: (web.php)
     Route::match(['get', 'post'],'/object-request-task/{id}', [FormController::class, 'objectRequest'])->whereNumber('id');
 
-    // Controller code:
+// Controller code:
     'data' => function() use ($request){
     // $request->filled('name') — возвращает true, если поле присутствует и не является пустым.
     if ($request->filled(['country', 'city'])) {
@@ -205,7 +192,7 @@ class FormController extends Controller {
         return null; // Форма еще не отправлялась
     },
 
-    // Blade code:
+// Blade code:
     &#64;if (!is_null($data))
         &lt;p>
             Страна: &#123;&#123; $data['country'] }} Город: &#123;&#123; $data['city'] }}
@@ -224,9 +211,8 @@ class FormController extends Controller {
             &lt;input type="text" name="city" required />
         &lt;/label>&lt;br />
         &lt;input type="submit">
-    &lt;/form>
-</pre>
-
+    &lt;/form></pre>
+        <br />
         @if (!is_null($data))
             <p>
                 Страна: {{ $data['country'] }} Город: {{ $data['city'] }}
@@ -247,41 +233,39 @@ class FormController extends Controller {
             <input type="submit">
         </form>
         <br />
-        <a href="/form/object-request#task4">назад</a>
+        <br />
+        <a href="{{ route('form-object-request') }}#task4">назад</a>
     @elseif($id == 5)
-        <p>
-            {{ $text }}
-        </p>
-        <pre>
-        // Controller code:
-        'data' => function() use ($request){
-        if ($request->hasAny(['inp1', 'inp2','inp3'])) {
-            // $request->all() возвращает все данные формы в виде массива
-            return $request->all();
-            }
-            return null; // Форма еще не отправлялась
-        },
+        <x-page.tasks.header :text="$text" />
+        <pre>// Controller code:
+    'data' => function() use ($request){
+    if ($request->hasAny(['inp1', 'inp2','inp3'])) {
+        // $request->all() возвращает все данные формы в виде массива
+        return $request->all();
+        }
+        return null; // Форма еще не отправлялась
+    },
 
-        // Blade code:
-        &#64;if (!is_null($data))
-            &lt;p>
-                Выводим данные в виде ul
-            &lt;/p>
-            &lt;ul>
-                &#64;foreach ($data as $inputName => $inputValue)
-                    &lt;li>&#123;&#123; $inputName }} = &#123;&#123; $inputValue }}&lt;/li>
-                &#64;endforeach
-            &lt;/ul>
-            &lt;a href="&#123;&#123; url()->current() }}">Ввести данные заново&lt;/a>
-        &#64;endif
-        &lt;div>произвольное количество инпутов))&lt;/div>
-        &lt;form action="&#123;&#123; url()->current() }}" method="GET">
-            &lt;input type="text" name="inp1" required />
-            &lt;input type="text" name="inp2" required />
-            &lt;input type="text" name="inp3" required />
-            &lt;input type="submit">
-        &lt;/form></pre>
-
+// Blade code:
+    &#64;if (!is_null($data))
+        &lt;p>
+            Выводим данные в виде ul
+        &lt;/p>
+        &lt;ul>
+            &#64;foreach ($data as $inputName => $inputValue)
+                &lt;li>&#123;&#123; $inputName }} = &#123;&#123; $inputValue }}&lt;/li>
+            &#64;endforeach
+        &lt;/ul>
+        &lt;a href="&#123;&#123; url()->current() }}">Ввести данные заново&lt;/a>
+    &#64;endif
+    &lt;div>произвольное количество инпутов))&lt;/div>
+    &lt;form action="&#123;&#123; url()->current() }}" method="GET">
+        &lt;input type="text" name="inp1" required />
+        &lt;input type="text" name="inp2" required />
+        &lt;input type="text" name="inp3" required />
+        &lt;input type="submit">
+    &lt;/form></pre>
+        <br />
         @if (!is_null($data))
             <p>
                 Выводим данные в виде ul
@@ -301,40 +285,38 @@ class FormController extends Controller {
             <input type="submit">
         </form>
         <br />
-        <a href="/form/object-request#task5">назад</a>
+        <br />
+        <a href="{{ route('form-object-request') }}#task5">назад</a>
     @elseif($id == 6)
-        <p>
-            {{ $text }}
-        </p>
-        <pre>
-        // Controller code:
-        'data' => function() use ($request){
-        if ($request->hasAny(['name', 'login'])) {
-            return $request->only('name', 'login');
-            }
-            return null; // Форма еще не отправлялась
-        },
+        <x-page.tasks.header :text="$text" />
+        <pre>// Controller code:
+    'data' => function() use ($request){
+    if ($request->hasAny(['name', 'login'])) {
+        return $request->only('name', 'login');
+        }
+        return null; // Форма еще не отправлялась
+    },
 
-        // Blade code:
-        &#64;if (!is_null($data))
-            &lt;p>
-                Выводим данные в виде ul
-            &lt;/p>
-            &lt;ul>
-                &#64;foreach ($data as $inputName => $inputValue)
-                    &lt;li>&#123;&#123; $inputName }} = &#123;&#123; $inputValue }}&lt;/li>
-                &#64;endforeach
-            &lt;/ul>
-            &lt;a href="&#123;&#123; url()->current() }}">Ввести данные заново&lt;/a>
-        &#64;endif
-        &lt;form action="&#123;&#123; url()->current() }}" method="GET">
-            &lt;input type="text" name="name" required />
-            &lt;input type="text" name="login" required />
-            &lt;input type="text" name="email" required />
-            &lt;input type="text" name="password" required />
-            &lt;input type="submit">
-        &lt;/form></pre>
-
+// Blade code:
+    &#64;if (!is_null($data))
+        &lt;p>
+            Выводим данные в виде ul
+        &lt;/p>
+        &lt;ul>
+            &#64;foreach ($data as $inputName => $inputValue)
+                &lt;li>&#123;&#123; $inputName }} = &#123;&#123; $inputValue }}&lt;/li>
+            &#64;endforeach
+        &lt;/ul>
+        &lt;a href="&#123;&#123; url()->current() }}">Ввести данные заново&lt;/a>
+    &#64;endif
+    &lt;form action="&#123;&#123; url()->current() }}" method="GET">
+        &lt;input type="text" name="name" required />
+        &lt;input type="text" name="login" required />
+        &lt;input type="text" name="email" required />
+        &lt;input type="text" name="password" required />
+        &lt;input type="submit">
+    &lt;/form></pre>
+        <br />
         @if (!is_null($data))
             <p>
                 Выводим данные в виде ul
@@ -367,40 +349,38 @@ class FormController extends Controller {
             <input type="submit">
         </form>
         <br />
-        <a href="/form/object-request#task6">назад</a>
+        <br />
+        <a href="{{ route('form-object-request') }}#task6">назад</a>
     @elseif($id == 7)
-        <p>
-            {{ $text }}
-        </p>
-        <pre>
-        // Controller code:
-        'data' => function() use ($request){
-        if ($request->hasAny(['name', 'login'])) {
-            return $request->except('email', 'password');
-            }
-            return null; // Форма еще не отправлялась
-        },
+        <x-page.tasks.header :text="$text" />
+        <pre>// Controller code:
+    'data' => function() use ($request){
+    if ($request->hasAny(['name', 'login'])) {
+        return $request->except('email', 'password');
+        }
+        return null; // Форма еще не отправлялась
+    },
 
-        // Blade code:
-        &#64;if (!is_null($data))
-            &lt;p>
-                Выводим данные в виде ul
-            &lt;/p>
-            &lt;ul>
-                &#64;foreach ($data as $inputName => $inputValue)
-                    &lt;li>&#123;&#123; $inputName }} = &#123;&#123; $inputValue }}&lt;/li>
-                &#64;endforeach
-            &lt;/ul>
-            &lt;a href="&#123;&#123; url()->current() }}">Ввести данные заново&lt;/a>
-        &#64;endif
-        &lt;form action="&#123;&#123; url()->current() }}" method="GET">
-            &lt;input type="text" name="name" required />
-            &lt;input type="text" name="login" required />
-            &lt;input type="text" name="email" required />
-            &lt;input type="text" name="password" required />
-            &lt;input type="submit">
-        &lt;/form></pre>
-
+// Blade code:
+    &#64;if (!is_null($data))
+        &lt;p>
+            Выводим данные в виде ul
+        &lt;/p>
+        &lt;ul>
+            &#64;foreach ($data as $inputName => $inputValue)
+                &lt;li>&#123;&#123; $inputName }} = &#123;&#123; $inputValue }}&lt;/li>
+            &#64;endforeach
+        &lt;/ul>
+        &lt;a href="&#123;&#123; url()->current() }}">Ввести данные заново&lt;/a>
+    &#64;endif
+    &lt;form action="&#123;&#123; url()->current() }}" method="GET">
+        &lt;input type="text" name="name" required />
+        &lt;input type="text" name="login" required />
+        &lt;input type="text" name="email" required />
+        &lt;input type="text" name="password" required />
+        &lt;input type="submit">
+    &lt;/form></pre>
+        <br />
         @if (!is_null($data))
             <p>
                 Выводим данные в виде ul
@@ -433,6 +413,7 @@ class FormController extends Controller {
             <input type="submit">
         </form>
         <br />
-        <a href="/form/object-request#task7">назад</a>
+        <br />
+        <a href="{{ route('form-object-request') }}#task7">назад</a>
     @endif
 </x-layout>

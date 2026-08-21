@@ -3,50 +3,43 @@
         Form в Laravel
     </x-slot:title>
 
-    <h2>
+    <h3>
         Form в Laravel
-    </h2>
+    </h3>
     @if ($id == 1)
-        <p>
-            {{ $text }}
-        </p>
-        <pre>
-        // Controller code:
-        'data' => fn() => $request->path()
+        <x-page.tasks.header :text="$text" />
+        <pre>// Controller code:
+    'data' => fn() => $request->path()
 
-        // Blade code:
-        результат метода path: &#123;&#123; $data }}
-        </pre>
+// Blade code:
+    результат метода path: &#123;&#123; $data }}</pre>
         результат метода path: {{ $data }}
         <br />
-        <a href="/form/object-request-method#task1">назад</a>
+        <br />
+        <a href="{{ route('form-object-request-method') }}#task1">назад</a>
     @elseif ($id == 2)
-        <p>
-            {{ $text }}
-        </p>
-        <pre>
-        // Controller code:
-        'data' => fn() => $request->url()
+        <x-page.tasks.header :text="$text" />
+        <pre>// Controller code:
+    'data' => fn() => $request->url()
 
-        // Blade code:
-        результат метода url: &#123;&#123; $data }}
-        </pre>
+// Blade code:
+    результат метода url: &#123;&#123; $data }}</pre>
+        <br />
         результат метода url: {{ $data }}
         <br />
-        <a href="/form/object-request-method#task1">назад</a>
+        <br />
+        <a href="{{ route('form-object-request-method') }}#task1">назад</a>
     @elseif ($id == 3)
-        <p>
-            {{ $text }}
-        </p>
-        <pre>
-        // Controller code:
-        'data' => fn() => $request->fullUrl()
+        <x-page.tasks.header :text="$text" />
+        <pre>// Controller code:
+    'data' => fn() => $request->fullUrl()
 
-        // Blade code:
-        результат метода fullUrl: &#123;&#123; $data }}
-        </pre>
+// Blade code:
+    результат метода fullUrl: &#123;&#123; $data }}</pre>
+        <br />
         результат метода fullUrl: {{ $data }}
         <br />
-        <a href="/form/object-request-method#task1">назад</a>
+        <br />
+        <a href="{{ route('form-object-request-method') }}#task1">назад</a>
     @endif
 </x-layout>

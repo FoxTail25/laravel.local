@@ -58,7 +58,21 @@
     указанному адресу, но с GET параметром, например, так: /object-request-method-task/{id}?param=1. Решите все задачи
     ниже для данного
     адреса с GET параметром.
-    <h4 id="task1">
+    <x-page.content.task.head :data="['task1', 'Задачи:']" />
+    <x-page.content.task.body href='form-object-request-method-task' :tasks="[
+        1 => [
+            'text' => 'Для указанного адреса выведите результат метода path.',
+        ],
+        2 => [
+            'text' => 'Для указанного адреса выведите результат метода url.',
+        ],
+        3 => [
+            'text' => 'Для указанного адреса выведите результат метода fullUrl.',
+        ],
+    ]" />
+    <br />
+    <br />
+    {{-- <h4 id="task1">
         Задачи:
     </h4>
     <a href="/form/object-request-method-task/1">
@@ -72,5 +86,5 @@
     <a href="/form/object-request-method-task/3">
         Для указанного адреса выведите результат метода fullUrl.
     </a>
-    <br />
+    <br /> --}}
 </x-layout>

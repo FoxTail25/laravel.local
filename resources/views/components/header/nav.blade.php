@@ -263,7 +263,7 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a class="dropdown-item" href="/form/object-request">
+                            <a class="dropdown-item" href="{{ route('form-object-request') }}">
                                 Объект Request в Laravel
                             </a>
                         </li>
@@ -271,7 +271,7 @@
                             <hr class="dropdown-divider">
                         </li>
                         <li>
-                            <a class="dropdown-item" href="/form/object-request-method">
+                            <a class="dropdown-item" href="{{ route('form-object-request-method') }}">
                                 методы request
                             </a>
                         </li>

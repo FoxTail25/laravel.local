@@ -182,15 +182,11 @@ Route::prefix('relationship')->group(function () {
 });
 
 Route::prefix('form')->group(function () {
-    Route::get('/object-request/', function () {
-        return view('form.object-request');
-    });
-    Route::match(['get', 'post'], '/object-request-task/{id}', [FormController::class, 'objectRequest'])->whereNumber('id');
+    Route::get('/object-request/', fn()=> view('form.object-request'))->name('form-object-request');
+    Route::match(['get', 'post'], '/object-request-task/{id}', [FormController::class, 'objectRequest'])->whereNumber('id')->name('form-object-request-task');
 
-    Route::get('/object-request-method/', function () {
-        return view('form.object-request-method');
-    });
-    Route::get('/object-request-method-task/{id}', [FormController::class, 'objectRequestMethod'])->whereNumber('id');
+    Route::get('/object-request-method/', fn()=> view('form.object-request-method'))->name('form-object-request-method');
+    Route::get('/object-request-method-task/{id}', [FormController::class, 'objectRequestMethod'])->whereNumber('id')->name('form-object-request-method-task');
 });
 
 Route::prefix('pagination')->group(function () {

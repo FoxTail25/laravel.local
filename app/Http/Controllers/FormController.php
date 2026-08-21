@@ -9,14 +9,11 @@ class FormController extends Controller
     public function objectRequest(Request $request, int $id){
           $tasks = [
             '1' => [
-                'text' => 'Внедрите объект запроса в действие вашего контроллера.',
                 'data' => function(){
                     return null;
                 },
             ],
             '2' => [
-                'text' => 'Сделайте форму с тремя инпутами, в которые будут вводиться числа. После отправки формы найдите сумму введенных
-        чисел и передайте ее в представление.',
                 'data' => function() use ($request){
                 // Проверяем, что форма была отправлена (хотя бы один инпут заполнен)
                 if ($request->hasAny(['inp1', 'inp2', 'inp3'])) {
@@ -30,8 +27,6 @@ class FormController extends Controller
                 },
             ],
             '3' => [
-                'text' => 'Сделайте форму с тремя инпутами, в которые будут вводиться числа. После отправки формы найдите сумму введенных
-        чисел и передайте ее в представление.',
                 'data' => function() use ($request){
                 // $request->filled('name') — возвращает true, если поле присутствует и не является пустым.
                 if ($request->filled(['name', 'age', 'salary'])) {
@@ -45,8 +40,6 @@ class FormController extends Controller
                 },
             ],
             '4' => [
-                'text' => 'С помощью формы спросите у пользователя его город и страну. После отправки формы выведите эти данные над формой
-        в отдельном абзаце.',
                 'data' => function() use ($request){
                 // $request->filled('name') — возвращает true, если поле присутствует и не является пустым.
                 if ($request->filled(['country', 'city'])) {
@@ -59,8 +52,7 @@ class FormController extends Controller
                 },
             ],
             '5' => [
-                'text' => 'Пусть в вашей форме есть произвольное количество инпутов. После отправки формы получите массив отправленных
-        значений, отправьте его в представление и выведите эти данные в виде списка ul.',
+
                 'data' => function() use ($request){
                 if ($request->hasAny(['inp1', 'inp2','inp3'])) {
                     // $request->all() возвращает все данные формы в виде массива
@@ -70,8 +62,6 @@ class FormController extends Controller
                 },
             ],
             '6' => [
-                'text' => 'С помощью формы спросите у пользователя его имя, фамилию, email, логин, пароль. Получите массив, содержащий имя
-        и логин пользователя.',
                 'data' => function() use ($request){
                 if ($request->hasAny(['name', 'login'])) {
                     return $request->only('name', 'login');
@@ -80,8 +70,6 @@ class FormController extends Controller
                 },
             ],
             '7' => [
-                'text' => 'С помощью формы спросите у пользователя его имя, фамилию, email, логин, пароль. После отправки формы выведите на
-        экран в виде списка ul все отправленные поля, кроме поля с паролем и email.',
                 'data' => function() use ($request){
                 if ($request->hasAny(['name', 'login'])) {
                     return $request->except('email', 'password');
@@ -89,6 +77,14 @@ class FormController extends Controller
                     return null; // Форма еще не отправлялась
                 },
             ],
+            // '8' => [
+            //     'data' => function() use ($request){
+            //     if ($request->hasAny(['name', 'login'])) {
+            //         return $request->except('email', 'password');
+            //         }
+            //         return null; // Форма еще не отправлялась
+            //     },
+            // ],
 
         ];
 
@@ -101,7 +97,7 @@ class FormController extends Controller
 
         return view('form.object-request-task', [
             'id' => $id,
-            'text' => $tasks[$id]['text'],
+            'text' => $request->text,
             'data' => $resultData
         ]);
 
@@ -109,15 +105,12 @@ class FormController extends Controller
         public function objectRequestMethod(Request $request, int $id){
           $tasks = [
             '1' => [
-                'text' => 'Для указанного адреса выведите результат метода path.',
                 'data' => fn() => $request->path()
             ],
             '2' => [
-                'text' => 'Для указанного адреса выведите результат метода url.',
                 'data' => fn() => $request->url()
             ],
             '3' => [
-                'text' => 'Для указанного адреса выведите результат метода fullUrl.',
                 'data' => fn() => $request->fullUrl()
             ],
         ];
@@ -131,7 +124,7 @@ class FormController extends Controller
 
         return view('form.object-request-method-task', [
             'id' => $id,
-            'text' => $tasks[$id]['text'],
+            'text' => $request->text,
             'data' => $resultData
         ]);
 

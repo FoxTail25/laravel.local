@@ -552,14 +552,12 @@ class EloqumentController extends Controller
 
         $tasks = [
             '1' => [
-                'text' => 'Выберите несколько задач из предыдущих уроков и переделайте их код на жадную загрузку.',
                 'data' => function(){
                     $professions = Profession::with(['employees'])->get();
                     return $professions;
                 },
             ],
             '2' => [
-                'text' => 'Выберите несколько задач из предыдущих уроков и переделайте их код на жадную загрузку.',
                 'data' => function(){
                     $employees = Employee::with(['city', 'position', 'professions'])->get();
                     return $employees;
